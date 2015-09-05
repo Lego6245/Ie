@@ -1,4 +1,5 @@
 PAGE_MODES = require("../constants.cjsx").PAGE_MODES
+BKG = require("../constants.cjsx").BKG_MODES
 UIActions = require("../actions.cjsx").UIActions
 OptionsMenu = require("./Options.cjsx")
 PageStateStore = require("../stores/PageStateStore.cjsx")
@@ -15,6 +16,13 @@ Root = React.createClass
         Reflux.connect(PageStateStore, "pageState"),
         Reflux.connect(GlobalOptionsStore, "globalOptions")]
 
+    _makeBackgroundStyle: () ->
+        gO = this.state.globalOptions
+        return switch gO.backgroundMode
+            when BKG.BKG_COLOR then {backgroundColor: gO.backgroundColor}
+            when BKG.BKG_IMG   then {backgroundImage: gO.backgroundImage}
+            else throw "unhandled case looking for background mode"
+
     render: ->
         pageMode = this.state.pageState
 
@@ -24,8 +32,9 @@ Root = React.createClass
             "mode-opts": pageMode == PAGE_MODES.OPTS }
 
         <div id="root"
-             className={classNames(classes)}>
-             style={}
+             className={classNames(classes)}
+             style={this._makeBackgroundStyle()}
+             >
             <WidgetGrid />
             { if pageMode == PAGE_MODES.LIVE
                 <div id="live">

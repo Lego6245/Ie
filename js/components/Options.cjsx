@@ -55,7 +55,7 @@ Options = React.createClass
                 id="background"
                 placeholder="#FFFFFF"
                 onChange={ this._editGlobalOption("backgroundColor") }  />
-            <label htmlFor="background">Background</label>
+            <label htmlFor="background color">Background</label>
             <input type="text"
                 id="foreground"
                 placeholder="#000000"
@@ -70,7 +70,7 @@ Options = React.createClass
                 <span>Widget Background: { options.widgetBackground }</span>
                 <span>Widget Foreground: { options.widgetForeground }</span>
                 <span>Widget Border: { options.widgetBorder }</span>
-                <span>Background: { options.foreground }</span>
+                <span>Background Color: { options.foreground }</span>
                 <span>Foreground: { options.background }</span>
             </div>
         </div>
