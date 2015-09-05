@@ -39,10 +39,10 @@ TopBar = React.createClass
         <nav id="topbar"
              className={classNames(classes)}>
                 <NavButton target={PAGE_MODES.EDIT}>
-                    <img src="./img/nav/edit.svg">
+                    <img src="./img/edit.svg">
                 </NavButton>
                 <NavButton target={PAGE_MODES.OPTS}>
-                    <img src="./img/nav/options.svg">
+                    <img src="./img/options.svg">
                 </NavButton>
             </div>
         </nav>
