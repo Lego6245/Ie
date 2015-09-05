@@ -11,9 +11,17 @@ createWidgetClass = (obj) ->
 WidgetMixin =
     componentDidMount: () ->
         window.addEventListener('mousemove', this.wContinueDrag)
+        window.addEventListener('mouseup', this.wEndDrag)
 
     componentWillUnmount: () ->
         window.removeEventListener('mousemove', this.wContinueDrag)
+        window.removeEventListener('mouseup', this.wEndDrag)
+
+    getInitialState: () ->
+        trackingOrigin: undefined
+        relativePos:
+            x: 0
+            y: 0
 
     wStartDrag: (evt) ->
         console.log evt
@@ -42,7 +50,7 @@ WidgetMixin =
                 this.props.mountOrigin.x + this.state.relativePos.x,
                 this.props.mountOrigin.y + this.state.relativePos.y)
 
-    wEndDrag: (evt) ->
+    wEndDrag: (nativeEvt) ->
         # reset the tracking state
         this.setState({trackingOrigin: undefined})
 
@@ -57,7 +65,9 @@ WidgetMixin =
         if endSlot?
             console.log "moving widget"
             WidgetActions.moveWidget(
-                this.props.widgetID, endSlot.x, endSlot.y)
+                this.props.widgetID, 
+                this.props.layoutName,
+                endSlot.x, endSlot.y)
 
         else
             console.log "widget move failed endslot=#{endSlot}"

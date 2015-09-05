@@ -8,13 +8,35 @@ WidgetStore = Reflux.createStore
     widgets: [
         {
             WidgetClass: require "../components/widgets/TimeWidget.cjsx"
-            position:
-                x: 0
-                y: 0
-            dimension:
-                x: 2
-                y: 1
+            layouts:
+                small:
+                    position: {x: 0, y: 0}
+                    dimension: {x: 2, y: 1}
+                large:
+                    position: {x: 0, y: 0}
+                    dimension: {x: 2, y: 2}
             uuid: "fake-uuid"
+        },
+        {
+            WidgetClass: require "../components/widgets/TimeWidget.cjsx"
+            layouts:
+                small:
+                    position: {x: 0, y: 2}
+                    dimension: {x: 2, y: 1}
+                large:
+                    position: {x: 2, y: 0}
+                    dimension: {x: 1, y: 1}
+            uuid: "fake-uuid2"
+        }
+
+
+        {
+            WidgetClass: require "../components/widgets/TimeWidget.cjsx"
+            layouts:
+                large:
+                    position: {x: 3, y: 2}
+                    dimension: {x: 1, y: 1}
+            uuid: "fake-uuid3"
         }
     ]
 
@@ -32,10 +54,10 @@ WidgetStore = Reflux.createStore
 
     # moves a widget so its top left corner is at grid position x,y
     # assumes safe to move
-    onMoveWidget: (widgetID, x, y) ->
+    onMoveWidget: (widgetID, layout, x, y) ->
         for widget in this.widgets
             if widget.uuid == widgetID
-                widget.position =
+                widget.layouts[layout].position =
                     x: x
                     y: y
                 console.log "moved widget '#{widgetID}'"

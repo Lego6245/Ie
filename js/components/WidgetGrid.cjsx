@@ -13,7 +13,7 @@ GridTileIndicator = React.createClass
                 (grid.gridUnit.x + grid.widgetMargin) * this.props.x,
                 (grid.gridUnit.y + grid.widgetMargin) * this.props.y)
             margin: grid.widgetMargin / 2
-            backgroundColor: this.props.color
+            #borderColor: this.props.color
         }
 
         <div className="widget-grid-entry"
@@ -30,11 +30,14 @@ findOccupiedSpaces = (grid, widgets) ->
 
     # fill spaces occuupied by widgets
     for widget in widgets
-        for ix in [0..widget.dimension.x - 1]
-            for iy in [0..widget.dimension.y - 1]
-                xo = widget.position.x + ix
-                yo = widget.position.y + iy
-                occupiedSpaces[xo][yo] = true
+        wl = widget.layouts[grid.settingName]
+        if wl?
+            for ix in [0..wl.dimension.x - 1]
+                for iy in [0..wl.dimension.y - 1]
+                    xo = wl.position.x + ix
+                    yo = wl.position.y + iy
+                    console.log occupiedSpaces, xo, yo
+                    occupiedSpaces[xo][yo] = true
 
     return occupiedSpaces
 
@@ -71,7 +74,7 @@ WidgetGrid = React.createClass
         occupiedSpaces =
             findOccupiedSpaces(
                 this.state.grid,
-                (w for w in this.state.widgets when w.uuid !=widgetID))
+                (w for w in this.state.widgets when w.uuid != widgetID))
 
         isOpen = (x,y) -> 
             0 <= x and x < grid.gridDim.x and
@@ -134,6 +137,9 @@ WidgetGrid = React.createClass
             color={if occupiedSpaces[x][y] then "red" else "blue"} 
             /> for [x, y], ind in xyPairs)
 
+        widgetLayouts = 
+            ([w, w.layouts[grid.settingName]] for w in this.state.widgets)
+
         <div id="widget-grid"
              style={wrapperStyle}
              ref="wrapper">
@@ -141,20 +147,21 @@ WidgetGrid = React.createClass
                  style={innerStyle}>
                  {indicators}
 
-                 {<w.WidgetClass 
+                 {(<w.WidgetClass 
                     mountOrigin={{
-                        x: w.position.x * fullGridUnit.x + grid.widgetMargin/2
-                        y: w.position.y * fullGridUnit.y + grid.widgetMargin/2
+                        x: wl.position.x * fullGridUnit.x + grid.widgetMargin/2
+                        y: wl.position.y * fullGridUnit.y + grid.widgetMargin/2
                     }}
                     mountSize={{
-                        x: w.dimension.x * fullGridUnit.x - grid.widgetMargin
-                        y: w.dimension.y * fullGridUnit.y - grid.widgetMargin 
+                        x: wl.dimension.x * fullGridUnit.x - grid.widgetMargin
+                        y: wl.dimension.y * fullGridUnit.y - grid.widgetMargin 
                     }}
-                    gridSize={w.dimension}
+                    gridSize={wl.dimension}
+                    layoutName={grid.settingName}
                     key={w.uuid}
                     widgetID={w.uuid}
                     mountCallback={this.fitWidgetToGrid}
-                    /> for w in this.state.widgets}
+                    /> for [w, wl] in widgetLayouts when wl?)}
             </div>
         </div>
 
