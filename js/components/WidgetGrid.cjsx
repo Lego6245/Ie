@@ -156,7 +156,6 @@ WidgetGrid = React.createClass
                         y: wl.dimension.y * fullGridUnit.y - grid.widgetMargin 
                     }}
                     gridSize={wl.dimension}
-                    gridPosition={wl.position}
                     layoutName={grid.settingName}
                     key={w.uuid}
                     widgetID={w.uuid}
