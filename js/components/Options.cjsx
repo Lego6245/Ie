@@ -1,6 +1,6 @@
 ReactCSSTransitionGroup = React.addons.CSSTransitionGroup
 PAGE_MODES = require("../constants.cjsx").PAGE_MODES
-GlobalSettingsStore = require("../stores/GlobalSettingsStore.cjsx")
+GlobalOptionsStore = require("../stores/GlobalOptionsStore.cjsx")
 PageStateStore = require("../stores/PageStateStore.cjsx")
 Actions = require("../actions.cjsx")
 UIActions = Actions.UIActions
@@ -10,10 +10,10 @@ OptionActions = Actions.OptionActions
 Options = React.createClass
     displayName: "Options"
 
-    mixins: [Reflux.connect(GlobalSettingsStore, "globalSettings")]
+    mixins: [Reflux.connect(GlobalOptionsStore, "globalSettings")]
 
     _handleEditOption: (name, event) ->
-        if GlobalSettingsStore.validateOption(name, event.target.value)
+        if GlobalOptionsStore.validateOption(name, event.target.value)
             console.log "passed validation (#{name}, #{event.target.value})"
             OptionActions.editOption(
                 name,
