@@ -1,0 +1,58 @@
+$branding_field: #EEEEEE;
+$branding_bg: #FEFEFE;
+$branding_fg:  #222222;
+
+$branding_dom: #00A388; // #FF6138;
+$branding_sub: #FFFF9D;
+
+$transition_time: 0.08s;
+
+@mixin box_shadow($top, $left, $blur, $color, $inset: false) {
+  @if $inset {
+    -webkit-box-shadow:inset $top $left $blur $color;
+    -moz-box-shadow:inset $top $left $blur $color;
+    box-shadow:inset $top $left $blur $color;
+  } @else {
+    -webkit-box-shadow: $top $left $blur $color;
+    -moz-box-shadow: $top $left $blur $color;
+    box-shadow: $top $left $blur $color;
+  }
+}
+
+@mixin transition($time, $attrs...) {
+    $tran: ();
+    @each $attr in $attrs {
+        $tran: append($tran, $attr $time, 'comma')
+    }
+    transition: $tran;
+    -moz-transition: $tran;
+    -webkit-transition: $tran;
+}
+
+@mixin transform($attrs...) {
+    transform: $attrs;
+    -webkit-transform: $attrs;
+}
+
+@mixin keyframes($name) {
+  @-webkit-keyframes #{$name} {
+    @content; 
+  }
+  @-moz-keyframes #{$name} {
+    @content;
+  }
+  @-ms-keyframes #{$name} {
+    @content;
+  }
+  @keyframes #{$name} {
+    @content;
+  } 
+}
+
+@mixin animation($str) {
+  -webkit-animation: #{$str};
+  -moz-animation: #{$str};
+  -ms-animation: #{$str};
+  -o-animation: #{$str};
+  animation: #{$str};      
+}
