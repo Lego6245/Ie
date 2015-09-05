@@ -3,13 +3,14 @@ GridSettingsStore = Reflux.createStore
     # listenables: [SettingsActions]
 
     # the name of the store in localstorage
-    storeName = "gridSettings"
+    storeName: "gridSettings"
 
     # default state
     gridSettings:
         currentSettingsIndex: 0
         grids: [
-            {  settingName: "large"
+            {  
+                settingName: "large"
 
                 # space between each tile
                 widgetMargin: 20
@@ -32,18 +33,19 @@ GridSettingsStore = Reflux.createStore
                     y: 3
             },
 
-            {  settingName: "small"
+            {  
+                settingName: "small"
 
                 # space between each tile
-                widgetMargin: 20
+                widgetMargin: 2
 
                 # minimum space between the edge of the
                 # window and the internal bits
                 externalMargin:
-                    left:   150
-                    right:  150
-                    top:    150
-                    bottom: 150
+                    left:   10
+                    right:  10
+                    top:    10
+                    bottom: 10
 
                 # the basic grid unit of each tile
                 gridUnit:
@@ -82,26 +84,47 @@ GridSettingsStore = Reflux.createStore
     # earlier on in the array
     recalculateCurrentGrid: ->
         oldGridIndex = this.gridSettings.currentSettingsIndex
-        windowWidth = window,innerWidth
+        windowWidth = window.innerWidth
         windowHeight = window.innerHeight
 
-        for index, grid in this.gridSettings.grids
+        calculateGridSize = (grid) ->
+            w = grid.externalMargin.left + 
+                grid.externalMargin.right +
+                (grid.gridUnit.x + grid.widgetMargin) * grid.gridDim.x +
+                grid.widgetMargin
+
+            h = grid.externalMargin.top + 
+                grid.externalMargin.bottom +
+                (grid.gridUnit.y + grid.widgetMargin) * grid.gridDim.y +
+                grid.widgetMargin
+
+            return [w, h]
+
+        for grid, index in this.gridSettings.grids
             [minWidth, minHeight] = calculateGridSize grid
             if minWidth < windowWidth && minHeight < windowHeight
-                return index == oldGridIndex
+                this.gridSettings.currentSettingsIndex = index
+                return index != oldGridIndex
 
-        return this.gridSettings.grids.length - 1 == oldGridIndex
+        this.gridSettings.currentSettingsIndex =
+            this.gridSettings.grids.length - 1
+
+        return this.gridSettings.currentSettingsIndex != oldGridIndex
+
+    recalculateCurrentGridAndTrigger: ->
+        if this.recalculateCurrentGrid()
+            this.updateCacheAndTrigger()
 
     # get the current grid object
     getCurrentGrid: ->
-        this.gridSettings[this.gridSettings.currentSettingsIndex]
+        this.gridSettings.grids[this.gridSettings.currentSettingsIndex]
 
     # update the gridSettings object in local storage and trigger
     # on the current grid
     updateCacheAndTrigger: ->
-        window.localStorage.setItem
+        window.localStorage.setItem(
             this.storeName,
-            JSON.stringify(this.gridSettings)
+            JSON.stringify(this.gridSettings))
 
         this.trigger(this.getCurrentGrid())
 

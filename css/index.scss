@@ -1,3 +1,18 @@
 @import 'globals';
-@import 'root';
 @import 'reset';
+
+@import 'components/Root';
+@import 'components/WidgetGrid';
+
+html, body, #app{
+    height: 100%;
+    width: 100%;
+}
+
+#root{
+    position: absolute;
+    top:    0;
+    left:   0;
+    right:  0;
+    bottom: 0;
+}
