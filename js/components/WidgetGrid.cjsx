@@ -36,7 +36,6 @@ findOccupiedSpaces = (grid, widgets) ->
                 for iy in [0..wl.dimension.y - 1]
                     xo = wl.position.x + ix
                     yo = wl.position.y + iy
-                    console.log occupiedSpaces, xo, yo
                     occupiedSpaces[xo][yo] = true
 
     return occupiedSpaces

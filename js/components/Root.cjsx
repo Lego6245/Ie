@@ -13,19 +13,6 @@ Root = React.createClass
 
     mixins: [Reflux.connect(PageStateStore, "pageState"), Reflux.connect(GlobalSettingsStore, "globalSettings")]
 
-    _enterOptionsMode: ->
-        console.log("BEGIN STORE BLOCK")
-        console.log(PageStateStore)
-        console.log(GlobalSettingsStore)
-        console.log("END STORE BLOCK")
-        UIActions.enterMode(PAGE_MODES.OPTS)
-
-    _enterEditMode: ->
-        UIActions.enterMode(PAGE_MODES.EDIT)
-
-    _exitEditMode: ->
-        UIActions.enterMode(PAGE_MODES.LIVE)
-
     render: ->
         pageMode = this.state.pageState
 
