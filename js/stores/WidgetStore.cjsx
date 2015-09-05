@@ -1,4 +1,6 @@
 WidgetStore = Reflux.createStore
+    displayName: "WidgetStore"
+
     # actions this store listens to
     # listenables: [UpdateSettings]
 
