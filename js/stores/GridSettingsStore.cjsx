@@ -18,10 +18,10 @@ GridSettingsStore = Reflux.createStore
                 # minimum space between the edge of the
                 # window and the internal bits
                 externalMargin:
-                    left:   150
-                    right:  150
-                    top:    150
-                    bottom: 150
+                    left:   10
+                    right:  50
+                    top:    50
+                    bottom: 10
 
                 # the basic grid unit of each tile
                 gridUnit:

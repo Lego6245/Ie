@@ -123,7 +123,9 @@ module.exports = function(grunt) {
     // watch changes in init.cjsx and modules
     watch: {
       precompile_styles: {
-        files: ["css/*.scss", "css/components/*.scss"],
+        files: ["css/*.scss", 
+                "css/components/*.scss", 
+                "css/widgets/*.scss"],
         tasks: ["precompile_styles"]
       },
       process_browserify_bundle: {

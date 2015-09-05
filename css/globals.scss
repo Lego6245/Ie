@@ -19,6 +19,11 @@ $transition_time: 0.08s;
   }
 }
 
+@mixin border-radius($args...) {
+  border-radius: $args;
+  -moz-border-radius: $args;
+}
+
 @mixin transition($time, $attrs...) {
     $tran: ();
     @each $attr in $attrs {
@@ -55,4 +60,13 @@ $transition_time: 0.08s;
   -ms-animation: #{$str};
   -o-animation: #{$str};
   animation: #{$str};      
+}
+
+@mixin noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }

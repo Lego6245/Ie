@@ -1,0 +1,19 @@
+.core-timer-widget {
+
+    time, date {
+        display: block;
+    }
+
+    time {
+        font-size: 1.5em;
+        font-weight: bold;
+    }
+
+    date {
+        font-size: 1em;
+    }
+
+    &.sizex-2.sizey-1{
+        font-size: 14px;
+    }
+}

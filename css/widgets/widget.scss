@@ -1,0 +1,18 @@
+@import '../globals';
+
+.widget {
+    background-color: #efefef;
+    @include box-shadow(0px, 5px, 8px, rgba(0,0,0,0.2));
+    border: 1px solid #eeeeee;
+    @include border-radius(2px);
+
+    font-family: sans-serif;
+    font-size: 11px;
+    padding: 11px;
+
+    @include transition(200ms, transform)
+}
+
+.widget.dragging {
+    @include transition(200ms, none);
+}

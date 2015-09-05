@@ -4,6 +4,9 @@
 @import 'components/Root';
 @import 'components/WidgetGrid';
 
+@import 'widgets/widget';
+@import 'widgets/TimeWidget';
+
 html, body, #app{
     height: 100%;
     width: 100%;

@@ -13,6 +13,7 @@ WidgetActions = Reflux.createActions([
     "addWidget",
     "removeWidget",
     "updateWidgetSettings"
+    "moveWidget"
 ])
 
 UIActions = Reflux.createActions([

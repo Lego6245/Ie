@@ -1,8 +1,11 @@
-PAGE_MODE_CONSTANTS = require("../constants.cjsx").PAGE_MODE_CONSTANTS
+PAGE_MODE = require("../constants.cjsx").PAGE_MODE_CONSTANTS
 UIActions = require("../actions.cjsx").UIActions
 OptionsMenu = require("./Options.cjsx")
 PageStateStore = require("../stores/PageStateStore.cjsx")
 WidgetGrid = require "./WidgetGrid.cjsx"
+
+enter = (state) ->
+    return () -> UIActions.enterState(state)
 
 Root = React.createClass
     mixins: [Reflux.connect(PageStateStore, "pageState")]
@@ -10,24 +13,39 @@ Root = React.createClass
     displayName: "Root"
 
     _enterOptionsMode: ->
-        UIActions.enterState(PAGE_MODE_CONSTANTS.OPTS)
+        UIActions.enterState(PAGE_MODE.OPTS)
 
     render: ->
         pageMode = this.state.pageState
 
-        <div id="root">
-            { if pageMode == PAGE_MODE_CONSTANTS.LIVE
+        classes = {
+            "mode-live": pageMode == PAGE_MODE.LIVE
+            "mode-edit": pageMode == PAGE_MODE.EDIT
+            "mode-opts": pageMode == PAGE_MODE.OPTS }
+
+        <div id="root"
+             className={classNames(classes)}>
+            <WidgetGrid />
+
+            { if pageMode == PAGE_MODE.LIVE
                 <div id="live">
-                    <WidgetGrid />
-                    <button onClick = { this._enterOptionsMode }>
+                    <button onClick = { enter(PAGE_MODE.OPTS) }>
                         Go To Options
                     </button>
+                    <button onClick = { enter(PAGE_MODE.EDIT) }>
+                        Edit
+                    </button>
                 </div>
-            else if pageMode == PAGE_MODE_CONSTANTS.OPTS
+            else if pageMode == PAGE_MODE.OPTS
                 <OptionsMenu />
+            else if pageMode == PAGE_MODE.EDIT
+                <button onClick={enter(PAGE_MODE.LIVE)}>
+                    Exit Edit Mode
+                </button>
             else
-                <span>I Hate everything</span>
+                <span>Error: State not recognized!</span>
             }
+
         </div>
 
 module.exports = Root
