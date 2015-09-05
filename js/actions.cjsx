@@ -17,9 +17,14 @@ WidgetActions = Reflux.createActions([
 ])
 
 UIActions = Reflux.createActions([
-    "enterState"
+    "enterMode"
+])
+
+OptionActions = Reflux.createActions([
+    "editOption"
 ])
 
 module.exports =
     WidgetActions: WidgetActions
     UIActions: UIActions
+    OptionActions: OptionActions

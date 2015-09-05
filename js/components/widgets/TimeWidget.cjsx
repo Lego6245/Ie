@@ -1,5 +1,5 @@
 Widget = require "./widget.cjsx"
-PAGE_MODE_CONSTANTS = (require "../../constants.cjsx").PAGE_MODE_CONSTANTS
+PAGE_MODES = (require "../../constants.cjsx").PAGE_MODES
 PageStateStore = require "../../stores/PageStateStore.cjsx"
 
 TimeWidget = Widget.createWidgetClass
@@ -21,7 +21,7 @@ TimeWidget = Widget.createWidgetClass
 
     render: -> 
         locale = window.navigator.userLanguage || window.navigator.language
-        editing = this.state.pageState == PAGE_MODE_CONSTANTS.EDIT
+        editing = this.state.pageState == PAGE_MODES.EDIT
 
         classes = Object.assign(this.widgetClasses(),{
             "core-timer-widget": true

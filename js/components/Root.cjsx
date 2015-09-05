@@ -1,45 +1,55 @@
-PAGE_MODE = require("../constants.cjsx").PAGE_MODE_CONSTANTS
+PAGE_MODES = require("../constants.cjsx").PAGE_MODES
 UIActions = require("../actions.cjsx").UIActions
 OptionsMenu = require("./Options.cjsx")
 PageStateStore = require("../stores/PageStateStore.cjsx")
+GlobalSettingsStore = require("../stores/GlobalSettingsStore.cjsx")
 WidgetGrid = require "./WidgetGrid.cjsx"
 
 enter = (state) ->
-    return () -> UIActions.enterState(state)
+    return () -> UIActions.enterMode(state)
 
 Root = React.createClass
-    mixins: [Reflux.connect(PageStateStore, "pageState")]
-
     displayName: "Root"
 
+    mixins: [Reflux.connect(PageStateStore, "pageState"), Reflux.connect(GlobalSettingsStore, "globalSettings")]
+
     _enterOptionsMode: ->
-        UIActions.enterState(PAGE_MODE.OPTS)
+        console.log("BEGIN STORE BLOCK")
+        console.log(PageStateStore)
+        console.log(GlobalSettingsStore)
+        console.log("END STORE BLOCK")
+        UIActions.enterMode(PAGE_MODES.OPTS)
+
+    _enterEditMode: ->
+        UIActions.enterMode(PAGE_MODES.EDIT)
+
+    _exitEditMode: ->
+        UIActions.enterMode(PAGE_MODES.LIVE)
 
     render: ->
         pageMode = this.state.pageState
 
         classes = {
-            "mode-live": pageMode == PAGE_MODE.LIVE
-            "mode-edit": pageMode == PAGE_MODE.EDIT
-            "mode-opts": pageMode == PAGE_MODE.OPTS }
+            "mode-live": pageMode == PAGE_MODES.LIVE
+            "mode-edit": pageMode == PAGE_MODES.EDIT
+            "mode-opts": pageMode == PAGE_MODES.OPTS }
 
         <div id="root"
              className={classNames(classes)}>
             <WidgetGrid />
-
-            { if pageMode == PAGE_MODE.LIVE
+            { if pageMode == PAGE_MODES.LIVE
                 <div id="live">
-                    <button onClick = { enter(PAGE_MODE.OPTS) }>
+                    <button onClick = { enter(PAGE_MODES.OPTS) }>
                         Go To Options
                     </button>
-                    <button onClick = { enter(PAGE_MODE.EDIT) }>
+                    <button onClick = { enter(PAGE_MODES.EDIT) }>
                         Edit
                     </button>
                 </div>
-            else if pageMode == PAGE_MODE.OPTS
+            else if pageMode == PAGE_MODES.OPTS
                 <OptionsMenu />
-            else if pageMode == PAGE_MODE.EDIT
-                <button onClick={enter(PAGE_MODE.LIVE)}>
+            else if pageMode == PAGE_MODES.EDIT
+                <button onClick={enter(PAGE_MODES.LIVE)}>
                     Exit Edit Mode
                 </button>
             else

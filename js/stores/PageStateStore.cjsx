@@ -1,15 +1,15 @@
-PAGE_MODE_CONSTANTS = require("../constants.cjsx").PAGE_MODE_CONSTANTS
+PAGE_MODES = require("../constants.cjsx").PAGE_MODES
 UIActions = require("../actions.cjsx").UIActions
 
 PageStateStore = Reflux.createStore
     listenables: [UIActions]
     # Default state
-    pageMode: PAGE_MODE_CONSTANTS.LIVE
+    pageMode: PAGE_MODES.LIVE
 
     getInitialState: ->
         return this.pageMode
 
-    onEnterState: (mode) ->
+    onEnterMode: (mode) ->
         this.pageMode = mode
         this.trigger(this.pageMode)
 
