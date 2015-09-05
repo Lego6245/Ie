@@ -1,7 +1,3 @@
-# crawdad
-A lobste.rs reader based on react/reflux/cordova
+# Ie (家)
+A highly customizable & extendable homepage
 
-    $ npm install
-    $ grunt
-    $ cordova platform add <android/ios/etc>
-    $ cordova run
