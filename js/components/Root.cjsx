@@ -2,6 +2,7 @@ PAGE_MODES = require("../constants.cjsx").PAGE_MODES
 UIActions = require("../actions.cjsx").UIActions
 OptionsMenu = require("./Options.cjsx")
 PageStateStore = require("../stores/PageStateStore.cjsx")
+GlobalOptionsStore = require("../stores/GlobalOptionsStore.cjsx")
 WidgetGrid = require "./WidgetGrid.cjsx"
 
 enter = (state) ->
@@ -10,7 +11,9 @@ enter = (state) ->
 Root = React.createClass
     displayName: "Root"
 
-    mixins: [Reflux.connect(PageStateStore, "pageState")]
+    mixins: [
+        Reflux.connect(PageStateStore, "pageState"),
+        Reflux.connect(GlobalOptionsStore, "globalOptions")]
 
     render: ->
         pageMode = this.state.pageState
@@ -22,6 +25,7 @@ Root = React.createClass
 
         <div id="root"
              className={classNames(classes)}>
+             style={}
             <WidgetGrid />
             { if pageMode == PAGE_MODES.LIVE
                 <div id="live">
