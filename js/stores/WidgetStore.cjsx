@@ -61,7 +61,6 @@ WidgetStore = Reflux.createStore
                     x: x
                     y: y
                 console.log "moved widget '#{widgetID}'"
-                console.log this.widgets
                 break
         this.trigger(this.widgets)
 
