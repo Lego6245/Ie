@@ -14,7 +14,7 @@ OptionActions = Actions.OptionActions
 Options = React.createClass
     displayName: "Options"
 
-    mixins: [Reflux.connect(GlobalOptionsStore, "globalSettings")]
+    mixins: [Reflux.connect(GlobalOptionsStore, "globalOptions")]
 
     _handleEditOption: (name, event) ->
         if GlobalOptionsStore.validateOption(name, event.target.value)
@@ -31,18 +31,29 @@ Options = React.createClass
             mode = BKG_MODES.BKG_IMG
         OptionActions.editOption("backgroundMode", mode)
 
-    _getBackgroundMode: ->
-        if (this.state.globalSettings.backgroundMode == BKG_MODES.BKG_IMG)
+    _isImageMode: ->
+        if (this.state.globalOptions.backgroundMode == BKG_MODES.BKG_IMG)
             return true
         else
             return false
+
+    _handleBackgroundImage: ->
+        fileList = document.getElementById("background-image").files
+        file = fileList[0]
+        reader = new FileReader()
+        reader.onload = (e) ->
+            console.log(reader.result)
+            OptionActions.editOption(
+                "backgroundImage",
+                "url(#{reader.result})")
+        reader.readAsDataURL(file)
 
     _editGlobalOption: (name) ->
         self = this
         (event) -> self._handleEditOption(name, event)
 
     render: ->
-        options = this.state.globalSettings
+        options = this.state.globalOptions
 
         <div id="options">
             <span>This is an options panel I guess?</span>
@@ -67,14 +78,19 @@ Options = React.createClass
             <label htmlFor="widgetBorder">Widget Border Color</label>
             <input type="checkbox"
                 id="background-mode"
-                checked={ this._getBackgroundMode() }
+                checked={ this._isImageMode() }
                 onChange={ this._handleBackgroundToggle } />
             <label htmlFor="background-mode">Use Background Image</label>
+            <input type="file"
+                id="background-image"
+                disabled={ not this._isImageMode() }
+                onChange={ this._handleBackgroundImage } />
+            <label htmlFor="background-image">Background Image File</label>
             <input type="text"
                 id="background"
                 placeholder="#FFFFFF"
                 onChange={ this._editGlobalOption("backgroundColor") }  />
-            <label htmlFor="background color">Background</label>
+            <label htmlFor="background">Background</label>
             <input type="text"
                 id="foreground"
                 placeholder="#000000"

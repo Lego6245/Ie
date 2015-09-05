@@ -25,7 +25,8 @@ Root = React.createClass
         gO = this.state.globalOptions
         return switch gO.backgroundMode
             when BKG.BKG_COLOR then {backgroundColor: gO.backgroundColor}
-            when BKG.BKG_IMG   then {backgroundImage: gO.backgroundImage}
+            when BKG.BKG_IMG   then {backgroundImage: gO.backgroundImage,
+                                     backgroundColor: gO.backgroundColor}
             else throw "unhandled case looking for background mode"
 
     render: ->

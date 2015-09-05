@@ -9,6 +9,8 @@ isNonNull = (val) -> val?
 GlobalOptionsStore = Reflux.createStore
     listenables: [OptionActions]
 
+    storeName: "globalOptions"
+
     globalSettings: {
         widgetBackground: "#FFFFFF"
         widgetBorder:     "#FF0000"
@@ -32,6 +34,9 @@ GlobalOptionsStore = Reflux.createStore
     }
 
     getInitialState: -> 
+        storageState = window.localStorage.getItem(this.storeName)
+        if storageState
+            this.globalSettings = JSON.parse(storageState)
         return this.globalSettings
 
     validateOption: (fieldName, fieldValue) ->
@@ -42,8 +47,10 @@ GlobalOptionsStore = Reflux.createStore
         this.cacheAndTrigger()
 
     cacheAndTrigger: ->
-        # TODO cache
         console.log "caching and triggering"
+        window.localStorage.setItem(
+            this.storeName,
+            JSON.stringify(this.globalSettings))
         this.trigger(this.globalSettings)
 
 module.exports = GlobalOptionsStore
