@@ -24,6 +24,8 @@ WidgetMixin =
             y: 0
 
     wStartDrag: (evt) ->
+        console.log evt
+
         this.setState({
             trackingOrigin:
                 x: evt.nativeEvent.x
@@ -35,7 +37,6 @@ WidgetMixin =
                 y: 0 })
 
         CSS.addClass(React.findDOMNode(this), "dragging")
-        console.log "beginning drag on #{this.props.widgetID}"
 
     wContinueDrag: (nativeEvent) ->
         if this.state.trackingOrigin?
@@ -50,37 +51,33 @@ WidgetMixin =
                 this.props.mountOrigin.y + this.state.relativePos.y)
 
     wEndDrag: (nativeEvt) ->
-        if (this.state.trackingOrigin?)
-            # reset the tracking state
-            this.setState({trackingOrigin: undefined})
+        # reset the tracking state
+        this.setState({trackingOrigin: undefined})
 
+        endSlot = this.props.mountCallback(
+            this.props.widgetID,
+            this.props.gridSize,
+            this.state.relativePos.x + 
+                this.props.mountOrigin.x,
+            this.state.relativePos.y +
+                this.props.mountOrigin.y)
 
-            endSlot = this.props.mountCallback(
-                this.props.widgetID,
-                this.props.gridSize,
-                this.state.relativePos.x + 
-                    this.props.mountOrigin.x,
-                this.state.relativePos.y +
-                    this.props.mountOrigin.y)
+        if endSlot?
+            console.log "moving widget"
+            WidgetActions.moveWidget(
+                this.props.widgetID, 
+                this.props.layoutName,
+                endSlot.x, endSlot.y)
 
-            oldGridPos = this.props.gridPosition
-            if endSlot? and 
-                    (endSlot.x != oldGridPos.x or endSlot.y != oldGridPos.y)
-                console.log "moving widget #{this.props.widgetID}"
-                WidgetActions.moveWidget(
-                    this.props.widgetID, 
-                    this.props.layoutName,
-                    endSlot.x, endSlot.y)
+        else
+            console.log "widget move failed endslot=#{endSlot}"
+            domNode = React.findDOMNode(this)
+            # move it to the original position
+            domNode.style.transform = CSS.translate(
+                this.props.mountOrigin.x,
+                this.props.mountOrigin.y)
 
-            else
-                console.log "widget move failed endslot =", endSlot
-                domNode = React.findDOMNode(this)
-                # move it to the original position
-                domNode.style.transform = CSS.translate(
-                    this.props.mountOrigin.x,
-                    this.props.mountOrigin.y)
-
-                CSS.removeClass(domNode, "dragging")
+            CSS.removeClass(domNode, "dragging")
     
     widgetStyle: ->
         {

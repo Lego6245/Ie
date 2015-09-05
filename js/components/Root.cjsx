@@ -1,10 +1,15 @@
 PAGE_MODES = require("../constants.cjsx").PAGE_MODES
 BKG = require("../constants.cjsx").BKG_MODES
-UIActions = require("../actions.cjsx").UIActions
-OptionsMenu = require("./Options.cjsx")
-PageStateStore = require("../stores/PageStateStore.cjsx")
+
 GlobalOptionsStore = require("../stores/GlobalOptionsStore.cjsx")
+PageStateStore = require("../stores/PageStateStore.cjsx")
+
+UIActions = require("../actions.cjsx").UIActions
+
 WidgetGrid = require "./WidgetGrid.cjsx"
+TopBar = require "./TopBar.cjsx"
+OptionsMenu = require("./Options.cjsx")
+
 
 enter = (state) ->
     return () -> UIActions.enterMode(state)
@@ -35,6 +40,7 @@ Root = React.createClass
              className={classNames(classes)}
              style={this._makeBackgroundStyle()}
              >
+            <TopBar />
             <WidgetGrid />
             { if pageMode == PAGE_MODES.LIVE
                 <div id="live">
