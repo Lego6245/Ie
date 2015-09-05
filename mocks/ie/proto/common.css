@@ -1,0 +1,67 @@
+/*
+colors
+
+purple: #765b70;
+light-purple: #765b70;
+beige: #FFFBF5;
+*/
+
+* {
+	margin: 0px;
+	padding: 0px;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+body {
+	font-family: 'Gotham-Book';
+	font-weight: 300;
+}
+#large {
+	width: 320px;
+	height: 320px;
+	background-color: #FFFBF5;
+}
+#wide {
+	width: 320px;
+	height: 150px;
+	background-color: #FFFBF5;
+}
+#window-bar {
+	background-color: #604A5B;
+	height: 32px;
+	float: left;
+	width: 100%;
+}
+h3 {
+	font-family: 'Gotham-Book';
+	font-weight: 300;
+	font-size: 11px;
+	color: #FFFBF5;
+	text-transform: uppercase;
+	display: inline-block;
+	line-height: 32px;
+	float: right;
+	padding: 0 5px;
+	margin-right: 5px;
+}
+.icon {
+	float: left;
+	height: 32px;
+	display: inline-block;
+}
+.options {
+	float: right;
+	width: 38px;
+	height: 32px;
+}
+a .options {
+	transition: all .2s ease-in-out;
+}
+a .options:hover {
+	background-color: #765b70;
+}
+.window {
+	width: 32px;
+	height: 32px;
+}
