@@ -1,11 +1,15 @@
 ReactCSSTransitionGroup = React.addons.CSSTransitionGroup
-PAGE_MODES = require("../constants.cjsx").PAGE_MODES
+
+CONSTANTS = require("../constants.cjsx")
+PAGE_MODES = CONSTANTS.PAGE_MODES
+BKG_MODES = CONSTANTS.BKG_MODES
+
 GlobalOptionsStore = require("../stores/GlobalOptionsStore.cjsx")
 PageStateStore = require("../stores/PageStateStore.cjsx")
+
 Actions = require("../actions.cjsx")
 UIActions = Actions.UIActions
 OptionActions = Actions.OptionActions
-
 
 Options = React.createClass
     displayName: "Options"
@@ -21,6 +25,18 @@ Options = React.createClass
         else
             console.log "failed validation (#{name}, #{event.target.value})"
 
+    _handleBackgroundToggle: (event) ->
+        mode = BKG_MODES.BKG_COLOR
+        if event.target.checked == true
+            mode = BKG_MODES.BKG_IMG
+        OptionActions.editOption("backgroundMode", mode)
+
+    _getBackgroundMode: ->
+        if (this.state.globalSettings.backgroundMode == BKG_MODES.BKG_IMG)
+            return true
+        else
+            return false
+
     _editGlobalOption: (name) ->
         self = this
         (event) -> self._handleEditOption(name, event)
@@ -30,27 +46,30 @@ Options = React.createClass
 
         <div id="options">
             <span>This is an options panel I guess?</span>
-            <div id="colorscheme">
-                <input type="text"
-                    id="widget-background"
-                    placeholder="#FFFFFF"
-                    onChange={ this._editGlobalOption("widgetBackground") } />
-                <label htmlFor="widget-background">
-                    Widget Background Color
-                </label>
-                <input type="text"
-                    id="widget-foreground"
-                    placeholder="#FFFFFF"
-                    onChange={ this._editGlobalOption("widgetForeground") } />
-                <label htmlFor="widget-foreground">
-                    Widget Foreground Color
-                </label>
-                <input type="text"
-                    id="widget-border"
-                    placeholder="#FFFFFF"
-                    onChange={ this._editGlobalOption("widgetBorder") } />
-                <label htmlFor="widgetBorder">Widget Border Color</label>
-            </div>
+            <input type="text"
+                id="widget-background"
+                placeholder="#FFFFFF"
+                onChange={ this._editGlobalOption("widgetBackground") } />
+            <label htmlFor="widget-background">
+                Widget Background Color
+            </label>
+            <input type="text"
+                id="widget-foreground"
+                placeholder="#FFFFFF"
+                onChange={ this._editGlobalOption("widgetForeground") } />
+            <label htmlFor="widget-foreground">
+                Widget Foreground Color
+            </label>
+            <input type="text"
+                id="widget-border"
+                placeholder="#FFFFFF"
+                onChange={ this._editGlobalOption("widgetBorder") } />
+            <label htmlFor="widgetBorder">Widget Border Color</label>
+            <input type="checkbox"
+                id="background-mode"
+                checked={ this._getBackgroundMode() }
+                onChange={ this._handleBackgroundToggle } />
+            <label htmlFor="background-mode">Use Background Image</label>
             <input type="text"
                 id="background"
                 placeholder="#FFFFFF"
