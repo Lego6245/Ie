@@ -1,0 +1,41 @@
+.clock-content {
+	border-style: solid;
+	border-color: #FFFBF5;
+	border-width: 1px;
+	display: inline-block;
+	width: 100%;
+	height: auto;
+	position: relative;
+}
+.status {
+	width: 117px;
+	height: 117px;
+	float: left;
+	background-color: #604A5B;
+}
+.clock-info {
+	display: inline-block;
+	bottom: 15;
+	right: 15;
+	position: absolute;
+}
+.clock-info > span {
+	margin: 4px 4px;
+	display: block;
+	text-align: right;
+	color: #604A5B;
+}
+.utc {
+	font-size: 12px;
+	text-transform: uppercase;
+}
+.time {
+	font-family: 'Gotham-Bold';
+	font-weight: 900;
+	font-size: 43px;
+	text-transform: uppercase;
+}
+.date {
+	font-size: 12px;
+	text-transform: lowercase;
+}

@@ -1,0 +1,26 @@
+widgets:
+clock
+weather
+twitter
+email
+drive
+calendar
+notes
+frequently visited website
+anime calendar
+porn links
+
+
+
+user mode
+edit mode
+option mode
+	color scheme
+	background
+	square dimensions
+	universal margin
+	border margin
+
+
+features: 
+trash can
