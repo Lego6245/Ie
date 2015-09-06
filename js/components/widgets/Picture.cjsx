@@ -2,18 +2,14 @@ Widget = require "./widget.cjsx"
 PAGE_MODES = (require "../../constants.cjsx").PAGE_MODES
 PageStateStore = require "../../stores/PageStateStore.cjsx"
 
+imgfallback = "img/mocks/happy-tile-20.png"
+
 PictureWidget = Widget.createWidgetClass
 
     mixins: [
         Widget.WidgetMixin,
         Reflux.connect(PageStateStore, "pageState")
     ]
-
-    getDefaultProps: () ->
-        {
-            img: "file:///home/jtao/Downloads/happy-tile-20.png"
-            
-        }
 
     acceptsDim: (x, y) ->
         # Picture widget can be any size
@@ -30,11 +26,14 @@ PictureWidget = Widget.createWidgetClass
             color: this.state.userStyle.widgetBackground
         }
 
+        widget_data_imgurl = this.props.widgetData.img
+        imgurl = if widget_data_imgurl? then widget_data_imgurl else imgfallback
+
         <div className={classNames(classes)}
              onMouseDown={ if editing then this.wStartDrag else undefined}
              onMouseUp={ if editing then this.wEndDrag else undefined}
              style={this.widgetStyle()}>
-            <img src={ this.props.img } />
+            <img src={ imgurl } />
         </div>
 
 module.exports = PictureWidget

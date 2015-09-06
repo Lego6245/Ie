@@ -29,7 +29,7 @@ GridSettingsStore = Reflux.createStore
                     y: 150
 
                 gridDim:
-                    x: 4
+                    x: 6
                     y: 3
             }
         ]

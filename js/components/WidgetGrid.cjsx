@@ -172,6 +172,7 @@ WidgetGrid = React.createClass
                     layoutName={grid.settingName}
                     key={w.uuid}
                     widgetID={w.uuid}
+                    widgetData={if w.data? then w.data else {} }
                     mountCallback={this.fitWidgetToGrid}
                     /> for [WidgetClass, w, wl] in widgetLayouts when wl?)}
             </div>
