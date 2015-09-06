@@ -39,7 +39,7 @@ WidgetStore = Reflux.createStore
         },
         {
             widgetKind: "picture"
-            data: 
+            data:
                 img: "img/mocks/happy-tile-20.png"
             layouts:
                 large:
@@ -49,7 +49,7 @@ WidgetStore = Reflux.createStore
         },
         {
             widgetKind: "picture"
-            data: 
+            data:
                 img: "img/mocks/tile-21.png"
             layouts:
                 large:
@@ -59,7 +59,7 @@ WidgetStore = Reflux.createStore
         },
         {
             widgetKind: "picture"
-            data: 
+            data:
                 img: "img/mocks/tile-22.png"
             layouts:
                 large:
@@ -109,7 +109,7 @@ WidgetStore = Reflux.createStore
     cacheAndTrigger: () ->
         this.trigger(this.widgets)
         window.localStorage.setItem(
-            "widgets", 
+            "widgets",
             JSON.stringify(this.widgets))
 
 

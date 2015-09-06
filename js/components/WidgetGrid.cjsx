@@ -62,7 +62,7 @@ WidgetGrid = React.createClass
         wrapper = React.findDOMNode(this.refs.wrapper)
 
         topBarHeight = this.state.userStyle.topbarHeight
-        
+
         availableSpace = window.innerHeight - topBarHeight
         innerPadding = Math.max(0, (availableSpace - wrapper.offsetHeight) / 2)
 
@@ -79,13 +79,13 @@ WidgetGrid = React.createClass
         grid = this.state.grid
         gridX = Math.round(pixelX/(grid.widgetMargin/2 + grid.gridUnit.x))
         gridY = Math.round(pixelY/(grid.widgetMargin/2 + grid.gridUnit.y))
-    
+
         occupiedSpaces =
             findOccupiedSpaces(
                 this.state.grid,
                 (w for w in this.state.widgets when w.uuid != widgetID))
 
-        isOpen = (x,y) -> 
+        isOpen = (x,y) ->
             0 <= x and x < grid.gridDim.x and
             0 <= y and y < grid.gridDim.y and
             not occupiedSpaces[x][y]
@@ -141,14 +141,14 @@ WidgetGrid = React.createClass
                     grid.externalMargin.bottom
         }
 
-        indicators = (<GridTileIndicator 
+        indicators = (<GridTileIndicator
             grid={grid} x={x} y={y} key={ind}
-            color={if occupiedSpaces[x][y] then "red" else "blue"} 
+            color={if occupiedSpaces[x][y] then "red" else "blue"}
             /> for [x, y], ind in xyPairs)
 
-        widgetLayouts = 
-            ([WidgetStore.getWidgetClass(w), 
-                w, 
+        widgetLayouts =
+            ([WidgetStore.getWidgetClass(w),
+                w,
                 w.layouts[grid.settingName]
                 ] for w in this.state.widgets)
 
@@ -166,7 +166,7 @@ WidgetGrid = React.createClass
                     }}
                     mountSize={{
                         x: wl.dimension.x * fullGridUnit.x - grid.widgetMargin
-                        y: wl.dimension.y * fullGridUnit.y - grid.widgetMargin 
+                        y: wl.dimension.y * fullGridUnit.y - grid.widgetMargin
                     }}
                     gridSize={wl.dimension}
                     gridPosition={wl.position}
