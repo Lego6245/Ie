@@ -38,7 +38,7 @@ UserStyleStore = Reflux.createStore
 
     getInitialState: -> 
         storageState = window.localStorage.getItem(this.storeName)
-        if storageState and false
+        if storageState
             this.globalSettings = JSON.parse(storageState)
         return this.globalSettings
 

@@ -100,7 +100,7 @@ TimeWidget = Widget.createWidgetClass
                 <div className="status" style={invertedColors}>
                     <object type="image/svg+xml" 
                             data="img/icons/clock-moon.svg"
-                            class="icon status">
+                            className="icon status">
                     </object>
                 </div>
                 <div className="clock-info">
