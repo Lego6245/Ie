@@ -103,5 +103,4 @@ GridSettingsStore = Reflux.createStore
             JSON.stringify(this.gridSettings))
 
         this.trigger(this.getCurrentGrid())
-
 module.exports = GridSettingsStore
