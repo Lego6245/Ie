@@ -27,7 +27,7 @@
     "grunt-coffeelint-cjsx": "^0.1.0",
     "grunt-concat-sourcemap": "^0.4.3",
     "grunt-concurrent": "^2.0.3",
-    "grunt-contrib-sass": "^0.9.2",
+    "grunt-sass": "^1.0.0",
     "grunt-contrib-uglify": "^0.9.2",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-exorcise": "^2.1.0",
