@@ -56,61 +56,49 @@ Options = React.createClass
         options = this.state.globalOptions
 
         <div id="options">
-            <span>This is an options panel I guess?</span>
+            <h1>Options</h1>
+            <label htmlFor="widget-background">Widget Background Color</label>
             <input type="text"
                 id="widget-background"
                 placeholder="#FFFFFF"
                 onChange={ this._editGlobalOption("widgetBackground") } />
-            <label htmlFor="widget-background">
-                Widget Background Color
-            </label>
+            <label htmlFor="widget-foreground">Widget Foreground Color</label>
             <input type="text"
                 id="widget-foreground"
                 placeholder="#FFFFFF"
                 onChange={ this._editGlobalOption("widgetForeground") } />
-            <label htmlFor="widget-foreground">
-                Widget Foreground Color
-            </label>
+            <label htmlFor="widgetBorder">Widget Border Color</label>
             <input type="text"
                 id="widget-border"
                 placeholder="#FFFFFF"
                 onChange={ this._editGlobalOption("widgetBorder") } />
-            <label htmlFor="widgetBorder">Widget Border Color</label>
             <input type="checkbox"
                 id="background-mode"
                 checked={ this._isImageMode() }
                 onChange={ this._handleBackgroundToggle } />
             <label htmlFor="background-mode">Use Background Image</label>
+            <label htmlFor="background-image">Background Image File</label>
             <input type="file"
                 id="background-image"
                 disabled={ not this._isImageMode() }
                 onChange={ this._handleBackgroundImage } />
-            <label htmlFor="background-image">Background Image File</label>
+            <label htmlFor="background">Background</label>
             <input type="text"
                 id="background"
                 placeholder="#FFFFFF"
                 onChange={ this._editGlobalOption("backgroundColor") }  />
-            <label htmlFor="background">Background</label>
+            <label htmlFor="foreground">Foreground</label>
             <input type="text"
                 id="foreground"
                 placeholder="#000000"
                 onChange={ this._editGlobalOption("foreground") } />
-            <label htmlFor="foreground">Foreground</label>
             <button onClick = { this._exitOptionsMode }>
                 Go To Root
             </button>
-
-            <div id="options-debug">
-                <span>Options Debug</span><br />
-                <span>Widget Background: { options.widgetBackground }</span>
-                <span>Widget Foreground: { options.widgetForeground }</span>
-                <span>Widget Border: { options.widgetBorder }</span>
-                <span>Background Color: { options.foreground }</span>
-                <span>Foreground: { options.background }</span>
-            </div>
         </div>
 
     _exitOptionsMode: ->
+        document.getElementById("options").className = ""
         UIActions.enterMode(PAGE_MODES.LIVE)
 
     # getInitialState: 
