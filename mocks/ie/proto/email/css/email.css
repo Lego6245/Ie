@@ -25,3 +25,7 @@
 .message:hover {
 	background: #f7f2ec;
 }
+
+.title {
+	float: left
+}

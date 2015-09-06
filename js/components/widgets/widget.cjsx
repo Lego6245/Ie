@@ -28,7 +28,7 @@ WidgetMixin =
             y: 0
 
     wStartDrag: (evt) ->
-        console.log evt
+        evt.preventDefault()
 
         this.setState({
             trackingOrigin:

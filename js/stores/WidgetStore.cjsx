@@ -6,6 +6,7 @@ WidgetStore = Reflux.createStore
 
     widgetKinds : {
          timer: require "../components/widgets/TimeWidget.cjsx"
+         mail: require "../components/widgets/Mail.cjsx"
     }
 
     # default state
@@ -17,6 +18,14 @@ WidgetStore = Reflux.createStore
                     position: {x: 0, y: 0}
                     dimension: {x: 2, y: 1}
             uuid: "fake-uuid"
+        },
+        {
+            widgetKind: "mail"
+            layouts:
+                large:
+                    position: {x: 0, y: 1}
+                    dimension: {x: 2, y: 2}
+            uuid: "fake-uuid-2"
         }
     ]
 
@@ -27,7 +36,7 @@ WidgetStore = Reflux.createStore
     # if that fails, use the default
     getInitialState: ->
         storageState = window.localStorage.getItem("widgets")
-        if storageState
+        if storageState and false
             this.widgets = JSON.parse(storageState)
         return this.widgets
 
