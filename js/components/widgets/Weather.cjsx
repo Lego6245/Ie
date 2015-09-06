@@ -1,6 +1,6 @@
-Widget = require "./widget.cjsx"
 PAGE_MODES = (require "../../constants.cjsx").PAGE_MODES
 PageStateStore = require "../../stores/PageStateStore.cjsx"
+Widget = require "./widget.cjsx"
 
 WeatherWidget = Widget.createWidgetClass
 

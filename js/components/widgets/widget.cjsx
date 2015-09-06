@@ -1,8 +1,10 @@
-CSS = require "../../csshelpers.cjsx"
 GridSettingsStore = require "../../stores/GridSettingsStore.cjsx"
 UserStyleStore = require "../../stores/UserStyleStore.cjsx"
 DragStore = require "../../stores/DragStore.cjsx"
+
 WidgetActions = (require "../../actions.cjsx").WidgetActions
+
+CSS = require "../../csshelpers.cjsx"
 
 createWidgetClass = (obj) ->
     if not obj.acceptsDim?

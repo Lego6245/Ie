@@ -1,4 +1,4 @@
-WidgetActions = require("../actions.cjsx").WidgetActions
+WidgetActions = (require "../actions.cjsx").WidgetActions
 
 
 DragStore = Reflux.createStore

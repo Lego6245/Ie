@@ -1,15 +1,15 @@
-PageStateStore = require("../stores/PageStateStore.cjsx")
-UserStyleStore = require("../stores/UserStyleStore.cjsx")
+CONSTANTS = require "../constants.cjsx"
+PAGE_MODES = CONSTANTS.PAGE_MODES
+BKG = CONSTANTS.BKG_MODES
+
+PageStateStore = require "../stores/PageStateStore.cjsx"
+UserStyleStore = require "../stores/UserStyleStore.cjsx"
 WidgetStore = require "../stores/WidgetStore.cjsx"
-DragStore = require("../stores/DragStore.cjsx")
+DragStore = require "../stores/DragStore.cjsx"
 
-Actions = require("../actions.cjsx")
+Actions = require "../actions.cjsx"
 UIActions = Actions.UIActions
-#WidgetActions = Actions.WidgetActions
-WidgetActions = require("../actions.cjsx").WidgetActions
-
-PAGE_MODES = require("../constants.cjsx").PAGE_MODES
-BKG = require("../constants.cjsx").BKG_MODES
+WidgetActions = Actions.WidgetActions
 
 NavButton = React.createClass
     displayName: "NavButton"

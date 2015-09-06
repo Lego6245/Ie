@@ -1,13 +1,13 @@
 ReactCSSTransitionGroup = React.addons.CSSTransitionGroup
 
-CONSTANTS = require("../constants.cjsx")
+CONSTANTS = require "../constants.cjsx"
 PAGE_MODES = CONSTANTS.PAGE_MODES
 BKG_MODES = CONSTANTS.BKG_MODES
 
-UserStyleStore = require("../stores/UserStyleStore.cjsx")
-PageStateStore = require("../stores/PageStateStore.cjsx")
+UserStyleStore = require "../stores/UserStyleStore.cjsx"
+PageStateStore = require "../stores/PageStateStore.cjsx"
 
-Actions = require("../actions.cjsx")
+Actions = require "../actions.cjsx"
 UIActions = Actions.UIActions
 OptionActions = Actions.OptionActions
 
