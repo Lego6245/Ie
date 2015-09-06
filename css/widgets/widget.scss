@@ -30,6 +30,12 @@
         width: 100%;
     }
 
+    img, object {
+        user-drag: none; 
+        -moz-user-select: none;
+        -webkit-user-drag: none;
+    }
+
     h3 {
         font-family: 'Gotham-Book';
         font-weight: 300;
@@ -58,7 +64,7 @@
         transition: all .2s ease-in-out;
     }
     h4:hover {
-        background-color: #765b70;
+        background-color: rgba(0,0,0,0.2);
     }
 
     .icon {
@@ -75,7 +81,7 @@
         transition: all .2s ease-in-out;
     }
     a .options:hover {
-        background-color: #765b70;
+        background-color: rgba(0,0,0,0.2);
     }
     .window {
         width: 32px;
