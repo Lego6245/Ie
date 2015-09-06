@@ -28,4 +28,15 @@
     .nav-button.active {
         opacity: 1;
     }
+
+    #widget-trash {
+        height: 100%;
+        opacity: 0;
+
+        @include transition(0.2s, opacity)
+    }
+}
+
+#root.mode-edit #widget-trash {
+    opacity: 0.7;
 }

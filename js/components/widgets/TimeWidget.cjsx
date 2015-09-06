@@ -96,6 +96,10 @@ TimeWidget = Widget.createWidgetClass
                 style={backgroundBorder}>
                 <div className="status" style={invertedColors}>
                     <img src="img/icons/clock-moon.svg" />
+                    <object type="image/svg+xml" 
+                            data="img/icons/clock-moon.svg"
+                            className="icon status">
+                    </object>
                 </div>
                 <div className="clock-info">
                     <span className="utc">({utcstr})</span>

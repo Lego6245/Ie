@@ -1,6 +1,7 @@
 CSS = require "../../csshelpers.cjsx"
 GridSettingsStore = require "../../stores/GridSettingsStore.cjsx"
 UserStyleStore = require "../../stores/UserStyleStore.cjsx"
+DragStore = require "../../stores/DragStore.cjsx"
 WidgetActions = (require "../../actions.cjsx").WidgetActions
 
 createWidgetClass = (obj) ->
@@ -41,6 +42,7 @@ WidgetMixin =
                 y: 0 })
 
         CSS.addClass(React.findDOMNode(this), "dragging")
+        WidgetActions.startDrag(this)
 
     wContinueDrag: (nativeEvent) ->
         if this.state.trackingOrigin?
@@ -85,6 +87,7 @@ WidgetMixin =
                     this.props.mountOrigin.y)
 
                 CSS.removeClass(domNode, "dragging")
+            WidgetActions.stopDrag(this)
         
     widgetStyle: ->
         {
