@@ -3,6 +3,7 @@ PAGE_MODES = CONSTANTS.PAGE_MODES
 BKG_MODES = CONSTANTS.BKG_MODES
 
 OptionActions = require("../actions.cjsx").OptionActions
+OptionMixin = require("./OptionMixin.cjsx")
 
 colorRegex = new RegExp("#[0-9a-fA-F]{3,6}")
 isColor = (str) -> colorRegex.test(str)
@@ -10,11 +11,11 @@ isNonNull = (val) -> val?
 isNumeric = (val) -> not isNaN(parseFloat(n)) and isFinite(n)
 
 UserStyleStore = Reflux.createStore
-    listenables: [OptionActions]
+    storeName: "UserStyleStore"
 
-    storeName: "globalOptions"
+    mixins: [OptionMixin]
 
-    globalSettings: {
+    options: {
         widgetBackground: "#FFFBF5"
         widgetBorder:     "#FFFBF5"
         widgetForeground: "#604A5B"
@@ -37,25 +38,5 @@ UserStyleStore = Reflux.createStore
         backgroundImage:    isNonNull
         topBarHeight:       isNumeric
     }
-
-    getInitialState: ->
-        storageState = window.localStorage.getItem(this.storeName)
-        if storageState
-            this.globalSettings = JSON.parse(storageState)
-        return this.globalSettings
-
-    validateOption: (fieldName, fieldValue) ->
-        return this.verifiers[fieldName](fieldValue)
-
-    onEditOption: (fieldName, fieldValue) ->
-        this.globalSettings[fieldName] = fieldValue
-        this.cacheAndTrigger()
-
-    cacheAndTrigger: ->
-        console.log "caching and triggering"
-        window.localStorage.setItem(
-            this.storeName,
-            JSON.stringify(this.globalSettings))
-        this.trigger(this.globalSettings)
 
 module.exports = UserStyleStore

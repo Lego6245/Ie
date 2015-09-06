@@ -1,7 +1,7 @@
 {
   "name": "Ie",
   "version": "0.0.1",
-  "description": "a homepage",
+  "description": "an extensible homepage",
   "main": "js/init.cjsx",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -14,32 +14,21 @@
   },
   "devDependencies": {
     "core-js": "^1.1.4",
-    "grunt-sass": "^1.0.0"
-  },
-  "dependencies": {
-    "ajax-request": "^1.2.1",
-    "browserify": "^11.0.1",
-    "classnames": "^2.1.3",
-    "coffee-reactify": "^4.0.0",
-    "coffeelint-cjsx": "^2.0.2",
     "grunt": "^0.4.5",
-    "grunt-browserify": "^4.0.1",
     "grunt-coffee-react": "^2.4.1",
     "grunt-coffeelint-cjsx": "^0.1.0",
-    "grunt-concat-sourcemap": "^0.4.3",
     "grunt-concurrent": "^2.0.3",
     "grunt-sass": "^1.0.0",
     "grunt-contrib-uglify": "^0.9.2",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-exorcise": "^2.1.0",
-    "grunt-watchify": "^0.1.0",
-    "humanize": "0.0.9",
-    "iso8601": "^1.1.1",
+    "grunt-browserify": "^4.0.1"
+  },
+
+  "dependencies": {
+    "classnames": "^2.1.3",
     "moment": "^2.10.6",
     "react": "^0.13.3",
-    "react-motion": "^0.2.7",
-    "reflux": "^0.2.12",
-    "simple-ajax": "^2.1.0",
-    "watchify": "^3.4.0"
+    "reflux": "^0.2.12"
   }
 }
