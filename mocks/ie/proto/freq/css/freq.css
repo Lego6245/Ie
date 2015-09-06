@@ -1,0 +1,39 @@
+
+.freq-content {
+	height: auto;
+	width: 100%;
+	float: left;
+}
+.freq-links {
+	border-top-width: 1px;
+	border-top-style: solid;
+	border-top-color: #FFFBF5;
+	display: block;
+	height: auto;
+	float: left;
+}
+.freq-links > a {
+	display: inline-block;
+	background-color: #604A5B;
+	color: #FFFBF5;
+	text-decoration: none;
+	text-align: center;
+	font-family: 'Gotham-Bold';
+	font-weight: 900;
+	text-transform: uppercase;
+	width: 158px;
+	height: 47px;
+	line-height: 47px;
+	transition: all .2s ease-in-out;
+	float: left;
+}
+.freq-links > a:nth-child(1), .freq-links > a:nth-child(3) {
+	margin-right: 4px;
+}
+.freq-links a:nth-child(1) {
+	margin-bottom: 4px;
+}
+.freq-links > a:hover {
+	background-color: #765b70;
+}
+
