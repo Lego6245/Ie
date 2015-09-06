@@ -82,11 +82,11 @@ TimeWidget = Widget.createWidgetClass
              style={this.widgetStyle()}>
 
             <div className="window-bar" style={invertedColors}>
-                <img src="img/icons/clock.svg" />
+                <img src="img/icons/clock.png" />
                 
                 <a href="#">
                     <span className="icon options">
-                        <img src="img/icons/options-icon.svg" />
+                        <img src="img/icons/options-icon.png" />
                     </span>
                 </a>
 
@@ -95,9 +95,8 @@ TimeWidget = Widget.createWidgetClass
             <div className="clock-content"
                 style={backgroundBorder}>
                 <div className="status" style={invertedColors}>
-                    <img src="img/icons/clock-moon.svg" />
                     <object type="image/svg+xml" 
-                            data="img/icons/clock-moon.svg"
+                            data="img/icons/clock-moon.png"
                             className="icon status">
                     </object>
                 </div>

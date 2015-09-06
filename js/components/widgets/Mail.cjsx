@@ -68,10 +68,10 @@ TimeWidget = Widget.createWidgetClass
 
              <div className="window-bar"
                   style={invertedColors}>
-                <img src="img/icons/email.svg" />
+                <img src="img/icons/email.png" className="icon window" />
                 <a href="#">
                     <span className="icon options">
-                        <img src="img/icons/options-icon.svg" />
+                        <img src="img/icons/options-icon.png" />
                     </span>
                 </a>
                 <h3>goodjobpj@gmail.com</h3>
@@ -86,7 +86,7 @@ TimeWidget = Widget.createWidgetClass
             <a href="#">
                 <div className="read-more">
                     <span className="read-more-icon">
-                        <img src="img/icons/down-chevron.svg" />
+                        <img src="img/icons/down-chevron.png" />
                     </span>
                 </div>
             </a>
