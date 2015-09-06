@@ -66,13 +66,11 @@ WidgetGrid = React.createClass
         availableSpace = window.innerHeight - topBarHeight
         innerPadding = Math.max(0, (availableSpace - wrapper.offsetHeight) / 2)
 
-        console.log topBarHeight, innerPadding
-
         wrapper.style.marginTop = "#{topBarHeight + innerPadding}px"
 
     _resizeWindow: ->
         this._centerWithMargin()
-        GridSettingsStore.recalculateCurrentGridAndTrigger()
+        GridSettingsStore.pickGridAndTrigger()
 
     # returns null on failure (occupied spot, etc)
     fitWidgetToGrid: (widgetID, widgetGridSize, pixelX, pixelY) ->
