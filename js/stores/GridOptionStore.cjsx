@@ -1,13 +1,13 @@
 GridOptionStore = Reflux.createStore
     # actions this store listens to
-    # listenables: [SettingsActions]
+    # listenables: [OptionsActions]
 
     # the name of the store in localstorage
-    storeName: "gridSettings"
+    storeName: "gridOptions"
 
     # default state
-    gridSettings:
-        currentSettingsIndex: 0
+    gridOptions:
+        currentOptionsIndex: 0
         grids: [
             {
                 settingName: "large"
@@ -39,7 +39,7 @@ GridOptionStore = Reflux.createStore
     getInitialState: ->
         storageState = window.localStorage.getItem(this.storeName)
         if storageState
-            this.gridSettings = JSON.parse(storageState)
+            this.gridOptions = JSON.parse(storageState)
         this.pickGrid()
         return this.getCurrentGrid()
 
@@ -47,8 +47,8 @@ GridOptionStore = Reflux.createStore
     # event listeners #
     ###################
 
-    onChangeGridSettings: (index, newGrid) ->
-        this.gridSettings[index] = newGrid
+    onChangeGridOptions: (index, newGrid) ->
+        this.gridOptions[index] = newGrid
         this.updateCacheAndTrigger()
 
     #############################
@@ -59,7 +59,7 @@ GridOptionStore = Reflux.createStore
     # returns true if the current grid changed. Gives priority to ones
     # earlier on in the array
     pickGrid: ->
-        oldGridIndex = this.gridSettings.currentSettingsIndex
+        oldGridIndex = this.gridOptions.currentOptionsIndex
         windowWidth = window.innerWidth
         windowHeight = window.innerHeight
 
@@ -76,16 +76,16 @@ GridOptionStore = Reflux.createStore
 
             return [w, h]
 
-        for grid, index in this.gridSettings.grids
+        for grid, index in this.gridOptions.grids
             [minWidth, minHeight] = calculateGridSize grid
             if minWidth < windowWidth && minHeight < windowHeight
-                this.gridSettings.currentSettingsIndex = index
+                this.gridOptions.currentOptionsIndex = index
                 return index != oldGridIndex
 
-        this.gridSettings.currentSettingsIndex =
-            this.gridSettings.grids.length - 1
+        this.gridOptions.currentOptionsIndex =
+            this.gridOptions.grids.length - 1
 
-        return this.gridSettings.currentSettingsIndex != oldGridIndex
+        return this.gridOptions.currentOptionsIndex != oldGridIndex
 
     pickGridAndTrigger: ->
         if this.pickGrid()
@@ -93,14 +93,14 @@ GridOptionStore = Reflux.createStore
 
     # get the current grid object
     getCurrentGrid: ->
-        this.gridSettings.grids[this.gridSettings.currentSettingsIndex]
+        this.gridOptions.grids[this.gridOptions.currentOptionsIndex]
 
-    # update the gridSettings object in local storage and trigger
+    # update the gridOptions object in local storage and trigger
     # on the current grid
     updateCacheAndTrigger: ->
         window.localStorage.setItem(
             this.storeName,
-            JSON.stringify(this.gridSettings))
+            JSON.stringify(this.gridOptions))
 
         this.trigger(this.getCurrentGrid())
 module.exports = GridOptionStore

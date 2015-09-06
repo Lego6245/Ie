@@ -3,7 +3,7 @@ PAGE_MODES = CONSTANTS.PAGE_MODES
 BKG = CONSTANTS.BKG_MODES
 
 PageStateStore = require("../stores/PageStateStore.cjsx")
-StyleSettingStore = require("../stores/StyleSettingStore.cjsx")
+StyleOptionStore = require("../stores/StyleOptionStore.cjsx")
 WidgetStore = require "../stores/WidgetStore.cjsx"
 DragStore = require "../stores/DragStore.cjsx"
 
@@ -82,7 +82,7 @@ TopBar = React.createClass
     displayName: "TopBar"
 
     mixins: [
-        Reflux.connect(StyleSettingStore, "userStyle")]
+        Reflux.connect(StyleOptionStore, "userStyle")]
     render: ->
         pageMode = this.state.pageState
 
