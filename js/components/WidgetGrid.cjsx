@@ -22,26 +22,6 @@ GridTileIndicator = React.createClass
              style={style}>
         </div>
 
-findOccupiedSpaces = (grid, widgets) ->
-    # init OccupiedSpaces
-    occupiedSpaces = new Array(grid.gridDim.x)
-    for ix in [0 .. (grid.gridDim.x - 1)]
-        occupiedSpaces[ix] = new Array(grid.gridDim.y)
-        for iy in [0 .. (grid.gridDim.y - 1)]
-            occupiedSpaces[ix][iy] = false
-
-    # fill spaces occuupied by widgets
-    for widget in widgets
-        wl = widget.layouts[grid.settingName]
-        if wl?
-            for ix in [0..wl.dimension.x - 1]
-                for iy in [0..wl.dimension.y - 1]
-                    xo = wl.position.x + ix
-                    yo = wl.position.y + iy
-                    occupiedSpaces[xo][yo] = true
-
-    return occupiedSpaces
-
 WidgetGrid = React.createClass
     displayName: "WidgetGrid"
 
@@ -50,6 +30,10 @@ WidgetGrid = React.createClass
         Reflux.connect(WidgetStore, "widgets")
         Reflux.connect(UserStyleStore, "userStyle")
     ]
+
+    ####################################
+    # centering the grid vertically to #
+    ####################################
 
     componentDidMount: ->
         window.addEventListener('resize', this._resizeWindow)
@@ -72,6 +56,10 @@ WidgetGrid = React.createClass
         this._centerWithMargin()
         GridSettingsStore.pickGridAndTrigger()
 
+    ###############################
+    # fitting widgets to the grid #
+    ###############################
+
     # returns null on failure (occupied spot, etc)
     fitWidgetToGrid: (widgetID, widgetGridSize, pixelX, pixelY) ->
         grid = this.state.grid
@@ -79,9 +67,8 @@ WidgetGrid = React.createClass
         gridY = Math.round(pixelY/(grid.widgetMargin/2 + grid.gridUnit.y))
 
         occupiedSpaces =
-            findOccupiedSpaces(
-                this.state.grid,
-                (w for w in this.state.widgets when w.uuid != widgetID))
+            WidgetStore.findOccupiedSpaces(
+                this.state.grid, [widgetID])
 
         isOpen = (x,y) ->
             0 <= x and x < grid.gridDim.x and
@@ -101,13 +88,16 @@ WidgetGrid = React.createClass
             y: gridY
         }
 
+    #############
+    # rendering #
+    #############
+
     render: ->
         grid = this.state.grid
 
         occupiedSpaces =
-            findOccupiedSpaces(
-                this.state.grid,
-                this.state.widgets)
+            WidgetStore.findOccupiedSpaces(
+                this.state.grid, [])
 
         # grid uynit and padding
         fullGridUnit = {

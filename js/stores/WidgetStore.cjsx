@@ -112,5 +112,26 @@ WidgetStore = Reflux.createStore
             "widgets",
             JSON.stringify(this.widgets))
 
+    findOccupiedSpaces = (grid, ignoreWidgets) ->
+        # init OccupiedSpaces
+        occupiedSpaces = new Array(grid.gridDim.x)
+        for ix in [0 .. (grid.gridDim.x - 1)]
+            occupiedSpaces[ix] = new Array(grid.gridDim.y)
+            for iy in [0 .. (grid.gridDim.y - 1)]
+                occupiedSpaces[ix][iy] = false
+
+        # fill spaces occuupied by widgets
+        for widget in (w for w in widgets when w not in ignoreWidgets)
+            wl = widget.layouts[grid.settingName]
+            if wl?
+                for ix in [0..wl.dimension.x - 1]
+                    for iy in [0..wl.dimension.y - 1]
+                        xo = wl.position.x + ix
+                        yo = wl.position.y + iy
+                        occupiedSpaces[xo][yo] = true
+
+        return occupiedSpaces
+
+
 
 module.exports = WidgetStore
