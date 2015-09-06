@@ -10,11 +10,15 @@ TimeWidget = Widget.createWidgetClass
     ]
 
     getInitialState: () ->
-        setInterval(
+        return { date: new Date() }
+
+    componentDidMount: () ->
+        this.interval = setInterval(
             (()->this.setState {date: new Date()}).bind(this),
             1 * 1000)
 
-        return { date: new Date() }
+    componentWillUnmount: () ->
+        clearInterval(this.interval)
 
     acceptsDim: (x, y) ->
         return x < 2 && y < 2
