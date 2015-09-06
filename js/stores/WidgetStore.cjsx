@@ -5,9 +5,10 @@ WidgetStore = Reflux.createStore
     listenables: [WidgetActions]
 
     widgetKinds : {
-         timer: require "../components/widgets/TimeWidget.cjsx"
-         mail: require "../components/widgets/Mail.cjsx"
-         weather: require "../components/widgets/Weather.cjsx"
+        timer: require "../components/widgets/TimeWidget.cjsx"
+        mail: require "../components/widgets/Mail.cjsx"
+        weather: require "../components/widgets/Weather.cjsx"
+        picture: require "../components/widgets/Picture.cjsx"
     }
 
     # default state
@@ -35,6 +36,14 @@ WidgetStore = Reflux.createStore
                     position: {x: 2, y: 0}
                     dimension: {x: 2, y: 2}
             uuid: "fake-uuid-3"
+        },
+        {
+            widgetKind: "picture"
+            layouts:
+                large:
+                    position: {x: 2, y: 2}
+                    dimension: {x: 2, y: 1}
+            uuid: "fake-uuid-4"
         }
     ]
 

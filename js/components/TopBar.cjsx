@@ -57,24 +57,21 @@ WidgetTrash = React.createClass
     _handleMouseOver: ->
         if this._enabled() and this.state.drag?
             this.aboutToTrash = true
-            console.log("I hunger")
 
     _handleMouseOut: ->
         if this._enabled() and this.state.drag?
             this.aboutToTrash = false
-            console.log("Feed me")
 
     _handleMouseUp: ->
         console.log("Enabled: ", this._enabled())
         console.log("Dragging: ", this.state.drag)
         if this._enabled() and this.state.drag?
-            console.log("I am satisfied", this.state.drag)
             WidgetActions.removeWidget(this.state.drag.props.widgetID)
             this.aboutToTrash = false
 
     render: ->
         <img id="widget-trash"
-            src="./img/icons/trash.svg"
+            src="./img/icons/trash.png"
             className={ this.trashClass() }
             onMouseOver={ this._handleMouseOver }
             onMouseOut={ this._handleMouseOut }
@@ -95,12 +92,13 @@ TopBar = React.createClass
              className={classNames classes}
              style={{height: this.state.userStyle.topbarHeight}}>
             <NavButton target={PAGE_MODES.EDIT}>
-                <img src="./img/icons/edit-mode.svg" />
+                <img src="./img/icons/edit-mode.png" />
             </NavButton>
             <NavButton target={PAGE_MODES.OPTS}>
-                <img src="./img/icons/options-mode.svg" />
+                <img src="./img/icons/options-mode.png" />
             </NavButton>
             <WidgetTrash />
+            <h1 id="motd">Welcome, Gabriel</h1>
         </nav>
 
 module.exports = TopBar

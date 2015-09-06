@@ -69,7 +69,7 @@ WeatherWidget = Widget.createWidgetClass
         mkWeather = (weather, index) ->
             <div className="weather" key={index}>
                 <span className="day">{weather.day}</span>
-                <img src={"img/icons/#{weather.condition}.svg"} />
+                <img src={"img/icons/#{weather.condition}.png"} />
                 <span className="high">{weather.high}</span>
                 <span className="low">{weather.low}</span>
             </div>
@@ -83,10 +83,10 @@ WeatherWidget = Widget.createWidgetClass
 
             <div className="window-bar"
                  style={invertedColors}>
-                <img src="img/icons/rain-drop.svg" className="icon window" />
+                <img src="img/icons/rain-drop.png" className="icon window" />
                 <a href="#">
                     <span className="icon options">
-                        <img src="img/icons/options-icon.svg" />
+                        <img src="img/icons/options-icon.png" />
                     </span>
                 </a>
                 <h3>the weather for today</h3>
