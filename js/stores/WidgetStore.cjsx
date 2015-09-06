@@ -13,34 +13,10 @@ WidgetStore = Reflux.createStore
         {
             widgetKind: "timer"
             layouts:
-                small:
-                    position: {x: 0, y: 0}
-                    dimension: {x: 2, y: 1}
                 large:
                     position: {x: 0, y: 0}
-                    dimension: {x: 2, y: 2}
+                    dimension: {x: 2, y: 1}
             uuid: "fake-uuid"
-        },
-        {
-            widgetKind: "timer"
-            layouts:
-                small:
-                    position: {x: 0, y: 2}
-                    dimension: {x: 2, y: 1}
-                large:
-                    position: {x: 2, y: 0}
-                    dimension: {x: 1, y: 1}
-            uuid: "fake-uuid2"
-        }
-
-
-        {
-            widgetKind: "timer"
-            layouts:
-                large:
-                    position: {x: 3, y: 2}
-                    dimension: {x: 1, y: 1}
-            uuid: "fake-uuid3"
         }
     ]
 

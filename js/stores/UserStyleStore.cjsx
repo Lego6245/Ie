@@ -13,9 +13,9 @@ UserStyleStore = Reflux.createStore
     storeName: "globalOptions"
 
     globalSettings: {
-        widgetBackground: "#FFFFFF"
-        widgetBorder:     "#FF0000"
-        widgetForeground: "#000000"
+        widgetBackground: "#FFFBF5"
+        widgetBorder:     "#FFFBF5"
+        widgetForeground: "#604A5B"
 
         foreground:       "#000000"
         backgroundMode:   BKG_MODES.BKG_COLOR
@@ -38,7 +38,7 @@ UserStyleStore = Reflux.createStore
 
     getInitialState: -> 
         storageState = window.localStorage.getItem(this.storeName)
-        if storageState
+        if storageState and false
             this.globalSettings = JSON.parse(storageState)
         return this.globalSettings
 

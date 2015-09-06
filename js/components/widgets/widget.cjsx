@@ -97,7 +97,7 @@ WidgetMixin =
             # requires that the wiuget listen to userStyle
             backgroundColor: this.state.userStyle.widgetBackground
             color: this.state.userStyle.widgetForeground
-            border: this.state.userStyle.widgetForeground
+            borderColor: this.state.userStyle.widgetBorder
         }
 
     ShouldComponentUpdate: (nextState) ->
