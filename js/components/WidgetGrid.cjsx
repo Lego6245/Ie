@@ -146,7 +146,10 @@ WidgetGrid = React.createClass
             /> for [x, y], ind in xyPairs)
 
         widgetLayouts = 
-            ([w, w.layouts[grid.settingName]] for w in this.state.widgets)
+            ([WidgetStore.getWidgetClass(w), 
+                w, 
+                w.layouts[grid.settingName]
+                ] for w in this.state.widgets)
 
         <div id="widget-grid"
              style={wrapperStyle}
@@ -155,7 +158,7 @@ WidgetGrid = React.createClass
                  style={innerStyle}>
                  {indicators}
 
-                 {(<w.WidgetClass 
+                 {(<WidgetClass
                     mountOrigin={{
                         x: wl.position.x * fullGridUnit.x + grid.widgetMargin/2
                         y: wl.position.y * fullGridUnit.y + grid.widgetMargin/2
@@ -169,7 +172,7 @@ WidgetGrid = React.createClass
                     key={w.uuid}
                     widgetID={w.uuid}
                     mountCallback={this.fitWidgetToGrid}
-                    /> for [w, wl] in widgetLayouts when wl?)}
+                    /> for [WidgetClass, w, wl] in widgetLayouts when wl?)}
             </div>
         </div>
 

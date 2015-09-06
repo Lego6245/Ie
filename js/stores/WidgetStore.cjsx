@@ -4,10 +4,14 @@ WidgetStore = Reflux.createStore
     # actions this store listens to
     listenables: [WidgetActions]
 
+    widgetKinds : {
+         timer: require "../components/widgets/TimeWidget.cjsx"
+    }
+
     # default state
     widgets: [
         {
-            WidgetClass: require "../components/widgets/TimeWidget.cjsx"
+            widgetKind: "timer"
             layouts:
                 small:
                     position: {x: 0, y: 0}
@@ -18,7 +22,7 @@ WidgetStore = Reflux.createStore
             uuid: "fake-uuid"
         },
         {
-            WidgetClass: require "../components/widgets/TimeWidget.cjsx"
+            widgetKind: "timer"
             layouts:
                 small:
                     position: {x: 0, y: 2}
@@ -31,7 +35,7 @@ WidgetStore = Reflux.createStore
 
 
         {
-            WidgetClass: require "../components/widgets/TimeWidget.cjsx"
+            widgetKind: "timer"
             layouts:
                 large:
                     position: {x: 3, y: 2}
@@ -39,6 +43,9 @@ WidgetStore = Reflux.createStore
             uuid: "fake-uuid3"
         }
     ]
+
+    getWidgetClass: (widgetInstance) ->
+        return this.widgetKinds[widgetInstance.widgetKind]
 
     # the initial state of the store from localstorage
     # if that fails, use the default
@@ -50,7 +57,7 @@ WidgetStore = Reflux.createStore
 
     onAddWidget: (widget) ->
         this.widgets.push(widget)
-        this.trigger(this.widgets)
+        this.cacheAndTrigger()
 
     # moves a widget so its top left corner is at grid position x,y
     # assumes safe to move
@@ -63,6 +70,13 @@ WidgetStore = Reflux.createStore
                 console.log "moved widget '#{widgetID}'"
                 console.log this.widgets
                 break
+        this.cacheAndTrigger()
+
+    cacheAndTrigger: () ->
         this.trigger(this.widgets)
+        window.localStorage.setItem(
+            "widgets", 
+            JSON.stringify(this.widgets))
+
 
 module.exports = WidgetStore
