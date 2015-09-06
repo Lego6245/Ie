@@ -4,7 +4,7 @@ CONSTANTS = require "../constants.cjsx"
 PAGE_MODES = CONSTANTS.PAGE_MODES
 BKG_MODES = CONSTANTS.BKG_MODES
 
-StyleSettingStore = require("../stores/StyleSettingStore.cjsx")
+StyleOptionStore = require("../stores/StyleOptionStore.cjsx")
 GridOptionStore = require("../stores/GridOptionStore.cjsx")
 PageStateStore = require("../stores/PageStateStore.cjsx")
 
@@ -25,11 +25,11 @@ Options = React.createClass
     displayName: "Options"
 
     mixins: [
-        Reflux.connect(StyleSettingStore, "styleOptions"),
-        Reflux.connect(GridOptionStore, "gridSettings")]
+        Reflux.connect(StyleOptionStore, "styleOptions"),
+        Reflux.connect(GridOptionStore, "gridOptions")]
 
     _handleEditOption: (name, event) ->
-        if StyleSettingStore.validateOption(name, event.target.value)
+        if StyleOptionStore.validateOption(name, event.target.value)
             console.log "passed validation (#{name}, #{event.target.value})"
             OptionActions.editOption(
                 name,
@@ -96,7 +96,7 @@ Options = React.createClass
 
         # gridStyleInputs = this._makeOptions(
         #     GridOptionStore,
-        #     this.state.gridSettings)
+        #     this.state.gridOptions)
 
         <div id="options">
             <h1>Style</h1>
@@ -113,7 +113,7 @@ Options = React.createClass
         </div>
 
     # getInitialState:
-    #   GlobalSettingsStore.getInitialState.bind(GlobalSettingsStore)
+    #   GlobalOptionsStore.getInitialState.bind(GlobalOptionsStore)
 
 
 module.exports = Options

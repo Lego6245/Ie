@@ -1,5 +1,5 @@
 GridOptionStore = require "../stores/GridOptionStore.cjsx"
-StyleSettingStore = require "../stores/StyleSettingStore.cjsx"
+StyleOptionStore = require "../stores/StyleOptionStore.cjsx"
 WidgetStore = require "../stores/WidgetStore.cjsx"
 
 translate = (require "../csshelpers.cjsx").translate
@@ -28,7 +28,7 @@ WidgetGrid = React.createClass
     mixins: [
         Reflux.connect(GridOptionStore, "grid"),
         Reflux.connect(WidgetStore, "widgets")
-        Reflux.connect(StyleSettingStore, "userStyle")
+        Reflux.connect(StyleOptionStore, "userStyle")
     ]
 
     ####################################

@@ -10,8 +10,8 @@ isColor = (str) -> colorRegex.test(str)
 isNonNull = (val) -> val?
 isNumeric = (val) -> not isNaN(parseFloat(n)) and isFinite(n)
 
-StyleSettingStore = Reflux.createStore
-    storeName: "StyleSettingStore"
+StyleOptionStore = Reflux.createStore
+    storeName: "StyleOptionStore"
 
     mixins: [OptionMixin]
 
@@ -39,4 +39,4 @@ StyleSettingStore = Reflux.createStore
         topBarHeight:       isNumeric
     }
 
-module.exports = StyleSettingStore
+module.exports = StyleOptionStore
