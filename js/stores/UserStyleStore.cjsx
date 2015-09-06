@@ -7,7 +7,7 @@ isColor = (str) -> colorRegex.test(str)
 isNonNull = (val) -> val?
 isNumeric = (val) -> not isNaN(parseFloat(n)) and isFinite(n)
 
-GlobalOptionsStore = Reflux.createStore
+UserStyleStore = Reflux.createStore
     listenables: [OptionActions]
 
     storeName: "globalOptions"
@@ -56,4 +56,4 @@ GlobalOptionsStore = Reflux.createStore
             JSON.stringify(this.globalSettings))
         this.trigger(this.globalSettings)
 
-module.exports = GlobalOptionsStore
+module.exports = UserStyleStore

@@ -1,7 +1,7 @@
 PAGE_MODES = require("../constants.cjsx").PAGE_MODES
 BKG = require("../constants.cjsx").BKG_MODES
 
-GlobalOptionsStore = require("../stores/GlobalOptionsStore.cjsx")
+UserStyleStore = require("../stores/UserStyleStore.cjsx")
 PageStateStore = require("../stores/PageStateStore.cjsx")
 
 UIActions = require("../actions.cjsx").UIActions
@@ -19,7 +19,7 @@ Root = React.createClass
 
     mixins: [
         Reflux.connect(PageStateStore, "pageState"),
-        Reflux.connect(GlobalOptionsStore, "globalOptions")]
+        Reflux.connect(UserStyleStore, "globalOptions")]
 
     _makeBackgroundStyle: () ->
         gO = this.state.globalOptions

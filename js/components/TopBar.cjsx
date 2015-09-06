@@ -1,6 +1,6 @@
 UIActions = require("../actions.cjsx").UIActions
 PageStateStore = require("../stores/PageStateStore.cjsx")
-GlobalOptionsStore = require("../stores/GlobalOptionsStore.cjsx")
+UserStyleStore = require("../stores/UserStyleStore.cjsx")
 
 PAGE_MODES = require("../constants.cjsx").PAGE_MODES
 BKG = require("../constants.cjsx").BKG_MODES
@@ -33,7 +33,7 @@ TopBar = React.createClass
     displayName: "TopBar"
 
     mixins: [
-        Reflux.connect(GlobalOptionsStore, "userStyle")]
+        Reflux.connect(UserStyleStore, "userStyle")]
     render: ->
         pageMode = this.state.pageState
 
