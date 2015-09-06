@@ -45,7 +45,7 @@ WidgetStore = Reflux.createStore
     # if that fails, use the default
     getInitialState: ->
         storageState = window.localStorage.getItem("widgets")
-        if storageState and false
+        if storageState
             this.widgets = JSON.parse(storageState)
         return this.widgets
 
@@ -65,6 +65,15 @@ WidgetStore = Reflux.createStore
                 console.log this.widgets
                 break
         this.cacheAndTrigger()
+
+    onRemoveWidget: (widgetID) ->
+        console.log("trying to remoev widget", widgetID)
+        for widget in this.widgets
+            if widget.uuid == widgetID
+                console.log("removing widget with ID", widget.uuid)
+                widgetIndex = this.widgets.indexOf(widget)
+                this.widgets.splice(widgetIndex, 1)
+                this.cacheAndTrigger()
 
     cacheAndTrigger: () ->
         this.trigger(this.widgets)
