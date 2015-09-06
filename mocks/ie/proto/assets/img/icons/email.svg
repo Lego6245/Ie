@@ -4,7 +4,67 @@
 	 viewBox="-463 265 32 32" style="enable-background:new -463 265 32 32;" xml:space="preserve">
 <style type="text/css">
 	.st0{display:none;}
+	.st1{fill:#FFFBF5;}
 </style>
 <g id="back-up-icons" class="st0">
+</g>
+<g>
+	<g>
+		<g id="content">
+			<g>
+				<g>
+					<g>
+						<polygon class="st1" points="-438.2,289.5 -455.2,289.5 -455.2,279.2 -452.8,279.2 -452.8,280.2 -454.2,280.2 -454.2,288.5 
+							-439.2,288.5 -439.2,280.2 -440.6,280.2 -440.6,279.2 -438.2,279.2 						"/>
+					</g>
+					<g>
+						<polygon class="st1" points="-446.7,285.7 -455,280.1 -454.4,279.3 -446.7,284.5 -439,279.3 -438.4,280.1 						"/>
+					</g>
+					<g>
+						<polygon class="st1" points="-446.7,285.7 -455,280.1 -454.4,279.3 -446.7,284.5 -439,279.3 -438.4,280.1 						"/>
+					</g>
+					<g>
+						
+							<rect x="-452.4" y="282.2" transform="matrix(-0.7197 -0.6943 0.6943 -0.7197 -975.8419 178.3023)" class="st1" width="1" height="7.9"/>
+					</g>
+					<g>
+						
+							<rect x="-445.4" y="285.7" transform="matrix(-0.6941 -0.7199 0.7199 -0.6941 -953.8032 167.0374)" class="st1" width="7.9" height="1"/>
+					</g>
+					<g>
+						
+							<rect x="-440.5" y="278.7" transform="matrix(-0.8516 -0.5242 0.5242 -0.8516 -960.1376 286.5511)" class="st1" width="1.9" height="1"/>
+					</g>
+					<g>
+						
+							<rect x="-454.2" y="277.9" transform="matrix(-0.557 -0.8305 0.8305 -0.557 -938.1803 57.6234)" class="st1" width="1" height="2.3"/>
+					</g>
+					<g>
+						<polygon class="st1" points="-452.3,280.9 -453.3,280.9 -453.3,272.5 -439.8,272.5 -439.8,280.8 -440.8,280.8 -440.8,273.5 
+							-452.3,273.5 						"/>
+					</g>
+				</g>
+				<g>
+					<rect x="-451.1" y="275.3" class="st1" width="2.6" height="1"/>
+				</g>
+				<g>
+					<rect x="-446.9" y="275.3" class="st1" width="4.4" height="1"/>
+				</g>
+				<g>
+					<rect x="-447.7" y="277.6" class="st1" width="5.1" height="1"/>
+				</g>
+				<g>
+					<rect x="-451.1" y="277.6" class="st1" width="1.8" height="1"/>
+				</g>
+				<g>
+					<rect x="-451.1" y="279.9" class="st1" width="8.5" height="1"/>
+				</g>
+			</g>
+		</g>
+		<g id="window">
+		</g>
+		<g id="outline">
+		</g>
+	</g>
 </g>
 </svg>

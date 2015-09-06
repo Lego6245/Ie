@@ -3,8 +3,12 @@
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="-463 265 32 32" style="enable-background:new -463 265 32 32;" xml:space="preserve">
 <style type="text/css">
-	.st0{display:none;}
+	.st0{fill:#FFFBF5;}
+	.st1{fill:none;stroke:#FFFBF5;stroke-width:1.143;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
 </style>
-<g id="back-up-icons" class="st0">
+<g>
+	<path class="st0" d="M-447,274.1c3.8,0,6.9,3.1,6.9,6.9s-3.1,6.9-6.9,6.9s-6.9-3.1-6.9-6.9S-450.8,274.1-447,274.1 M-447,273
+		c-4.4,0-8,3.6-8,8s3.6,8,8,8s8-3.6,8-8S-442.6,273-447,273L-447,273z"/>
+	<polyline class="st1" points="-447,277.5 -447,281 -444.9,283.1 	"/>
 </g>
 </svg>

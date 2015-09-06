@@ -3,8 +3,21 @@
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="-454 256 50 50" style="enable-background:new -454 256 50 50;" xml:space="preserve">
 <style type="text/css">
-	.st0{display:none;}
+	.st0{fill:#FFFFFF;}
 </style>
-<g id="back-up-icons" class="st0">
+<g>
+	<g>
+		<rect x="-438.1" y="276.5" class="st0" width="6.9" height="1"/>
+	</g>
+	<g>
+		<rect x="-435.2" y="273.6" class="st0" width="1" height="6.9"/>
+	</g>
+	<g>
+		<polygon class="st0" points="-419.9,288.4 -435.2,288.4 -435.2,282.2 -434.2,282.2 -434.2,287.4 -420.9,287.4 -420.9,277.5 
+			-429.5,277.5 -429.5,276.5 -419.9,276.5 		"/>
+	</g>
+	<g>
+		<rect x="-429.5" y="278.9" class="st0" width="9.2" height="1"/>
+	</g>
 </g>
 </svg>
