@@ -51,34 +51,35 @@ WidgetMixin =
                 this.props.mountOrigin.y + this.state.relativePos.y)
 
     wEndDrag: (nativeEvt) ->
-        # reset the tracking state
-        this.setState({trackingOrigin: undefined})
+        if this.state.trackingOrigin?
+            # reset the tracking state
+            this.setState({trackingOrigin: undefined})
 
-        endSlot = this.props.mountCallback(
-            this.props.widgetID,
-            this.props.gridSize,
-            this.state.relativePos.x + 
-                this.props.mountOrigin.x,
-            this.state.relativePos.y +
-                this.props.mountOrigin.y)
+            endSlot = this.props.mountCallback(
+                this.props.widgetID,
+                this.props.gridSize,
+                this.state.relativePos.x + 
+                    this.props.mountOrigin.x,
+                this.state.relativePos.y +
+                    this.props.mountOrigin.y)
 
-        if endSlot?
-            console.log "moving widget"
-            WidgetActions.moveWidget(
-                this.props.widgetID, 
-                this.props.layoutName,
-                endSlot.x, endSlot.y)
+            if endSlot?
+                console.log "moving widget"
+                WidgetActions.moveWidget(
+                    this.props.widgetID, 
+                    this.props.layoutName,
+                    endSlot.x, endSlot.y)
 
-        else
-            console.log "widget move failed endslot=#{endSlot}"
-            domNode = React.findDOMNode(this)
-            # move it to the original position
-            domNode.style.transform = CSS.translate(
-                this.props.mountOrigin.x,
-                this.props.mountOrigin.y)
+            else
+                console.log "widget move failed endslot=#{endSlot}"
+                domNode = React.findDOMNode(this)
+                # move it to the original position
+                domNode.style.transform = CSS.translate(
+                    this.props.mountOrigin.x,
+                    this.props.mountOrigin.y)
 
-            CSS.removeClass(domNode, "dragging")
-    
+                CSS.removeClass(domNode, "dragging")
+        
     widgetStyle: ->
         {
             width: this.props.mountSize.x
