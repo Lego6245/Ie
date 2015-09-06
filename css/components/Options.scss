@@ -13,14 +13,22 @@
     padding: 20px;
     background: #444444;
     color: #FFFFFF;
-    @include transition(0.2s, margin-left);
+
+    max-height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    @include transition(0.2s, transform);
 
     input {
         padding: 5px 0px;
         margin: 10px 0px;
     }
+
+    z-index: 100;
 }
 
 #root.mode-opts #options {
-    margin-left: -250px;
-}
+    transform: translate(-250px, 0);
+    -webkit-transform: translate(-250px, 0)
+
