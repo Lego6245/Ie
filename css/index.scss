@@ -12,6 +12,7 @@
 html, body, #app{
     min-height: 100%;
     width: 100%;
+    overflow-x: hidden;
 }
 
 #root{
@@ -20,4 +21,5 @@ html, body, #app{
     left:   0;
     right:  0;
     bottom: 0;
+    @include transition(.2s, margin-left);
 }

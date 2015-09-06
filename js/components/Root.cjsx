@@ -44,6 +44,7 @@ Root = React.createClass
              >
             <TopBar />
             <WidgetGrid />
+            <OptionsMenu />
             { if pageMode == PAGE_MODES.LIVE
                 <div id="live">
                     <button onClick = { enter(PAGE_MODES.OPTS) }>
@@ -54,7 +55,7 @@ Root = React.createClass
                     </button>
                 </div>
             else if pageMode == PAGE_MODES.OPTS
-                <OptionsMenu />
+                document.getElementById("options").className += "opts-active"
             else if pageMode == PAGE_MODES.EDIT
                 <button onClick={enter(PAGE_MODES.LIVE)}>
                     Exit Edit Mode
