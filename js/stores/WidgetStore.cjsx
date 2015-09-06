@@ -71,6 +71,28 @@ WidgetStore = Reflux.createStore
 
     getWidgetClass: (widgetInstance) ->
         return this.widgetKinds[widgetInstance.widgetKind]
+    
+    findOccupiedSpaces: (grid, ignoreWidgets) ->
+        console.log ignoreWidgets
+        # init OccupiedSpaces
+        occupiedSpaces = new Array(grid.gridDim.x)
+        for ix in [0 .. (grid.gridDim.x - 1)]
+            occupiedSpaces[ix] = new Array(grid.gridDim.y)
+            for iy in [0 .. (grid.gridDim.y - 1)]
+                occupiedSpaces[ix][iy] = false
+
+        # fill spaces occuupied by widgets
+        relevantWidgets = 
+            (w for w in this.widgets when w.uuid not in ignoreWidgets)
+        for widget in relevantWidgets
+            wl = widget.layouts[grid.settingName]
+            if wl?
+                for ix in [0..wl.dimension.x - 1]
+                    for iy in [0..wl.dimension.y - 1]
+                        xo = wl.position.x + ix
+                        yo = wl.position.y + iy
+                        occupiedSpaces[xo][yo] = true
+        return occupiedSpaces
 
     # the initial state of the store from localstorage
     # if that fails, use the default
@@ -111,26 +133,6 @@ WidgetStore = Reflux.createStore
         window.localStorage.setItem(
             "widgets",
             JSON.stringify(this.widgets))
-
-    findOccupiedSpaces = (grid, ignoreWidgets) ->
-        # init OccupiedSpaces
-        occupiedSpaces = new Array(grid.gridDim.x)
-        for ix in [0 .. (grid.gridDim.x - 1)]
-            occupiedSpaces[ix] = new Array(grid.gridDim.y)
-            for iy in [0 .. (grid.gridDim.y - 1)]
-                occupiedSpaces[ix][iy] = false
-
-        # fill spaces occuupied by widgets
-        for widget in (w for w in widgets when w not in ignoreWidgets)
-            wl = widget.layouts[grid.settingName]
-            if wl?
-                for ix in [0..wl.dimension.x - 1]
-                    for iy in [0..wl.dimension.y - 1]
-                        xo = wl.position.x + ix
-                        yo = wl.position.y + iy
-                        occupiedSpaces[xo][yo] = true
-
-        return occupiedSpaces
 
 
 
