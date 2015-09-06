@@ -23,3 +23,7 @@ html, body, #app{
 
     @include transition(.2s, margin-left);
 }
+
+body {
+    font-family: 'Gotham-Book'
+}

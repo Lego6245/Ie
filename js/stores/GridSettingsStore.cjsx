@@ -31,31 +31,7 @@ GridSettingsStore = Reflux.createStore
                 gridDim:
                     x: 4
                     y: 3
-            },
-
-            {  
-                settingName: "small"
-
-                # space between each tile
-                widgetMargin: 2
-
-                # minimum space between the edge of the
-                # window and the internal bits
-                externalMargin:
-                    left:   10
-                    right:  10
-                    top:    10
-                    bottom: 10
-
-                # the basic grid unit of each tile
-                gridUnit:
-                    x: 80
-                    y: 80
-
-                gridDim:
-                    x: 3
-                    y: 4
-            },
+            }
         ]
 
     # the initial state of the store from localstorage

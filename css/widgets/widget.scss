@@ -1,14 +1,12 @@
 @import '../globals';
 
 .widget {
-    background-color: #efefef;
     @include box-shadow(0px, 5px, 8px, rgba(0,0,0,0.2));
-    border: 1px solid #eeeeee;
+    //border: 1px solid #eeeeee;
     @include border-radius(2px);
 
     font-family: sans-serif;
     font-size: 11px;
-    padding: 11px;
 
     position:absolute;
     top:0;
@@ -19,4 +17,86 @@
 
 .widget.dragging {
     @include transition(200ms, none);
+}
+
+
+// BEGIN PJCSS
+.widget { 
+    font-family: 'Gotham-Book';
+
+    .window-bar {
+        height: 32px;
+        float: left;
+        width: 100%;
+    }
+
+    h3 {
+        font-family: 'Gotham-Book';
+        font-weight: 300;
+        font-size: 11px;
+        color: #FFFBF5;
+        text-transform: uppercase;
+        display: inline-block;
+        line-height: 32px;
+        float: right;
+        padding: 0 5px;
+        margin-right: 5px;
+    }
+    h4 {
+        font-family: 'Gotham-Bold';
+        font-size: 11px;
+        color: #FFFBF5;
+        text-transform: uppercase;
+        display: inline-block;
+        line-height: 32px;
+        float: left;
+        padding-left: 9px;
+        padding-right: 9px;
+        border-left-color: #FFFBF5;
+        border-left-style: solid;
+        border-left-width: 1px;
+        transition: all .2s ease-in-out;
+    }
+    h4:hover {
+        background-color: #765b70;
+    }
+
+    .icon {
+        float: left;
+        height: 32px;
+        display: inline-block;
+    }
+    .options {
+        float: right;
+        width: 38px;
+        height: 32px;
+    }
+    a .options {
+        transition: all .2s ease-in-out;
+    }
+    a .options:hover {
+        background-color: #765b70;
+    }
+    .window {
+        width: 32px;
+        height: 32px;
+    }
+    .read-more {
+        bottom: 0;
+        position: absolute;
+        float: left;
+        height: 20px;
+        width: 100%;
+        transition: all .2s ease-in-out;
+    }
+    .read-more-icon {
+        width: 20px;
+        height: 20px;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+    }
+    .read-more:hover {
+    }
+
 }
