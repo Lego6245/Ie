@@ -1,0 +1,27 @@
+.message {
+	font-size: 11px;
+	background: #FFFBF5;
+	transition: all .2s ease-in-out;
+	height: 89px;
+	float: left;
+	overflow: hidden;
+	padding: 10px;
+}
+.message-title {
+	font-family: 'Gotham-Bold';
+	color: 515151;
+	display: block;
+}
+.message-author {
+	font-size: 10px;
+	color: 9B9B9B;
+	display: block;
+	margin-bottom: 10px;
+}
+.message-message {
+	color: #7F7F7F;
+	display: block;
+}
+.message:hover {
+	background: #f7f2ec;
+}

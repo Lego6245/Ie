@@ -1,7 +1,7 @@
 /*
 colors
 
-purple: #765b70;
+purple: #604A5B;
 light-purple: #765b70;
 beige: #FFFBF5;
 */
@@ -21,11 +21,13 @@ body {
 	width: 320px;
 	height: 320px;
 	background-color: #FFFBF5;
+	position: relative;
 }
 #wide {
 	width: 320px;
 	height: 150px;
 	background-color: #FFFBF5;
+	position: relative;
 }
 #window-bar {
 	background-color: #604A5B;
@@ -45,6 +47,25 @@ h3 {
 	padding: 0 5px;
 	margin-right: 5px;
 }
+h4 {
+	font-family: 'Gotham-Bold';
+	font-size: 11px;
+	color: #FFFBF5;
+	text-transform: uppercase;
+	display: inline-block;
+	line-height: 32px;
+	float: left;
+	padding-left: 9px;
+	padding-right: 9px;
+	border-left-color: #FFFBF5;
+	border-left-style: solid;
+	border-left-width: 1px;
+	transition: all .2s ease-in-out;
+}
+h4:hover {
+	background-color: #765b70;
+}
+
 .icon {
 	float: left;
 	height: 32px;
@@ -64,4 +85,22 @@ a .options:hover {
 .window {
 	width: 32px;
 	height: 32px;
+}
+.read-more {
+	bottom: 0;
+	position: absolute;
+	float: left;
+	height: 20px;
+	width: 100%;
+	transition: all .2s ease-in-out;
+}
+.read-more-icon {
+	width: 20px;
+	height: 20px;
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+}
+.read-more:hover {
+	background-color: #ebe4d9;
 }
