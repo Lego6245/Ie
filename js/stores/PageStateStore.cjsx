@@ -1,5 +1,5 @@
-PAGE_MODES = require("../constants.cjsx").PAGE_MODES
-UIActions = require("../actions.cjsx").UIActions
+PAGE_MODES = (require "../constants.cjsx").PAGE_MODES
+UIActions = (require "../actions.cjsx").UIActions
 
 PageStateStore = Reflux.createStore
     listenables: [UIActions]

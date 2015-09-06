@@ -1,8 +1,10 @@
-PAGE_MODES = require("../constants.cjsx").PAGE_MODES
-BKG_MODES = require("../constants.cjsx").BKG_MODES
+CONSTANTS = require("../constants.cjsx")
+PAGE_MODES = CONSTANTS.PAGE_MODES
+BKG_MODES = CONSTANTS.BKG_MODES
+
 OptionActions = require("../actions.cjsx").OptionActions
 
-colorRegex = new RegExp("#[0-9a-fA-F]{6}")
+colorRegex = new RegExp("#[0-9a-fA-F]{3,6}")
 isColor = (str) -> colorRegex.test(str)
 isNonNull = (val) -> val?
 isNumeric = (val) -> not isNaN(parseFloat(n)) and isFinite(n)
