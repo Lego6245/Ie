@@ -14,19 +14,19 @@ NavButton = React.createClass
 
     _handleClick: ->
         if this.state.pageState == this.props.target
-            UIActions.enterMode(PAGE_MODES.LIVE) 
+            UIActions.enterMode(PAGE_MODES.LIVE)
         else
-            UIActions.enterMode(this.state.pageState)
+            UIActions.enterMode(this.props.target)
 
     render: ->
         classes =
             "nav-button": true
             "active": this.props.target == this.state.pageState
 
-        <div className={classNames classes}
+        <a className={classNames classes}
              onClick={this._handleClick}>
             {this.props.children}
-        </div>
+        </a>
 
 
 TopBar = React.createClass
@@ -43,10 +43,10 @@ TopBar = React.createClass
              className={classNames classes}
              style={{height: this.state.userStyle.topbarHeight}}>
             <NavButton target={PAGE_MODES.EDIT}>
-                <img src="./img/edit.svg">
+                <img src="./img/icons/edit-mode.svg" />
             </NavButton>
             <NavButton target={PAGE_MODES.OPTS}>
-                <img src="./img/options.svg">
+                <img src="./img/icons/options-mode.svg" />
             </NavButton>
         </nav>
 

@@ -67,7 +67,9 @@ WidgetMixin =
                 this.state.relativePos.y +
                     this.props.mountOrigin.y)
 
-            if endSlot?
+            gp = this.props.gridPosition
+            if endSlot? and (endSlot.x != gp.x or endSlot.y != gp.y)
+                
                 console.log "moving widget"
                 WidgetActions.moveWidget(
                     this.props.widgetID, 

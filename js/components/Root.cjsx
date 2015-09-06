@@ -45,23 +45,6 @@ Root = React.createClass
             <TopBar />
             <WidgetGrid />
             <OptionsMenu />
-            { if pageMode == PAGE_MODES.LIVE
-                <div id="live">
-                    <button onClick = { enter(PAGE_MODES.OPTS) }>
-                        Go To Options
-                    </button>
-                    <button onClick = { enter(PAGE_MODES.EDIT) }>
-                        Edit
-                    </button>
-                </div>
-            else if pageMode == PAGE_MODES.EDIT
-                <button onClick={enter(PAGE_MODES.LIVE)}>
-                    Exit Edit Mode
-                </button>
-            else
-                <span>Error: State not recognized!</span>
-            }
-
         </div>
 
 module.exports = Root
