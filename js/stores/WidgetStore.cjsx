@@ -73,7 +73,6 @@ WidgetStore = Reflux.createStore
         return this.widgetKinds[widgetInstance.widgetKind]
     
     findOccupiedSpaces: (grid, ignoreWidgets) ->
-        console.log ignoreWidgets
         # init OccupiedSpaces
         occupiedSpaces = new Array(grid.gridDim.x)
         for ix in [0 .. (grid.gridDim.x - 1)]

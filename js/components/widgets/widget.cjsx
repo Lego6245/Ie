@@ -1,5 +1,6 @@
-GridSettingsStore = require "../../stores/GridSettingsStore.cjsx"
-UserStyleStore = require "../../stores/UserStyleStore.cjsx"
+CSS = require "../../csshelpers.cjsx"
+GridOptionStore = require "../../stores/GridOptionStore.cjsx"
+StyleSettingStore = require "../../stores/StyleSettingStore.cjsx"
 DragStore = require "../../stores/DragStore.cjsx"
 
 WidgetActions = (require "../../actions.cjsx").WidgetActions
@@ -14,7 +15,7 @@ createWidgetClass = (obj) ->
 
 WidgetMixin =
 
-    mixins: [Reflux.connect(UserStyleStore, "userStyle")]
+    mixins: [Reflux.connect(StyleSettingStore, "userStyle")]
 
     componentDidMount: () ->
         window.addEventListener('mousemove', this.wContinueDrag)

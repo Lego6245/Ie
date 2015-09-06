@@ -1,5 +1,5 @@
-GridSettingsStore = require "../stores/GridSettingsStore.cjsx"
-UserStyleStore = require "../stores/UserStyleStore.cjsx"
+GridOptionStore = require "../stores/GridOptionStore.cjsx"
+StyleSettingStore = require "../stores/StyleSettingStore.cjsx"
 WidgetStore = require "../stores/WidgetStore.cjsx"
 
 translate = (require "../csshelpers.cjsx").translate
@@ -26,9 +26,9 @@ WidgetGrid = React.createClass
     displayName: "WidgetGrid"
 
     mixins: [
-        Reflux.connect(GridSettingsStore, "grid"),
+        Reflux.connect(GridOptionStore, "grid"),
         Reflux.connect(WidgetStore, "widgets")
-        Reflux.connect(UserStyleStore, "userStyle")
+        Reflux.connect(StyleSettingStore, "userStyle")
     ]
 
     ####################################
@@ -54,7 +54,7 @@ WidgetGrid = React.createClass
 
     _resizeWindow: ->
         this._centerWithMargin()
-        GridSettingsStore.pickGridAndTrigger()
+        GridOptionStore.pickGridAndTrigger()
 
     ###############################
     # fitting widgets to the grid #
