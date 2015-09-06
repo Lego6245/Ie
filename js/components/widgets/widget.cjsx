@@ -1,6 +1,6 @@
 CSS = require "../../csshelpers.cjsx"
 GridSettingsStore = require "../../stores/GridSettingsStore.cjsx"
-UserStyleStore = require "../../stores/GlobalOptionsStore.cjsx"
+UserStyleStore = require "../../stores/UserStyleStore.cjsx"
 WidgetActions = (require "../../actions.cjsx").WidgetActions
 
 createWidgetClass = (obj) ->

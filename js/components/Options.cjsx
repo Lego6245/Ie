@@ -4,7 +4,7 @@ CONSTANTS = require("../constants.cjsx")
 PAGE_MODES = CONSTANTS.PAGE_MODES
 BKG_MODES = CONSTANTS.BKG_MODES
 
-GlobalOptionsStore = require("../stores/GlobalOptionsStore.cjsx")
+UserStyleStore = require("../stores/UserStyleStore.cjsx")
 PageStateStore = require("../stores/PageStateStore.cjsx")
 
 Actions = require("../actions.cjsx")
@@ -14,10 +14,10 @@ OptionActions = Actions.OptionActions
 Options = React.createClass
     displayName: "Options"
 
-    mixins: [Reflux.connect(GlobalOptionsStore, "globalOptions")]
+    mixins: [Reflux.connect(UserStyleStore, "globalOptions")]
 
     _handleEditOption: (name, event) ->
-        if GlobalOptionsStore.validateOption(name, event.target.value)
+        if UserStyleStore.validateOption(name, event.target.value)
             console.log "passed validation (#{name}, #{event.target.value})"
             OptionActions.editOption(
                 name,

@@ -1,5 +1,5 @@
 GridSettingsStore = require "../stores/GridSettingsStore.cjsx"
-UserStyleStore = require "../stores/GlobalOptionsStore.cjsx"
+UserStyleStore = require "../stores/UserStyleStore.cjsx"
 WidgetStore = require "../stores/WidgetStore.cjsx"
 translate = (require "../csshelpers.cjsx").translate
 
