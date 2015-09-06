@@ -13,7 +13,8 @@
     "url": "git://github.com/Adjective-Object/Ie.git"
   },
   "devDependencies": {
-    "core-js": "^1.1.4"
+    "core-js": "^1.1.4",
+    "grunt-sass": "^1.0.0"
   },
   "dependencies": {
     "ajax-request": "^1.2.1",

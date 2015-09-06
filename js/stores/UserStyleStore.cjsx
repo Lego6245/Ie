@@ -38,7 +38,7 @@ UserStyleStore = Reflux.createStore
         topBarHeight:       isNumeric
     }
 
-    getInitialState: -> 
+    getInitialState: ->
         storageState = window.localStorage.getItem(this.storeName)
         if storageState
             this.globalSettings = JSON.parse(storageState)
@@ -46,7 +46,7 @@ UserStyleStore = Reflux.createStore
 
     validateOption: (fieldName, fieldValue) ->
         return this.verifiers[fieldName](fieldValue)
-        
+
     onEditOption: (fieldName, fieldValue) ->
         this.globalSettings[fieldName] = fieldValue
         this.cacheAndTrigger()

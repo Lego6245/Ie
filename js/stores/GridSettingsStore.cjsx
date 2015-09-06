@@ -9,7 +9,7 @@ GridSettingsStore = Reflux.createStore
     gridSettings:
         currentSettingsIndex: 0
         grids: [
-            {  
+            {
                 settingName: "large"
 
                 # space between each tile
@@ -40,7 +40,7 @@ GridSettingsStore = Reflux.createStore
         storageState = window.localStorage.getItem(this.storeName)
         if storageState
             this.gridSettings = JSON.parse(storageState)
-        this.recalculateCurrentGrid()
+        this.pickGrid()
         return this.getCurrentGrid()
 
     ###################
@@ -51,25 +51,25 @@ GridSettingsStore = Reflux.createStore
         this.gridSettings[index] = newGrid
         this.updateCacheAndTrigger()
 
-    ###########
-    # helpers #
-    ###########
+    #############################
+    # selecting the active grid #
+    #############################
 
     # determine which grid to use, based on the current window dimensions
     # returns true if the current grid changed. Gives priority to ones
     # earlier on in the array
-    recalculateCurrentGrid: ->
+    pickGrid: ->
         oldGridIndex = this.gridSettings.currentSettingsIndex
         windowWidth = window.innerWidth
         windowHeight = window.innerHeight
 
         calculateGridSize = (grid) ->
-            w = grid.externalMargin.left + 
+            w = grid.externalMargin.left +
                 grid.externalMargin.right +
                 (grid.gridUnit.x + grid.widgetMargin) * grid.gridDim.x +
                 grid.widgetMargin
 
-            h = grid.externalMargin.top + 
+            h = grid.externalMargin.top +
                 grid.externalMargin.bottom +
                 (grid.gridUnit.y + grid.widgetMargin) * grid.gridDim.y +
                 grid.widgetMargin
@@ -87,8 +87,8 @@ GridSettingsStore = Reflux.createStore
 
         return this.gridSettings.currentSettingsIndex != oldGridIndex
 
-    recalculateCurrentGridAndTrigger: ->
-        if this.recalculateCurrentGrid()
+    pickGridAndTrigger: ->
+        if this.pickGrid()
             this.updateCacheAndTrigger()
 
     # get the current grid object

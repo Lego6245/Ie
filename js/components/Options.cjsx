@@ -101,8 +101,8 @@ Options = React.createClass
         document.getElementById("options").className = ""
         UIActions.enterMode(PAGE_MODES.LIVE)
 
-    # getInitialState: 
+    # getInitialState:
     #   GlobalSettingsStore.getInitialState.bind(GlobalSettingsStore)
-                    
+
 
 module.exports = Options
