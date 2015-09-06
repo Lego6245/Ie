@@ -1,4 +1,4 @@
-GridSettingsStore = Reflux.createStore
+GridOptionStore = Reflux.createStore
     # actions this store listens to
     # listenables: [SettingsActions]
 
@@ -103,4 +103,4 @@ GridSettingsStore = Reflux.createStore
             JSON.stringify(this.gridSettings))
 
         this.trigger(this.getCurrentGrid())
-module.exports = GridSettingsStore
+module.exports = GridOptionStore
