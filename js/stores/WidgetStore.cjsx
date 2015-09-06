@@ -39,11 +39,33 @@ WidgetStore = Reflux.createStore
         },
         {
             widgetKind: "picture"
+            data: 
+                img: "img/mocks/happy-tile-20.png"
             layouts:
                 large:
-                    position: {x: 2, y: 2}
+                    position: {x: 4, y: 0}
                     dimension: {x: 2, y: 1}
             uuid: "fake-uuid-4"
+        },
+        {
+            widgetKind: "picture"
+            data: 
+                img: "img/mocks/tile-21.png"
+            layouts:
+                large:
+                    position: {x: 4, y: 1}
+                    dimension: {x: 2, y: 1}
+            uuid: "fake-uuid-5"
+        },
+        {
+            widgetKind: "picture"
+            data: 
+                img: "img/mocks/tile-22.png"
+            layouts:
+                large:
+                    position: {x: 4, y: 2}
+                    dimension: {x: 2, y: 1}
+            uuid: "fake-uuid-6"
         }
     ]
 
