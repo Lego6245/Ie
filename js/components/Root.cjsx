@@ -54,8 +54,6 @@ Root = React.createClass
                         Edit
                     </button>
                 </div>
-            else if pageMode == PAGE_MODES.OPTS
-                document.getElementById("options").className += "opts-active"
             else if pageMode == PAGE_MODES.EDIT
                 <button onClick={enter(PAGE_MODES.LIVE)}>
                     Exit Edit Mode
