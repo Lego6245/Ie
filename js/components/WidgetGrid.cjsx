@@ -95,6 +95,8 @@ WidgetGrid = React.createClass
     render: ->
         grid = this.state.grid
 
+        console.dir(WidgetStore)
+
         occupiedSpaces =
             WidgetStore.findOccupiedSpaces(
                 this.state.grid, [])
