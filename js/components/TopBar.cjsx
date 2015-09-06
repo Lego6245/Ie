@@ -9,12 +9,12 @@ NavButton = React.createClass
     displayName: "NavButton"
 
     mixins: [
-        Reflux.connect(PageStateStore, "pageState").
+        Reflux.connect(PageStateStore, "pageState")
     ]
 
     _handleClick: ->
         if this.state.pageState == this.props.target
-            UIActions.enterMode(PAGE_MODES.LIVE)
+            UIActions.enterMode(PAGE_MODES.LIVE) 
         else
             UIActions.enterMode(this.state.pageState)
 
@@ -24,9 +24,10 @@ NavButton = React.createClass
             "active": this.props.target == this.state.pageState
 
         <div className={classNames classes}
-             onClick={this._handleClick}
+             onClick={this._handleClick}>
             {this.props.children}
         </div>
+
 
 TopBar = React.createClass
     displayName: "TopBar"
@@ -36,15 +37,16 @@ TopBar = React.createClass
     render: ->
         pageMode = this.state.pageState
 
-        <nav id="topbar"
-             className={classNames(classes)}>
-                <NavButton target={PAGE_MODES.EDIT}>
-                    <img src="./img/edit.svg">
-                </NavButton>
-                <NavButton target={PAGE_MODES.OPTS}>
-                    <img src="./img/options.svg">
-                </NavButton>
-            </div>
+        classes = {}
+
+        <nav id="top-bar"
+             className={classNames classes}>
+            <NavButton target={PAGE_MODES.EDIT}>
+                <img src="./img/edit.svg">
+            </NavButton>
+            <NavButton target={PAGE_MODES.OPTS}>
+                <img src="./img/options.svg">
+            </NavButton>
         </nav>
 
-module.exports = Root
+module.exports = TopBar
