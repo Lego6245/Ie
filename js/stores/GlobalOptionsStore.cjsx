@@ -5,6 +5,7 @@ OptionActions = require("../actions.cjsx").OptionActions
 colorRegex = new RegExp("#[0-9a-fA-F]{6}")
 isColor = (str) -> colorRegex.test(str)
 isNonNull = (val) -> val?
+isNumeric = (val) -> not isNaN(parseFloat(n)) and isFinite(n)
 
 GlobalOptionsStore = Reflux.createStore
     listenables: [OptionActions]
@@ -20,6 +21,7 @@ GlobalOptionsStore = Reflux.createStore
         backgroundMode:   BKG_MODES.BKG_COLOR
         backgroundImage:  null
         backgroundColor:  "#222222"
+        topbarHeight: 50
     }
 
     verifiers: {
@@ -31,6 +33,7 @@ GlobalOptionsStore = Reflux.createStore
         backgroundColor:    isColor
         backgroundMode:     isNonNull
         backgroundImage:    isNonNull
+        topBarHeight:       isNumeric
     }
 
     getInitialState: -> 

@@ -33,14 +33,15 @@ TopBar = React.createClass
     displayName: "TopBar"
 
     mixins: [
-        Reflux.connect(GlobalOptionsStore, "globalOptions")]
+        Reflux.connect(GlobalOptionsStore, "userStyle")]
     render: ->
         pageMode = this.state.pageState
 
         classes = {}
 
         <nav id="top-bar"
-             className={classNames classes}>
+             className={classNames classes}
+             style={{height: this.state.userStyle.topbarHeight}}>
             <NavButton target={PAGE_MODES.EDIT}>
                 <img src="./img/edit.svg">
             </NavButton>

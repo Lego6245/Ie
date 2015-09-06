@@ -1,4 +1,5 @@
 GridSettingsStore = require "../stores/GridSettingsStore.cjsx"
+UserStyleStore = require "../stores/GlobalOptionsStore.cjsx"
 WidgetStore = require "../stores/WidgetStore.cjsx"
 translate = (require "../csshelpers.cjsx").translate
 
@@ -46,6 +47,7 @@ WidgetGrid = React.createClass
     mixins: [
         Reflux.connect(GridSettingsStore, "grid"),
         Reflux.connect(WidgetStore, "widgets")
+        Reflux.connect(UserStyleStore, "userStyle")
     ]
 
     componentDidMount: ->
@@ -57,8 +59,15 @@ WidgetGrid = React.createClass
 
     _centerWithMargin: ->
         wrapper = React.findDOMNode(this.refs.wrapper)
-        wrapper.style.marginTop =
-            "#{Math.max(0, (window.innerHeight - wrapper.offsetHeight) / 2)}px"
+
+        topBarHeight = this.state.userStyle.topbarHeight
+        
+        availableSpace = window.innerHeight - topBarHeight
+        innerPadding = Math.max(0, (availableSpace - wrapper.offsetHeight) / 2)
+
+        console.log topBarHeight, innerPadding
+
+        wrapper.style.marginTop = "#{topBarHeight + innerPadding}px"
 
     _resizeWindow: ->
         this._centerWithMargin()

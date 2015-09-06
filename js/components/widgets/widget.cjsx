@@ -1,5 +1,6 @@
 CSS = require "../../csshelpers.cjsx"
 GridSettingsStore = require "../../stores/GridSettingsStore.cjsx"
+UserStyleStore = require "../../stores/GlobalOptionsStore.cjsx"
 WidgetActions = (require "../../actions.cjsx").WidgetActions
 
 createWidgetClass = (obj) ->
@@ -9,6 +10,9 @@ createWidgetClass = (obj) ->
     React.createClass(obj)
 
 WidgetMixin =
+
+    mixins: [Reflux.connect(UserStyleStore, "userStyle")]
+
     componentDidMount: () ->
         window.addEventListener('mousemove', this.wContinueDrag)
         window.addEventListener('mouseup', this.wEndDrag)
@@ -87,6 +91,11 @@ WidgetMixin =
             transform: CSS.translate(
                 this.props.mountOrigin.x,
                 this.props.mountOrigin.y)
+
+            # requires that the wiuget listen to userStyle
+            backgroundColor: this.state.userStyle.widgetBackground
+            color: this.state.userStyle.widgetForeground
+            border: this.state.userStyle.widgetForeground
         }
 
     ShouldComponentUpdate: (nextState) ->
