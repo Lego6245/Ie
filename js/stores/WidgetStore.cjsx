@@ -7,6 +7,7 @@ WidgetStore = Reflux.createStore
     widgetKinds : {
          timer: require "../components/widgets/TimeWidget.cjsx"
          mail: require "../components/widgets/Mail.cjsx"
+         weather: require "../components/widgets/Weather.cjsx"
     }
 
     # default state
@@ -26,6 +27,14 @@ WidgetStore = Reflux.createStore
                     position: {x: 0, y: 1}
                     dimension: {x: 2, y: 2}
             uuid: "fake-uuid-2"
+        },
+        {
+            widgetKind: "weather"
+            layouts:
+                large:
+                    position: {x: 2, y: 0}
+                    dimension: {x: 2, y: 2}
+            uuid: "fake-uuid-3"
         }
     ]
 

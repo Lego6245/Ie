@@ -68,10 +68,7 @@ TimeWidget = Widget.createWidgetClass
 
              <div className="window-bar"
                   style={invertedColors}>
-                <object type="image/svg+xml"
-                        data="img/icons/email.svg"
-                        className="icon window">
-                </object>
+                <img src="img/icons/email.svg" />
                 <a href="#">
                     <span className="icon options">
                         <img src="img/icons/options-icon.svg" />
