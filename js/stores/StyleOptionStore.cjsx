@@ -1,10 +1,9 @@
-CONSTANTS = require("../constants.cjsx")
+CONSTANTS  = require("../constants.cjsx")
 PAGE_MODES = CONSTANTS.PAGE_MODES
-BKG_MODES = CONSTANTS.BKG_MODES
+BKG_MODES  = CONSTANTS.BKG_MODES
 
 OptionActions = require("../actions.cjsx").OptionActions
-OptionMixin = require("./OptionMixin.cjsx")
-Option = require("./Option.cjsx")
+Options       = require("./Option.cjsx")
 
 colorRegex = new RegExp("#[0-9a-fA-F]{3,6}")
 isColor = (str) -> colorRegex.test(str)

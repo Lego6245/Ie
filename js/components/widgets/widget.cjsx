@@ -1,11 +1,10 @@
-CSS = require "../../csshelpers.cjsx"
-GridOptionStore = require "../../stores/GridOptionStore.cjsx"
-StyleOptionStore = require "../../stores/StyleOptionStore.cjsx"
-DragStore = require "../../stores/DragStore.cjsx"
+CSS = require("../../csshelpers.cjsx")
 
-WidgetActions = (require "../../actions.cjsx").WidgetActions
+GridOptionStore  = require("../../stores/GridOptionStore.cjsx")
+StyleOptionStore = require("../../stores/StyleOptionStore.cjsx")
+DragStore        = require("../../stores/DragStore.cjsx")
 
-CSS = require "../../csshelpers.cjsx"
+WidgetActions = require("../../actions.cjsx").WidgetActions
 
 createWidgetClass = (obj) ->
     if not obj.acceptsDim?
