@@ -4,16 +4,15 @@ BKG_MODES = CONSTANTS.BKG_MODES
 
 OptionActions = require("../actions.cjsx").OptionActions
 OptionMixin = require("./OptionMixin.cjsx")
+Option = require("./Option.cjsx")
 
 colorRegex = new RegExp("#[0-9a-fA-F]{3,6}")
 isColor = (str) -> colorRegex.test(str)
 isNonNull = (val) -> val?
 isNumeric = (val) -> not isNaN(parseFloat(n)) and isFinite(n)
 
-StyleOptionStore = Reflux.createStore
+StyleOptionStore = Option.createStore
     storeName: "StyleOptionStore"
-
-    mixins: [OptionMixin]
 
     options: {
         widgetBackground: "#FFFBF5"
@@ -24,10 +23,10 @@ StyleOptionStore = Reflux.createStore
         backgroundMode:   BKG_MODES.BKG_COLOR
         backgroundImage:  null
         backgroundColor:  "#222222"
-        topbarHeight: 50
+        topBarHeight: 50
     }
 
-    verifiers: {
+    validators: {
         widgetBackground:   isColor
         widgetBorder:       isColor
         widgetForeground:   isColor
