@@ -1,6 +1,7 @@
-OptionActions = require("../actions.cjsx").OptionActions
-_ = require "lodash"
 invariant = require "invariant"
+_         = require "lodash"
+
+OptionActions = require("../actions.cjsx").OptionActions
 
 OptionMixin = 
     listenables: [OptionActions]

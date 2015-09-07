@@ -1,18 +1,17 @@
 ReactCSSTransitionGroup = React.addons.CSSTransitionGroup
 
-CONSTANTS = require "../constants.cjsx"
+CONSTANTS  = require("../constants.cjsx")
 PAGE_MODES = CONSTANTS.PAGE_MODES
-BKG_MODES = CONSTANTS.BKG_MODES
+BKG_MODES  = CONSTANTS.BKG_MODES
 
 UserInfoOptionStore = require("../stores/UserInfoOptionStore.cjsx")
-StyleOptionStore = require("../stores/StyleOptionStore.cjsx")
-GridOptionStore = require("../stores/GridOptionStore.cjsx")
-
+StyleOptionStore    = require("../stores/StyleOptionStore.cjsx")
+GridOptionStore     = require("../stores/GridOptionStore.cjsx")
 
 PageStateStore = require("../stores/PageStateStore.cjsx")
 
-Actions = require "../actions.cjsx"
-UIActions = Actions.UIActions
+Actions       = require("../actions.cjsx")
+UIActions     = Actions.UIActions
 OptionActions = Actions.OptionActions
 
 legibleVariableName = (str) ->
