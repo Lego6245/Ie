@@ -2,14 +2,17 @@ CONSTANTS = require "../constants.cjsx"
 PAGE_MODES = CONSTANTS.PAGE_MODES
 BKG = CONSTANTS.BKG_MODES
 
-PageStateStore = require("../stores/PageStateStore.cjsx")
+UserInfoOptionStore = require("../stores/UserInfoOptionStore.cjsx")
 StyleOptionStore = require("../stores/StyleOptionStore.cjsx")
+
+PageStateStore = require("../stores/PageStateStore.cjsx")
 WidgetStore = require "../stores/WidgetStore.cjsx"
 DragStore = require "../stores/DragStore.cjsx"
 
 Actions = require "../actions.cjsx"
 UIActions = Actions.UIActions
 WidgetActions = Actions.WidgetActions
+
 
 NavButton = React.createClass
     displayName: "NavButton"
@@ -82,7 +85,10 @@ TopBar = React.createClass
     displayName: "TopBar"
 
     mixins: [
-        Reflux.connect(StyleOptionStore, "userStyle")]
+        Reflux.connect(StyleOptionStore, "userStyle")
+        Reflux.connect(UserInfoOptionStore, "userInfo")
+    ]
+
     render: ->
         pageMode = this.state.pageState
 
@@ -98,7 +104,7 @@ TopBar = React.createClass
                 <img src="./img/icons/options-mode.png" />
             </NavButton>
             <WidgetTrash />
-            <h1 id="motd">Welcome, Gabriel</h1>
+            <h1 id="motd">Welcome, {this.state.userInfo.name}</h1>
         </nav>
 
 module.exports = TopBar

@@ -1,12 +1,10 @@
-OptionMixin = require("./OptionMixin.cjsx")
+Option = require("./Option.cjsx")
 
 isNumeric = (val) -> not isNaN(parseFloat(n)) and isFinite(n)
 isString = (val) -> typeof val is 'string'
 
-UserInfoOptionStore = Reflux.createStore
+UserInfoOptionStore = Option.createStore
     storeName: "UserInfoOptionStore"
-
-    mixins: [OptionMixin]
 
     options: {
         name:       "Unknown"
@@ -14,7 +12,7 @@ UserInfoOptionStore = Reflux.createStore
         timezone:   "EST"
     }
 
-    verifiers: {
+    validators: {
         name: isString
         locale:   isString # TODO use an enum type for this
         timezone: isString

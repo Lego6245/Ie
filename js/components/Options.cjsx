@@ -4,8 +4,11 @@ CONSTANTS = require "../constants.cjsx"
 PAGE_MODES = CONSTANTS.PAGE_MODES
 BKG_MODES = CONSTANTS.BKG_MODES
 
+UserInfoOptionStore = require("../stores/UserInfoOptionStore.cjsx")
 StyleOptionStore = require("../stores/StyleOptionStore.cjsx")
 GridOptionStore = require("../stores/GridOptionStore.cjsx")
+
+
 PageStateStore = require("../stores/PageStateStore.cjsx")
 
 Actions = require "../actions.cjsx"
@@ -26,20 +29,21 @@ Options = React.createClass
 
     mixins: [
         Reflux.connect(StyleOptionStore, "styleOptions"),
-        Reflux.connect(GridOptionStore, "gridOptions")]
+        Reflux.connect(GridOptionStore, "gridOptions"),
+        Reflux.connect(UserInfoOptionStore, "userInfoOptions")]
 
-    _handleEditOption: (name, event) ->
-        if StyleOptionStore.validateOption(name, event.target.value)
+    _handleEditOption: (store, name, event) ->
+        if store.validateOption(name, event.target.value)
             console.log "passed validation (#{name}, #{event.target.value})"
-            OptionActions.editOption(
+            store.onEditOption(
                 name,
                 event.target.value)
         else
             console.log "failed validation (#{name}, #{event.target.value})"
 
-    _editOption: (name) ->
+    _editOption: (store, name) ->
         self = this
-        (event) -> self._handleEditOption(name, event)
+        (event) -> self._handleEditOption(store, name, event)
 
     _handleBackgroundToggle: (event) ->
         mode = BKG_MODES.BKG_COLOR
@@ -70,16 +74,16 @@ Options = React.createClass
 
     render: () ->
         self = this
-        inputFromField = (fieldName, fieldValue) ->
+        inputFromField = (store, fieldName, fieldValue) ->
             inputType = switch typeof fieldValue
                 when "string" then "text"
                 when "boolean" then "checkbox"
                 else "text"
 
-            callback = self._editOption(fieldName)
+            callback = self._editOption(store, fieldName)
 
-            return <label 
-                htmlFor={fieldName} 
+            return <label
+                htmlFor={fieldName}
                 key={fieldName}>
                 {legibleVariableName(fieldName)}
                 <input type={inputType}
@@ -88,11 +92,17 @@ Options = React.createClass
                     onChange={callback} />
             </label>
 
-        makeOptions = (obj) ->
-            (inputFromField(key, obj[key]) for key in Object.keys(obj))
+        makeOptions = (store, obj) ->
+            (inputFromField(store, key, obj[key]) for key in Object.keys(obj))
 
         userStyleInputs = makeOptions(
+            StyleOptionStore,
             this.state.styleOptions)
+
+        userInfoInputs = makeOptions(
+            UserInfoOptionStore,
+            this.state.userInfoOptions)
+
 
         # gridStyleInputs = this._makeOptions(
         #     GridOptionStore,
@@ -101,10 +111,13 @@ Options = React.createClass
         <div id="options">
             <h1>Style</h1>
             {userStyleInputs}
-            
+
+            <h1>User Info</h1>
+            {userInfoInputs}
+
             <h1>Install Widgets</h1>
             todo: put anything here
-            
+
             <button onClick = { this._exitOptionsMode }>
                 Close Menu
             </button>
