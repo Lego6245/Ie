@@ -31,16 +31,26 @@ task 'default', [SOURCE_BUNDLE], () ->
 # TODO set up some kind of mutex to prevent overlapping builds
 desc 'rebuild the default task on source change'
 task 'dev', ['default'], ()->
-    buildDefault = (fname) ->
-        if not buildLocked
-            buildLocked = true
-            process.stdout.write "(\u0394 #{fname}) => "
-            jake.Task['force-build'].execute()
+    collectedFiles = []
+    buildTimer = undefined
+
+    buildDefault = ->
+        buildTimer = undefined
+        process.stdout.write " => "
+        jake.Task['force-build'].execute()
+
+    requestBuild = (fname) ->
+        if buildTimer?
+            clearTimeout buildTimer
+            process.stdout.write "\n"
+
+        process.stdout.write "(\u0394 #{fname})"
+        buildTimer = setTimeout buildDefault, 100
 
     console.log "watching 'js/' and 'css/' for changes.."
 
-    watch "js", buildDefault
-    watch "css", buildDefault
+    watch "js", requestBuild
+    watch "css", requestBuild
 
 
 
@@ -73,7 +83,7 @@ task 'force-build', () ->
     buildEngine.add './js/init.cjsx'
 
     # build and write the bundle
-    writeStream = 
+    writeStream =
         fs.createWriteStream(SOURCE_BUNDLE, {flags: 'a'})
             .on('finish', ()->
                 console.log 'build finished')
