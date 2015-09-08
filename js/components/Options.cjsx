@@ -1,4 +1,5 @@
-ReactCSSTransitionGroup = React.addons.CSSTransitionGroup
+Reflux = require("reflux")
+React  = require("react/addons")
 
 CONSTANTS  = require("../constants.cjsx")
 PAGE_MODES = CONSTANTS.PAGE_MODES

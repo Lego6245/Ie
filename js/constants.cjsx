@@ -1,13 +1,15 @@
-PAGE_MODES = {
-    LIVE: 0
-    EDIT: 1
-    OPTS: 2
-}
+Enum = require("enum")
 
-BKG_MODES = {
-    BKG_COLOR: 100
-    BKG_IMG:   101
-}
+PAGE_MODES = new Enum([
+    "LIVE",
+    "EDIT",
+    "OPTS"    
+])
+
+BKG_MODES = new Enum([
+    "BKG_COLOR",
+    "BKG_IMG"
+])
 
 module.exports = {
     PAGE_MODES: PAGE_MODES

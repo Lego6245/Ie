@@ -1,9 +1,11 @@
+Reflux = require("reflux")
+
 CONSTANTS  = require("../constants.cjsx")
 PAGE_MODES = CONSTANTS.PAGE_MODES
 BKG_MODES  = CONSTANTS.BKG_MODES
 
 OptionActions = require("../actions.cjsx").OptionActions
-Options       = require("./Option.cjsx")
+Option        = require("./Option.cjsx")
 
 colorRegex = new RegExp("#[0-9a-fA-F]{3,6}")
 isColor = (str) -> colorRegex.test(str)

@@ -1,3 +1,9 @@
+Reflux     = require("reflux")
+React      = require("react")
+_          = require("lodash")
+classNames = require("classnames")
+moment     = require("moment")
+
 PAGE_MODES = require("../../constants.cjsx").PAGE_MODES
 PageStateStore = require("../../stores/PageStateStore.cjsx")
 Widget = require("./widget.cjsx")
@@ -27,7 +33,7 @@ TimeWidget = Widget.createWidgetClass
         locale = window.navigator.userLanguage || window.navigator.language
         editing = this.state.pageState == PAGE_MODES.EDIT
 
-        classes = Object.assign(this.widgetClasses(),{
+        classes = _.assign(this.widgetClasses(),{
             "core-timer-widget": true
         })
 

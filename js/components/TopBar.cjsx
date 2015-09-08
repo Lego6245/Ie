@@ -1,3 +1,7 @@
+Reflux     = require("reflux")
+React      = require("react")
+classNames = require("classnames")
+
 CONSTANTS  = require("../constants.cjsx")
 PAGE_MODES = CONSTANTS.PAGE_MODES
 BKG        = CONSTANTS.BKG_MODES

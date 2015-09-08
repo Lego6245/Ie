@@ -1,3 +1,8 @@
+Reflux     = require("reflux")
+React      = require("react")
+classNames = require("classnames")
+_          = require("lodash")
+
 PAGE_MODES = require("../../constants.cjsx").PAGE_MODES
 PageStateStore = require("../../stores/PageStateStore.cjsx")
 Widget = require("./widget.cjsx")
@@ -41,7 +46,7 @@ TimeWidget = Widget.createWidgetClass
 
     render: ->
         editing = this.state.pageState == PAGE_MODES.EDIT
-        classes = Object.assign(this.widgetClasses(),{
+        classes = _.assign(this.widgetClasses(),{
             "core-mail-widget": true
         })
 

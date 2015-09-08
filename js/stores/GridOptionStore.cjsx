@@ -1,3 +1,5 @@
+Reflux = require("reflux")
+
 GridOptionStore = Reflux.createStore
     # actions this store listens to
     # listenables: [OptionsActions]

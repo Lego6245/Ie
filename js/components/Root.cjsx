@@ -1,3 +1,7 @@
+Reflux     = require("reflux")
+React      = require("react")
+classNames = require("classnames")
+
 CONSTANTS  = require("../constants.cjsx")
 PAGE_MODES = CONSTANTS.PAGE_MODES
 BKG        = CONSTANTS.BKG_MODES
@@ -20,15 +24,15 @@ Root = React.createClass
 
     mixins: [
         Reflux.connect(PageStateStore, "pageState"),
-        Reflux.connect(StyleOptionStore, "globalOptions")]
+        Reflux.connect(StyleOptionStore, "userStyle")]
 
     _makeBackgroundStyle: () ->
-        gO = this.state.globalOptions
-        return switch gO.backgroundMode
-            when BKG.BKG_COLOR then {backgroundColor: gO.backgroundColor}
+        style = this.state.userStyle
+        return switch style.backgroundMode
+            when BKG.BKG_COLOR then {backgroundColor: style.backgroundColor}
             when BKG.BKG_IMG   then {
-                backgroundImage: gO.backgroundImage,
-                backgroundColor: gO.backgroundColor}
+                backgroundImage: style.backgroundImage,
+                backgroundColor: style.backgroundColor}
             else throw new Error("unhandled case looking for background mode")
 
     render: ->
