@@ -37,7 +37,7 @@ task 'dev', ['default'], ()->
     buildDefault = ->
         buildTimer = undefined
         process.stdout.write " => "
-        jake.Task['force-build'].execute()
+        jake.Task['force-build'].invoke()
 
     requestBuild = (fname) ->
         if buildTimer?
@@ -58,11 +58,14 @@ desc 'build the source in debug mode'
 file SOURCE_BUNDLE, DEPS, () ->
     jake.Task['force-build'].execute()
 
+desc 'this creates the intermediates directory'
+directory INTERMEDIATES
+
 desc 'forcefully build the task'
-task 'force-build', () ->
+task 'force-build', [INTERMEDIATES, ], () ->
     console.log "building in debug mode"
     buildEngine = browserifyInc({
-        cacheFile: INTERMEDIATES,
+        cacheFile: INTERMEDIATES + "/browserifyinc",
         extensions: ["cjsx", "scss"],
         baseDir: "js/",
         paths:["../node_modules"]
@@ -71,11 +74,10 @@ task 'force-build', () ->
     # provide entry points for cjsx files
     buildEngine.transform(coffeeReactify)
 
-    # have sassify create index.css separate from the core
-    # browserify bundle
+    # have sassify create index.css separate from the main bundle file
     buildEngine.transform(sassify, {
         "auto-inject": false,
-        "write-path": "www/css/index.css",
+        "write-path": BUILD_DIR + "/css/index.css",
         sourceMap: true
     })
 
@@ -83,10 +85,9 @@ task 'force-build', () ->
     buildEngine.add './js/init.cjsx'
 
     # build and write the bundle
-    writeStream =
-        fs.createWriteStream(SOURCE_BUNDLE, {flags: 'a'})
-            .on('finish', ()->
-                console.log 'build finished')
+    writeStream = fs.createWriteStream(SOURCE_BUNDLE, {flags: 'a'})
+        .on('finish', ()->
+            console.log 'build finished')
 
     bundleReadStream = buildEngine.bundle()
     bundleReadStream.pipe(writeStream)
@@ -96,7 +97,9 @@ task 'force-build', () ->
 desc 'remove built files and intermediates'
 task 'clean', () ->
     remove = (globstring) ->
+        console.log globstring
         glob(globstring).forEach((path) ->
+            console.log("    removing #{path}");
             fs.unlink(path, (err) ->
                 if (err)
                     console.log "error deleting file", path, "\n", err
