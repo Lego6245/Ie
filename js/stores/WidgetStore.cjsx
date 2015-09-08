@@ -1,3 +1,5 @@
+Reflux = require("reflux")
+
 WidgetActions = (require "../actions.cjsx").WidgetActions
 
 WidgetStore = Reflux.createStore

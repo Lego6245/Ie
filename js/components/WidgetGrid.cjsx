@@ -1,3 +1,6 @@
+Reflux = require("reflux")
+React  = require("react")
+
 GridOptionStore  = require("../stores/GridOptionStore.cjsx")
 StyleOptionStore = require("../stores/StyleOptionStore.cjsx")
 WidgetStore      = require("../stores/WidgetStore.cjsx")

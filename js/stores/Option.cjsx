@@ -1,3 +1,5 @@
+Reflux = require("reflux")
+
 invariant = require "invariant"
 _         = require "lodash"
 
@@ -30,6 +32,7 @@ OptionMixin =
 
 
 createStore = (obj) ->
+    # creaate an Option store, checking a few conditionals required
     invariant "options" in Object.keys(obj), 
               "Options Store mising an 'options' field"
 
