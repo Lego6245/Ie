@@ -1,6 +1,15 @@
 # Ie (家)
 A highly customizable & extendable homepage
 
+## Building
+
+clone the repo, and run
+
+    npm install
+    webpack
+
+or `webpack --watch` for continuous rebuilds
+
 ## Style and Vocabulary
 
 ### Import Style
