@@ -1,19 +1,21 @@
+require("./Root.scss")
+
 Reflux     = require("reflux")
 React      = require("react")
 classNames = require("classnames")
 
-CONSTANTS  = require("../constants.cjsx")
+CONSTANTS  = require("constants.cjsx")
 PAGE_MODES = CONSTANTS.PAGE_MODES
 BKG        = CONSTANTS.BKG_MODES
 
-StyleOptionStore = require("../stores/StyleOptionStore.cjsx")
-PageStateStore   = require("../stores/PageStateStore.cjsx")
+StyleOptionStore = require("stores/StyleOptionStore.cjsx")
+PageStateStore   = require("stores/PageStateStore.cjsx")
 
-UIActions = require("../actions.cjsx").UIActions
+WidgetGrid  = require("components/WidgetGrid.cjsx")
+TopBar      = require("components/TopBar.cjsx")
+OptionsMenu = require("components/Options.cjsx")
 
-WidgetGrid  = require("./WidgetGrid.cjsx")
-TopBar      = require("./TopBar.cjsx")
-OptionsMenu = require("./Options.cjsx")
+UIActions = require("actions.cjsx").UIActions
 
 
 enter = (state) ->

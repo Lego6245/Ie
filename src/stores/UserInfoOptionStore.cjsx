@@ -1,6 +1,6 @@
 Reflux = require("reflux")
 
-Option = require("./Option.cjsx")
+Option = require("stores/Option.cjsx")
 
 isNumeric = (val) -> not isNaN(parseFloat(n)) and isFinite(n)
 isString = (val) -> typeof val is 'string'

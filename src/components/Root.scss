@@ -1,0 +1,11 @@
+@import "../globals.scss";
+
+#root {
+    @include noselect;
+
+    background-color: #252525;
+    background-size: cover;
+    background-position: center;
+
+    @include transition(0.2s, right);
+}

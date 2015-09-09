@@ -1,19 +1,21 @@
+require("./TopBar.scss")
+
 Reflux     = require("reflux")
 React      = require("react")
 classNames = require("classnames")
 
-CONSTANTS  = require("../constants.cjsx")
+CONSTANTS  = require("constants.cjsx")
 PAGE_MODES = CONSTANTS.PAGE_MODES
 BKG        = CONSTANTS.BKG_MODES
 
-UserInfoOptionStore = require("../stores/UserInfoOptionStore.cjsx")
-StyleOptionStore    = require("../stores/StyleOptionStore.cjsx")
+UserInfoOptionStore = require("stores/UserInfoOptionStore.cjsx")
+StyleOptionStore    = require("stores/StyleOptionStore.cjsx")
 
-PageStateStore = require("../stores/PageStateStore.cjsx")
-WidgetStore    = require("../stores/WidgetStore.cjsx")
-DragStore      = require("../stores/DragStore.cjsx")
+PageStateStore = require("stores/PageStateStore.cjsx")
+WidgetStore    = require("stores/WidgetStore.cjsx")
+DragStore      = require("stores/DragStore.cjsx")
 
-Actions       = require("../actions.cjsx")
+Actions       = require("actions.cjsx")
 UIActions     = Actions.UIActions
 WidgetActions = Actions.WidgetActions
 
