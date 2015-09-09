@@ -6,7 +6,7 @@ module.exports = {
     // The standard entry point and output config
     entry: './src/init',
     output: {
-        path: 'www/js',
+        path: 'www',
         filename: '[name].bundle.js',
         chunkFilename: '[id].chunk.js'
     },
@@ -17,6 +17,7 @@ module.exports = {
     plugins: [
         new webpack.HotModuleReplacementPlugin()
     ],
+    devtool: ["source-map"],
     module: {
         loaders: [
             {
