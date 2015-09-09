@@ -1,23 +1,22 @@
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var cjsxLoader = require('cjsx-loader')
 var webpack = require('webpack');
 var path = require('path');
 
 module.exports = {
     // The standard entry point and output config
-    entry: ['./src/init'],
+    entry: './src/init',
     output: {
         path: 'www/js',
         filename: '[name].bundle.js',
         chunkFilename: '[id].chunk.js'
     },
-    modulesDirectories: ["src", "node_modules"],
+    resolve: {
+        extensions: ['', '.webpack.js', '.web.js', '.js', '.cjsx'],
+        modulesDirectories: ["src", "node_modules"],
+    },
     plugins: [
         new webpack.HotModuleReplacementPlugin()
     ],
-    resolve: {
-        extensions: ['.cjsx'],
-    },
     module: {
         loaders: [
             {
