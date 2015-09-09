@@ -3,9 +3,9 @@ React      = require("react")
 classNames = require("classnames")
 _          = require("lodash")
 
-PAGE_MODES = require("../../constants.cjsx").PAGE_MODES
-PageStateStore = require("../../stores/PageStateStore.cjsx")
-Widget = require("./widget.cjsx")
+PAGE_MODES = require("constants.cjsx").PAGE_MODES
+PageStateStore = require("stores/PageStateStore.cjsx")
+Widget = require("widgets/Widget.cjsx")
 
 imgfallback = "img/mocks/happy-tile-20.png"
 

@@ -1,6 +1,6 @@
-require("../css/index.scss")
-React = require "react"
-Root  = require "./components/Root.cjsx"
+require("./index.scss")
+React = require("react")
+#Root  = require("./components/Root")
 
 window.onload = () ->
 

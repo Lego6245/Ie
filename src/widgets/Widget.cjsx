@@ -1,13 +1,15 @@
+require ("./Widget.scss")
+
 Reflux = require("reflux")
 React  = require("react")
 
-CSS = require("../../csshelpers.cjsx")
+CSS = require("csshelpers.cjsx")
 
-GridOptionStore  = require("../../stores/GridOptionStore.cjsx")
-StyleOptionStore = require("../../stores/StyleOptionStore.cjsx")
-DragStore        = require("../../stores/DragStore.cjsx")
+GridOptionStore  = require("stores/GridOptionStore.cjsx")
+StyleOptionStore = require("stores/StyleOptionStore.cjsx")
+DragStore        = require("stores/DragStore.cjsx")
 
-WidgetActions = require("../../actions.cjsx").WidgetActions
+WidgetActions = require("actions.cjsx").WidgetActions
 
 createWidgetClass = (obj) ->
     if not obj.acceptsDim?

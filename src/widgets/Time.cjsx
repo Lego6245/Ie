@@ -1,12 +1,14 @@
+require ("./Time.scss")
+
 Reflux     = require("reflux")
 React      = require("react")
 _          = require("lodash")
 classNames = require("classnames")
 moment     = require("moment")
 
-PAGE_MODES = require("../../constants.cjsx").PAGE_MODES
-PageStateStore = require("../../stores/PageStateStore.cjsx")
-Widget = require("./widget.cjsx")
+PAGE_MODES = require("constants.cjsx").PAGE_MODES
+PageStateStore = require("stores/PageStateStore.cjsx")
+Widget = require("widgets/Widget.cjsx")
 
 TimeWidget = Widget.createWidgetClass
 

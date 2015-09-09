@@ -1,0 +1,57 @@
+@import '../globals.scss';
+
+#top-bar {
+    height: 50px;
+    background-color: rgba(0, 0, 0, 0.8);
+    width: 100%;
+    position: fixed;
+    top:0;
+    left: 0;
+
+    z-index: 1000;
+
+    .nav-button, .nav-button img {
+        height: 100%;
+    }
+
+    .nav-button {
+        @include transition(0.2s, opacity);
+
+        display: inline-block;
+        opacity: 0.7;
+
+        &:hover {
+            opacity: 0.85;
+        }
+    }
+
+    .nav-button.active {
+        opacity: 1;
+    }
+
+    #widget-trash {
+        height: 100%;
+        opacity: 0;
+
+        @include transition(0.2s, opacity)
+    }
+
+    #widget-trash.trashing {
+        transform: rotate(5deg);
+    }
+
+    #motd {
+        position: absolute;
+        top: 0;
+        z-index: -10;
+        text-transform: uppercase;
+        width: 100%;
+        text-align: center;
+        line-height:50px;
+        color: #FFFFFF;
+    }
+}
+
+#root.mode-edit #widget-trash {
+    opacity: 0.7;
+}

@@ -6,7 +6,7 @@ watch = require("node-watch")
 
 # imports for building browserify bundle
 browserifyInc  = require("browserify-incremental")
-sassify        = require("sassify")
+parcelify      = require("parcelify")
 coffeeReactify = require("coffee-reactify")
 source         = require('vinyl-source-stream')
 
@@ -14,11 +14,10 @@ source         = require('vinyl-source-stream')
 # constants
 BUILD_DIR = "www"
 SOURCE_BUNDLE = BUILD_DIR + "/js/bundle_sources.js"
-STYLE_BUNDLE  = BUILD_DIR + "/css/index.css"
-DEPS = union glob("js/**/*.cjsx"),
-             glob("js/*/*.cjsx"),
-             glob("css/**/*.scss"),
-             glob("css/*.scss")
+DEPS = union glob("src/**/*.cjsx"),
+             glob("src/*/*.cjsx"),
+             glob("src/**/*.scss"),
+             glob("src/*.scss")
 INTERMEDIATES = ".build_intermediates"
 
 
@@ -37,7 +36,7 @@ task 'dev', ['default'], ()->
     buildDefault = ->
         buildTimer = undefined
         process.stdout.write " => "
-        jake.Task['force-build'].invoke()
+        jake.Task['forcebuild'].execute()
 
     requestBuild = (fname) ->
         if buildTimer?
@@ -47,42 +46,46 @@ task 'dev', ['default'], ()->
         process.stdout.write "(\u0394 #{fname})"
         buildTimer = setTimeout buildDefault, 100
 
-    console.log "watching 'js/' and 'css/' for changes.."
+    console.log "watching 'src/' for changes.."
 
-    watch "js", requestBuild
-    watch "css", requestBuild
+    watch "src", requestBuild
 
 
 
 desc 'build the source in debug mode'
 file SOURCE_BUNDLE, DEPS, () ->
-    jake.Task['force-build'].execute()
+    jake.Task['forcebuild'].execute()
 
 desc 'this creates the intermediates directory'
 directory INTERMEDIATES
 
 desc 'forcefully build the task'
-task 'force-build', [INTERMEDIATES, ], () ->
+task 'forcebuild', [INTERMEDIATES], () ->
     console.log "building in debug mode"
     buildEngine = browserifyInc({
-        cacheFile: INTERMEDIATES + "/browserifyinc",
-        extensions: ["cjsx", "scss"],
-        baseDir: "js/",
-        paths:["../node_modules"]
+        cacheFile: INTERMEDIATES + "/browserifyinc"
+        paths:["src"]
+        extensions: ["cjsx"]
+        debug: true
+        transforms: [ "sass-css-stream" ]
+        entries: ["./src/init.cjsx"]
     })
 
     # provide entry points for cjsx files
     buildEngine.transform(coffeeReactify)
 
     # have sassify create index.css separate from the main bundle file
-    buildEngine.transform(sassify, {
-        "auto-inject": false,
-        "write-path": BUILD_DIR + "/css/index.css",
-        sourceMap: true
-    })
-
-    # add the entry point
-    buildEngine.add './js/init.cjsx'
+    p = parcelify(
+        buildEngine,
+        {
+            bundles:
+                style: "www/css/index.css"
+            maps: true
+            appTransforms: [
+                (file) ->
+                    sassCssStream(file, { includePaths: ['src']})
+            ]
+        })
 
     # build and write the bundle
     writeStream = fs.createWriteStream(SOURCE_BUNDLE, {flags: 'a'})
@@ -91,6 +94,7 @@ task 'force-build', [INTERMEDIATES, ], () ->
 
     bundleReadStream = buildEngine.bundle()
     bundleReadStream.pipe(writeStream)
+
 
 
 
@@ -107,5 +111,4 @@ task 'clean', () ->
         )
 
     remove(BUILD_DIR + "/js/*.js")
-    remove(BUILD_DIR + "/css/*.css")
     remove(INTERMEDIATES + "/*")

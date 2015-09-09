@@ -1,16 +1,16 @@
 Reflux = require("reflux")
 
-WidgetActions = (require "../actions.cjsx").WidgetActions
+WidgetActions = (require "actions.cjsx").WidgetActions
 
 WidgetStore = Reflux.createStore
     # actions this store listens to
     listenables: [WidgetActions]
 
     widgetKinds : {
-        timer: require "../components/widgets/TimeWidget.cjsx"
-        mail: require "../components/widgets/Mail.cjsx"
-        weather: require "../components/widgets/Weather.cjsx"
-        picture: require "../components/widgets/Picture.cjsx"
+        timer: require   "widgets/Time.cjsx"
+        mail: require    "widgets/Mail.cjsx"
+        weather: require "widgets/Weather.cjsx"
+        picture: require "widgets/Picture.cjsx"
     }
 
     # default state

@@ -3,7 +3,7 @@ Reflux = require("reflux")
 invariant = require "invariant"
 _         = require "lodash"
 
-OptionActions = require("../actions.cjsx").OptionActions
+OptionActions = require("actions.cjsx").OptionActions
 
 OptionMixin = 
     listenables: [OptionActions]

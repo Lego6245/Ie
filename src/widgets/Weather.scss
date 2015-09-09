@@ -1,0 +1,16 @@
+@import '../globals.scss';
+
+.core-weather-widget {
+    .today {
+        float: left;
+        height: 45%;
+            display: block;
+            width: 100%;
+    }
+    .five-day {
+        height: 45%;
+        width: 100%;
+        display: block;
+        float: left;
+    }
+}
