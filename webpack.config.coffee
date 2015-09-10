@@ -7,13 +7,14 @@ module.exports =
     entry: './src/init'
     output:
         path: 'www'
+        pathinfo: true
         filename: '[name].bundle.js'
         chunkFilename: '[id].chunk.js'
     resolve:
         extensions: ['', '.webpack.js', '.web.js', '.js', '.cjsx']
         modulesDirectories: ["src", "node_modules"]
     plugins: [ new webpack.HotModuleReplacementPlugin() ]
-    devtool: ["source-map"]
+    devtool: ["eval-cheap-source-map"]
     module:
         loaders: [
             {   
