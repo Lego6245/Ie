@@ -9,7 +9,26 @@ moment     = require("moment")
 PageStateStore = require("stores/PageStateStore.cjsx")
 Widget = require("widgets/Widget.cjsx")
 
+WidgetActions = require("actions.cjsx").WidgetActions
+
+Option = require("stores/Option.cjsx")
+OptionTypes = require("stores/OptionTypes.cjsx")
+OptionForm = require("components/OptionsForm.cjsx")
+
+TimerOptions = Option.OptionSet
+    name: "TimerOptions"
+
+    options:
+        width: 2
+        height: 1
+
+    optionTypes:
+        width: OptionTypes.int
+        height: OptionTypes.int
+
+
 TimeWidget = Widget.createWidgetClass
+    widgetName: "core-time-widget"
 
     mixins: [
         Widget.WidgetMixin,
@@ -17,7 +36,10 @@ TimeWidget = Widget.createWidgetClass
     ]
 
     getInitialState: () ->
-        return { date: new Date() }
+        return { 
+            date: new Date()
+            options: TimerOptions
+        }
 
     componentDidMount: () ->
         this.interval = setInterval(
@@ -28,14 +50,10 @@ TimeWidget = Widget.createWidgetClass
         clearInterval(this.interval)
 
     acceptsDim: (x, y) ->
-        return x < 2 && y < 2
+        return 0 < x < 2 && 0 < y < 2
 
     renderBasePanel: ->
         locale = window.navigator.userLanguage || window.navigator.language
-
-        classes = {
-            "core-timer-widget": true
-        }
 
         d = this.state.date
         m = moment()
@@ -49,12 +67,11 @@ TimeWidget = Widget.createWidgetClass
             borderColor: this.state.userStyle.widgetBackground
         }
 
-        <div className={classNames(classes)}>
-
+        <div>
             <div className="window-bar" style={invertedColors}>
                 <img src="img/icons/clock.png" />
                 
-                <a href="#">
+                <a href="#" onClick={this.wToggleOptionsMode}>
                     <span className="icon options">
                         <img src="img/icons/options-icon.png" />
                     </span>
@@ -73,10 +90,34 @@ TimeWidget = Widget.createWidgetClass
                     <span className="time">{m.format("hh:mm")}
                         <span className="ampm">{m.format("A")}</span></span>
                     <span className="date">
-                        {m.format("dddd, MMMM Do, YYYY").toLowerCase()}
+                        {m.format("ddd, MMMM Do, YYYY").toLowerCase()}
                     </span>
                 </div>
             </div>
         </div>
+
+    _onOptionChange: (optionName, newVal) ->
+        options = this.state.options
+        if (optionName == "width" and newVal != options.width)
+            WidgetActions.resizeWidget(
+                this.props.widgetID, 
+                this.props.layoutName,
+                newVal, 
+                options.height)
+        
+        if(optionName == "height" and newVal != options.height)
+            WidgetActions.resizeWidget(
+                this.props.widgetID, 
+                this.props.layoutName,
+                options.width, 
+                newVal)
+        
+
+
+    renderOptionsPanel: ->
+        <OptionForm 
+            optionSet={TimerOptions} 
+            objectChangeCallback={this._onOptionChange}/>
+
 
 module.exports = TimeWidget

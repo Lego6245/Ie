@@ -21,6 +21,8 @@ OptionActions = Actions.OptionActions
 name = require("namehelpers.cjsx")
 CSS  = require("csshelpers.cjsx")
 
+OptionsForm = require("components/OptionsForm.cjsx")
+
 Options = React.createClass
     displayName: "Options"
 
@@ -29,30 +31,6 @@ Options = React.createClass
         Reflux.connect(GridOptionStore, "gridOptions"),
         Reflux.connect(UserInfoOptionStore, "userInfoOptions")]
 
-    _handleEditOption: (store, name, value) ->
-        console.log store
-        if store.validateOption(name, value)
-            console.log "passed validation (#{name}, #{value})"
-            CSS.removeClass(document.getElementById(name), 'invalid');
-            CSS.addClass(document.getElementById(name), 'valid');
-            store.onEditOption(name, value)
-        else
-            console.log "failed validation (#{name}, #{value})"
-            CSS.removeClass(document.getElementById(name), 'valid');
-            CSS.addClass(document.getElementById(name), 'invalid');
-
-    _handleBackgroundToggle: (event) ->
-        mode = BKG_MODES.BKG_COLOR
-        if event.target.checked == true
-            mode = BKG_MODES.BKG_IMG
-        OptionActions.editOption("backgroundMode", mode)
-
-    _isImageMode: ->
-        if (this.state.styleOptions.backgroundMode == BKG_MODES.BKG_IMG)
-            return true
-        else
-            return false
-
     _exitOptionsMode: ->
         document.getElementById("options").className = ""
         UIActions.enterMode(PAGE_MODES.LIVE)
@@ -60,41 +38,22 @@ Options = React.createClass
     render: () ->
         self = this
 
-        makeOptions = (store, obj) ->
-            mkInput = (store, fieldName, fieldValue) ->
-                store.optionTypes[key].mkInputField(
-                    store,
-                    fieldName,
-                    fieldValue,
-                    self._handleEditOption)
-
-            return (mkInput(store, key, obj[key]) for key in Object.keys(obj))
-
-        userStyleInputs = makeOptions(
-            StyleOptionStore,
-            this.state.styleOptions)
-
-        userInfoInputs = makeOptions(
-            UserInfoOptionStore,
-            this.state.userInfoOptions)
-
-
-        # gridStyleInputs = this._makeOptions(
-        #     GridOptionStore,
-        #     this.state.gridOptions)
 
         <div id="options"
             style={{
                 backgroundColor: warna.darken(
-                    this.state.styleOptions.widgetForeground,
-                    0.5).hex
-            }}
-            >
-            <h1>Style</h1>
-            {userStyleInputs}
+                    this.state.styleOptions.widgetForeground, 0.3).hex
+            }} >
 
-            <h1>User Info</h1>
-            {userInfoInputs}
+            <h1> User Styles </h1>
+            <OptionsForm 
+                optionSet={StyleOptionStore} 
+                objectChangeCallback={StyleOptionStore.editOption}/>
+
+            <h1> User Info </h1>
+            <OptionsForm 
+                optionSet={UserInfoOptionStore} 
+                objectChangeCallback={UserInfoOptionStore.editOption}/>
 
             <h1>Install Widgets</h1>
             todo: put anything here
@@ -105,10 +64,6 @@ Options = React.createClass
 
 
         </div>
-
-    # getInitialState:
-    #   GlobalOptionsStore.getInitialState.bind(GlobalOptionsStore)
-
 
 module.exports = Options
 

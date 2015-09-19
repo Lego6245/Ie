@@ -19,6 +19,7 @@ WidgetActions = Reflux.createActions([
     "stopDrag"
     "trashHover"
     "trashUnhover"
+    "resizeWidget"
 ])
 
 UIActions = Reflux.createActions([

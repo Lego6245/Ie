@@ -8,6 +8,8 @@ Widget = require("widgets/Widget.cjsx")
 imgfallback = "img/mocks/happy-tile-20.png"
 
 PictureWidget = Widget.createWidgetClass
+    
+    widgetName: "core-picture-widget"
 
     mixins: [
         Widget.WidgetMixin,

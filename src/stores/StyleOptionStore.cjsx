@@ -6,7 +6,7 @@ BKG_MODES  = CONSTANTS.BKG_MODES
 
 OptionActions = require("actions.cjsx").OptionActions
 Option        = require("stores/Option.cjsx")
-opt           = Option.types
+opt           = require("stores/OptionTypes.cjsx")
 
 colorRegex = new RegExp("#[0-9a-fA-F]{3,6}")
 

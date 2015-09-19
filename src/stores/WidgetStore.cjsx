@@ -122,13 +122,22 @@ WidgetStore = Reflux.createStore
         this.cacheAndTrigger()
 
     onRemoveWidget: (widgetID) ->
-        console.log("trying to remoev widget", widgetID)
+        console.log("trying to remove widget", widgetID)
         for widget in this.widgets
             if widget.uuid == widgetID
                 console.log("removing widget with ID", widget.uuid)
                 widgetIndex = this.widgets.indexOf(widget)
                 this.widgets.splice(widgetIndex, 1)
                 this.cacheAndTrigger()
+
+    onResizeWidget: (widgetID, layout, width, height) ->
+        console.log("resizing widget", widgetID)
+        for widget in this.widgets
+            if widget.uuid == widgetID
+                widget.layouts[layout].dimension = 
+                    {x: width, y:height}
+                this.trigger(this.widgets)
+                return
 
     cacheAndTrigger: () ->
         this.trigger(this.widgets)

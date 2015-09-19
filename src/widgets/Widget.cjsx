@@ -1,9 +1,11 @@
 require ("./Widget.scss")
 
 Reflux = require("reflux")
-React  = require("react")
+React  = require("react/addons")
+CSSTransitionGroup = React.addons.CSSTransitionGroup
 classNames = require("classnames")
 
+Option = require("stores/Option.cjsx")
 CSS = require("csshelpers.cjsx")
 
 GridOptionStore  = require("stores/GridOptionStore.cjsx")
@@ -56,8 +58,7 @@ WidgetMixin =
                 y: 0 })
 
         this.setState({
-            isFront: true
-            })
+            isFront: true })
 
         WidgetActions.startDrag(this)
 
@@ -73,15 +74,12 @@ WidgetMixin =
                 this.props.mountOrigin.x + this.state.relativePos.x,
                 this.props.mountOrigin.y + this.state.relativePos.y)
 
-    wOptionsMode: () ->
+    wToggleOptionsMode: () ->
         this.setState({
-            renderOptionsPanel: true
-            renderBasePanel: true
+            renderOptionsPanel: not this.state.renderOptionsPanel
+            renderBasePanel: this.state.renderOptionsPanel 
         })
 
-        setTimeout (() => 
-            renderBasePanel: false
-        ), 200
 
     wEndDrag: (nativeEvt) ->
         if this.state.trackingOrigin?
@@ -91,17 +89,17 @@ WidgetMixin =
             endSlot = this.props.mountCallback(
                 this.props.widgetID,
                 this.props.gridSize,
-                this.state.relativePos.x + 
+                this.state.relativePos.x +
                     this.props.mountOrigin.x,
                 this.state.relativePos.y +
                     this.props.mountOrigin.y)
 
             gp = this.props.gridPosition
             if endSlot? and (endSlot.x != gp.x or endSlot.y != gp.y)
-                
+
                 console.log "moving widget"
                 WidgetActions.moveWidget(
-                    this.props.widgetID, 
+                    this.props.widgetID,
                     this.props.layoutName,
                     endSlot.x, endSlot.y)
 
@@ -121,7 +119,7 @@ WidgetMixin =
                 })), 200)
 
             WidgetActions.stopDrag(this)
-        
+
     widgetStyle: ->
         {
             width: this.props.mountSize.x
@@ -136,34 +134,50 @@ WidgetMixin =
             borderColor: this.state.userStyle.widgetBorder
         }
 
+
     ShouldComponentUpdate: (nextState) ->
         return nextState.widget != this.state.widget
 
     widgetClasses: () ->
-        base = {   
+        base = {
             dragging: this.state.trackingOrigin?
             front: this.state.isFront
             widget: true
+            "show-options": this.state.renderOptionsPanel
+            "show-base": this.state.renderBasePanel
         }
         gridSize = this.props.gridSize
         base["sizex-#{gridSize.x}"] = true
         base["sizey-#{gridSize.y}"] = true
+        base[this.widgetName] = true
         return base
+
+
 
     render: ->
         editing = this.state.pageState == PAGE_MODES.EDIT
 
-        <div className={classNames(this.widgetClasses())}
-             onMouseDown={ if editing then this.wStartDrag else undefined}
-             onMouseUp={ if editing then this.wEndDrag else undefined}
-             style={this.widgetStyle()}>
+        n = (x) -> if x? then x.toString() + " " else ""
 
-             {if this.state.renderBasePanel
-                this.renderBasePanel()}
+        <CSSTransitionGroup
+            transitionName="widget-panel"
+            className={classNames(this.widgetClasses())}
+            onMouseDown={ if editing then this.wStartDrag else undefined}
+            onMouseUp={ if editing then this.wEndDrag else undefined}
+            style={this.widgetStyle()}
+            id={"widget-#{this.props.widgetID}"}>
+
+            {if this.state.renderBasePanel
+                panel = this.renderBasePanel()
+                React.addons.cloneWithProps(panel,
+                    {className: (n panel.props.className + "base-panel")})}
 
             {if this.state.renderOptionsPanel
-                this.renderOptionsPanel()}
-        </div>
+                panel = this.renderOptionsPanel()
+                React.addons.cloneWithProps(panel,
+                    {className: (n panel.props.className + "options-panel")})}
+
+        </CSSTransitionGroup>
 
 module.exports = {
     createWidgetClass: createWidgetClass

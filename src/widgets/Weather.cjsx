@@ -9,6 +9,7 @@ PageStateStore = require("stores/PageStateStore.cjsx")
 Widget = require("widgets/Widget.cjsx")
 
 WeatherWidget = Widget.createWidgetClass
+    widgetName: "core-weather-widget"
 
     mixins: [
         Widget.WidgetMixin,
@@ -62,9 +63,6 @@ WeatherWidget = Widget.createWidgetClass
         return x == 2 && y == 2
 
     renderBasePanel: ->
-        classes = {
-            "core-mail-widget": true
-        }
 
         invertedColors = {
             backgroundColor: this.state.userStyle.widgetForeground
@@ -81,8 +79,7 @@ WeatherWidget = Widget.createWidgetClass
 
         fiveday = (mkWeather d, i for d, i in this.props.weather[1..])
 
-        <div className={classNames(classes)}
-             >
+        <div>
              <div className="window-bar"
                  style={invertedColors}>
                 <img src="img/icons/rain-drop.png" className="icon window" />

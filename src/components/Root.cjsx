@@ -17,7 +17,6 @@ OptionsMenu = require("components/Options.cjsx")
 
 UIActions = require("actions.cjsx").UIActions
 
-
 enter = (state) ->
     return () -> UIActions.enterMode(state)
 

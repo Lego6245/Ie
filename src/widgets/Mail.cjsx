@@ -9,6 +9,8 @@ Widget = require("widgets/Widget.cjsx")
 
 TimeWidget = Widget.createWidgetClass
     displayName: "MailWidget"
+    widgetName: "core-mail-widget"
+
 
     mixins: [
         Widget.WidgetMixin,
@@ -45,9 +47,6 @@ TimeWidget = Widget.createWidgetClass
         return x == 2 && y == 2
 
     renderBasePanel: ->
-        classes = _.assign({
-            "core-mail-widget": true
-        })
 
         invertedColors = {
             backgroundColor: this.state.userStyle.widgetForeground
@@ -65,7 +64,7 @@ TimeWidget = Widget.createWidgetClass
 
         messages = (mkMessage m, i for m, i in this.props.messages)
 
-        <div className="core-mail-widget">
+        <div>
              <div className="window-bar"
                   style={invertedColors}>
                 <img src="img/icons/email.png" className="icon window" />

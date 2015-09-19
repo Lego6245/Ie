@@ -1,7 +1,7 @@
 Reflux = require("reflux")
 
 Option = require("stores/Option.cjsx")
-opt    = Option.types
+opt    = require("stores/OptionTypes.cjsx")
 
 CONSTANTS = require("constants.cjsx")
 LOCALES   = CONSTANTS.LOCALES
