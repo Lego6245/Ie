@@ -6,11 +6,10 @@ BKG_MODES  = CONSTANTS.BKG_MODES
 
 OptionActions = require("actions.cjsx").OptionActions
 Option        = require("stores/Option.cjsx")
+opt           = Option.types
 
 colorRegex = new RegExp("#[0-9a-fA-F]{3,6}")
-isColor = (str) -> colorRegex.test(str)
-isNonNull = (val) -> val?
-isNumeric = (val) -> not isNaN(parseFloat(n)) and isFinite(n)
+
 
 StyleOptionStore = Option.createStore
     storeName: "StyleOptionStore"
@@ -27,16 +26,16 @@ StyleOptionStore = Option.createStore
         topBarHeight: 50
     }
 
-    validators: {
-        widgetBackground:   isColor
-        widgetBorder:       isColor
-        widgetForeground:   isColor
+    optionTypes: {
+        widgetBackground:   opt.color
+        widgetBorder:       opt.color
+        widgetForeground:   opt.color
 
-        foreground:         isColor
-        backgroundColor:    isColor
-        backgroundMode:     isNonNull
-        backgroundImage:    isNonNull
-        topBarHeight:       isNumeric
+        foreground:         opt.color
+        backgroundColor:    opt.color
+        backgroundMode:     opt.enumerated(BKG_MODES)
+        backgroundImage:    opt.img
+        topBarHeight:       opt.int
     }
 
 module.exports = StyleOptionStore

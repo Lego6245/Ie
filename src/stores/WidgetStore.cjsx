@@ -3,6 +3,7 @@ Reflux = require("reflux")
 WidgetActions = (require "actions.cjsx").WidgetActions
 
 WidgetStore = Reflux.createStore
+    storeName: "WidgetStore"
     # actions this store listens to
     listenables: [WidgetActions]
 

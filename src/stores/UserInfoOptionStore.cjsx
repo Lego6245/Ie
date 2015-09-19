@@ -1,9 +1,11 @@
 Reflux = require("reflux")
 
 Option = require("stores/Option.cjsx")
+opt    = Option.types
 
-isNumeric = (val) -> not isNaN(parseFloat(n)) and isFinite(n)
-isString = (val) -> typeof val is 'string'
+CONSTANTS = require("constants.cjsx")
+LOCALES   = CONSTANTS.LOCALES
+TIMEZONES = CONSTANTS.TIMEZONES
 
 UserInfoOptionStore = Option.createStore
     storeName: "UserInfoOptionStore"
@@ -14,10 +16,10 @@ UserInfoOptionStore = Option.createStore
         timezone:   "EST"
     }
 
-    validators: {
-        name: isString
-        locale:   isString # TODO use an enum type for this
-        timezone: isString
+    optionTypes: {
+        name:     opt.string
+        locale:   opt.enumerated(LOCALES)
+        timezone: opt.enumerated(TIMEZONES)
     }
 
 module.exports = UserInfoOptionStore

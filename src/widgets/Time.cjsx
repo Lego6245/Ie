@@ -6,7 +6,6 @@ _          = require("lodash")
 classNames = require("classnames")
 moment     = require("moment")
 
-PAGE_MODES = require("constants.cjsx").PAGE_MODES
 PageStateStore = require("stores/PageStateStore.cjsx")
 Widget = require("widgets/Widget.cjsx")
 
@@ -31,13 +30,12 @@ TimeWidget = Widget.createWidgetClass
     acceptsDim: (x, y) ->
         return x < 2 && y < 2
 
-    render: ->
+    renderBasePanel: ->
         locale = window.navigator.userLanguage || window.navigator.language
-        editing = this.state.pageState == PAGE_MODES.EDIT
 
-        classes = _.assign(this.widgetClasses(),{
+        classes = {
             "core-timer-widget": true
-        })
+        }
 
         d = this.state.date
         m = moment()
@@ -51,10 +49,7 @@ TimeWidget = Widget.createWidgetClass
             borderColor: this.state.userStyle.widgetBackground
         }
 
-        <div className={classNames(classes)}
-             onMouseDown={ if editing then this.wStartDrag else undefined}
-             onMouseUp={ if editing then this.wEndDrag else undefined}
-             style={this.widgetStyle()}>
+        <div className={classNames(classes)}>
 
             <div className="window-bar" style={invertedColors}>
                 <img src="img/icons/clock.png" />

@@ -2,6 +2,7 @@ require ("./Widget.scss")
 
 Reflux = require("reflux")
 React  = require("react")
+classNames = require("classnames")
 
 CSS = require("csshelpers.cjsx")
 
@@ -10,6 +11,8 @@ StyleOptionStore = require("stores/StyleOptionStore.cjsx")
 DragStore        = require("stores/DragStore.cjsx")
 
 WidgetActions = require("actions.cjsx").WidgetActions
+
+PAGE_MODES = require("constants.cjsx").PAGE_MODES
 
 createWidgetClass = (obj) ->
     if not obj.acceptsDim?
@@ -34,6 +37,10 @@ WidgetMixin =
         relativePos:
             x: 0
             y: 0
+        isFront: false
+
+        renderOptionsPanel: false
+        renderBasePanel: true
 
     wStartDrag: (evt) ->
         evt.preventDefault()
@@ -48,7 +55,10 @@ WidgetMixin =
                 x: 0
                 y: 0 })
 
-        CSS.addClass(React.findDOMNode(this), "dragging")
+        this.setState({
+            isFront: true
+            })
+
         WidgetActions.startDrag(this)
 
     wContinueDrag: (nativeEvent) ->
@@ -62,6 +72,16 @@ WidgetMixin =
             React.findDOMNode(this).style.transform = CSS.translate(
                 this.props.mountOrigin.x + this.state.relativePos.x,
                 this.props.mountOrigin.y + this.state.relativePos.y)
+
+    wOptionsMode: () ->
+        this.setState({
+            renderOptionsPanel: true
+            renderBasePanel: true
+        })
+
+        setTimeout (() => 
+            renderBasePanel: false
+        ), 200
 
     wEndDrag: (nativeEvt) ->
         if this.state.trackingOrigin?
@@ -93,7 +113,13 @@ WidgetMixin =
                     this.props.mountOrigin.x,
                     this.props.mountOrigin.y)
 
-                CSS.removeClass(domNode, "dragging")
+            # remove the 'front' style after the 'return to tile' animation
+            # has completed
+            setTimeout((() =>
+                this.setState({
+                    isFront: false
+                })), 200)
+
             WidgetActions.stopDrag(this)
         
     widgetStyle: ->
@@ -116,12 +142,28 @@ WidgetMixin =
     widgetClasses: () ->
         base = {   
             dragging: this.state.trackingOrigin?
+            front: this.state.isFront
             widget: true
         }
         gridSize = this.props.gridSize
         base["sizex-#{gridSize.x}"] = true
         base["sizey-#{gridSize.y}"] = true
         return base
+
+    render: ->
+        editing = this.state.pageState == PAGE_MODES.EDIT
+
+        <div className={classNames(this.widgetClasses())}
+             onMouseDown={ if editing then this.wStartDrag else undefined}
+             onMouseUp={ if editing then this.wEndDrag else undefined}
+             style={this.widgetStyle()}>
+
+             {if this.state.renderBasePanel
+                this.renderBasePanel()}
+
+            {if this.state.renderOptionsPanel
+                this.renderOptionsPanel()}
+        </div>
 
 module.exports = {
     createWidgetClass: createWidgetClass

@@ -5,7 +5,6 @@ React      = require("react")
 classNames = require("classnames")
 _          = require("lodash")
 
-PAGE_MODES = require("constants.cjsx").PAGE_MODES
 PageStateStore = require("stores/PageStateStore.cjsx")
 Widget = require("widgets/Widget.cjsx")
 
@@ -62,11 +61,10 @@ WeatherWidget = Widget.createWidgetClass
     acceptsDim: (x, y) ->
         return x == 2 && y == 2
 
-    render: ->
-        editing = this.state.pageState == PAGE_MODES.EDIT
-        classes = _.assign(this.widgetClasses(),{
+    renderBasePanel: ->
+        classes = {
             "core-mail-widget": true
-        })
+        }
 
         invertedColors = {
             backgroundColor: this.state.userStyle.widgetForeground
@@ -84,11 +82,8 @@ WeatherWidget = Widget.createWidgetClass
         fiveday = (mkWeather d, i for d, i in this.props.weather[1..])
 
         <div className={classNames(classes)}
-             onMouseDown={ if editing then this.wStartDrag else undefined}
-             onMouseUp={ if editing then this.wEndDrag else undefined}
-             style={this.widgetStyle()}>
-
-            <div className="window-bar"
+             >
+             <div className="window-bar"
                  style={invertedColors}>
                 <img src="img/icons/rain-drop.png" className="icon window" />
                 <a href="#">

@@ -9,12 +9,13 @@ module.exports =
         path: 'www'
         pathinfo: true
         filename: '[name].bundle.js'
+        sourceMapFileName: '[name].bundle.js.map'
         chunkFilename: '[id].chunk.js'
     resolve:
         extensions: ['', '.webpack.js', '.web.js', '.js', '.cjsx']
         modulesDirectories: ["src", "node_modules"]
     plugins: [ new webpack.HotModuleReplacementPlugin() ]
-    devtool: ["eval-cheap-source-map"]
+    devtool: 'eval-cheap-source-map'
     module:
         loaders: [
             {   

@@ -1,9 +1,7 @@
 Reflux     = require("reflux")
 React      = require("react")
-classNames = require("classnames")
 _          = require("lodash")
 
-PAGE_MODES = require("constants.cjsx").PAGE_MODES
 PageStateStore = require("stores/PageStateStore.cjsx")
 Widget = require("widgets/Widget.cjsx")
 
@@ -20,12 +18,7 @@ PictureWidget = Widget.createWidgetClass
         # Picture widget can be any size
         return true
 
-    render: ->
-        editing = this.state.pageState == PAGE_MODES.EDIT
-        classes = _.assign(this.widgetClasses(),{
-            "core-mail-widget": true
-        })
-
+    renderBasePanel: ->
         invertedColors = {
             backgroundColor: this.state.userStyle.widgetForeground
             color: this.state.userStyle.widgetBackground
@@ -34,11 +27,8 @@ PictureWidget = Widget.createWidgetClass
         widget_data_imgurl = this.props.widgetData.img
         imgurl = if widget_data_imgurl? then widget_data_imgurl else imgfallback
 
-        <div className={classNames(classes)}
-             onMouseDown={ if editing then this.wStartDrag else undefined}
-             onMouseUp={ if editing then this.wEndDrag else undefined}
-             style={this.widgetStyle()}>
-            <img src={ imgurl } />
-        </div>
+        
+        <img src={ imgurl } />
+        
 
 module.exports = PictureWidget

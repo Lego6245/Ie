@@ -35,7 +35,11 @@ Root = React.createClass
             when BKG.BKG_IMG   then {
                 backgroundImage: style.backgroundImage,
                 backgroundColor: style.backgroundColor}
-            else throw new Error("unhandled case looking for background mode")
+            else 
+                console.log BKG
+                console.log style.backgroundMode
+                throw new Error("unhandled case '#{style.backgroundMode}' \
+                                \ when looking for background mode")
 
     render: ->
         pageMode = this.state.pageState

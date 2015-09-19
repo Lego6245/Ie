@@ -2,10 +2,8 @@ require("./Mail.scss")
 
 Reflux     = require("reflux")
 React      = require("react")
-classNames = require("classnames")
 _          = require("lodash")
 
-PAGE_MODES = require("constants.cjsx").PAGE_MODES
 PageStateStore = require("stores/PageStateStore.cjsx")
 Widget = require("widgets/Widget.cjsx")
 
@@ -46,9 +44,8 @@ TimeWidget = Widget.createWidgetClass
     acceptsDim: (x, y) ->
         return x == 2 && y == 2
 
-    render: ->
-        editing = this.state.pageState == PAGE_MODES.EDIT
-        classes = _.assign(this.widgetClasses(),{
+    renderBasePanel: ->
+        classes = _.assign({
             "core-mail-widget": true
         })
 
@@ -68,11 +65,7 @@ TimeWidget = Widget.createWidgetClass
 
         messages = (mkMessage m, i for m, i in this.props.messages)
 
-        <div className={classNames(classes)}
-             onMouseDown={ if editing then this.wStartDrag else undefined}
-             onMouseUp={ if editing then this.wEndDrag else undefined}
-             style={this.widgetStyle()}>
-
+        <div className="core-mail-widget">
              <div className="window-bar"
                   style={invertedColors}>
                 <img src="img/icons/email.png" className="icon window" />
@@ -97,7 +90,6 @@ TimeWidget = Widget.createWidgetClass
                     </span>
                 </div>
             </a>
-
         </div>
 
 module.exports = TimeWidget

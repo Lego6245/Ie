@@ -18,14 +18,8 @@ Actions       = require("actions.cjsx")
 UIActions     = Actions.UIActions
 OptionActions = Actions.OptionActions
 
-legibleVariableName = (str) ->
-    out = str[0].toUpperCase()
-    for char in str.substring(1)
-        if char == char.toUpperCase()
-            out += " " + char
-        else
-            out += char
-    return out
+name = require("namehelpers.cjsx")
+CSS  = require("csshelpers.cjsx")
 
 Options = React.createClass
     displayName: "Options"
@@ -35,19 +29,17 @@ Options = React.createClass
         Reflux.connect(GridOptionStore, "gridOptions"),
         Reflux.connect(UserInfoOptionStore, "userInfoOptions")]
 
-    _handleEditOption: (store, name, event) ->
-        if store.validateOption(name, event.target.value)
-            console.log "passed validation (#{name}, #{event.target.value})"
-            document.getElementById(name).classList.add('valid');
-            store.onEditOption(
-                name,
-                event.target.value)
+    _handleEditOption: (store, name, value) ->
+        console.log store
+        if store.validateOption(name, value)
+            console.log "passed validation (#{name}, #{value})"
+            CSS.removeClass(document.getElementById(name), 'invalid');
+            CSS.addClass(document.getElementById(name), 'valid');
+            store.onEditOption(name, value)
         else
-            console.log "failed validation (#{name}, #{event.target.value})"
-
-    _editOption: (store, name) ->
-        self = this
-        (event) -> self._handleEditOption(store, name, event)
+            console.log "failed validation (#{name}, #{value})"
+            CSS.removeClass(document.getElementById(name), 'valid');
+            CSS.addClass(document.getElementById(name), 'invalid');
 
     _handleBackgroundToggle: (event) ->
         mode = BKG_MODES.BKG_COLOR
@@ -61,44 +53,22 @@ Options = React.createClass
         else
             return false
 
-    _handleBackgroundImage: ->
-        fileList = document.getElementById("background-image").files
-        file = fileList[0]
-        reader = new FileReader()
-        reader.onload = (e) ->
-            console.log(reader.result)
-            OptionActions.editOption(
-                "backgroundImage",
-                "url(#{reader.result})")
-        reader.readAsDataURL(file)
-
     _exitOptionsMode: ->
         document.getElementById("options").className = ""
         UIActions.enterMode(PAGE_MODES.LIVE)
 
     render: () ->
         self = this
-        inputFromField = (store, fieldName, fieldValue) ->
-            inputType = switch typeof fieldValue
-                when "string" then "text"
-                when "boolean" then "checkbox"
-                else "text"
-
-            callback = self._editOption(store, fieldName)
-
-            return <label
-                htmlFor={fieldName}
-                key={fieldName}>
-                {legibleVariableName(fieldName)}
-                <input type={inputType}
-                    id={fieldName}
-                    defaultValue={fieldValue}
-                    onChange={callback}
-                    spellCheck={false} />
-            </label>
 
         makeOptions = (store, obj) ->
-            (inputFromField(store, key, obj[key]) for key in Object.keys(obj))
+            mkInput = (store, fieldName, fieldValue) ->
+                store.optionTypes[key].mkInputField(
+                    store,
+                    fieldName,
+                    fieldValue,
+                    self._handleEditOption)
+
+            return (mkInput(store, key, obj[key]) for key in Object.keys(obj))
 
         userStyleInputs = makeOptions(
             StyleOptionStore,

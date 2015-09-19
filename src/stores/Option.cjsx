@@ -1,3 +1,4 @@
+React = require("react")
 Reflux = require("reflux")
 
 invariant = require "invariant"
@@ -5,9 +6,11 @@ _         = require "lodash"
 
 OptionActions = require("actions.cjsx").OptionActions
 
-OptionMixin = 
+name = require("namehelpers.cjsx")
+
+OptionMixin =
     listenables: [OptionActions]
-    
+
     getInitialState: ->
         storageState = window.localStorage.getItem(this.storeName)
         if storageState
@@ -15,11 +18,13 @@ OptionMixin =
         return this.options
 
     validateOption: (fieldName, fieldValue) ->
-        return fieldName in Object.keys(this.options) and 
-            this.validators[fieldName](fieldValue)
+        return fieldName in Object.keys(this.options) and
+            this.optionTypes[fieldName].validator(fieldValue)
 
     onEditOption: (fieldName, fieldValue) ->
-        this.options[fieldName] = fieldValue
+        this.options[fieldName] = 
+            this.optionTypes[fieldName].processor(fieldName, fieldValue)
+        console.log "setting", fieldName, "to", this.options[fieldName]
         this.cacheAndTrigger()
 
     cacheAndTrigger: ->
@@ -33,27 +38,125 @@ OptionMixin =
 
 createStore = (obj) ->
     # creaate an Option store, checking a few conditionals required
-    invariant "options" in Object.keys(obj), 
+    invariant "options" in Object.keys(obj),
               "Options Store mising an 'options' field"
 
-    invariant "validators" in Object.keys(obj),
-              "Options Store mising a 'validators' field"
+    invariant "optionTypes" in Object.keys(obj),
+              "Options Store mising a 'optionTypes' field"
 
     optionFields    = Object.keys(obj.options)
-    validatorFields = Object.keys(obj.validators)
+    typeFields      = Object.keys(obj.optionTypes)
 
     uniqueOptions = _.without.bind(
-        this, optionFields).apply(
-        this, validatorFields)
+        this, typeFields).apply(
+        this, typeFields)
 
     invariant uniqueOptions.length == 0,
-              "options #{uniqueOptions} have no validator"
+              "options #{uniqueOptions} have no type declaration"
 
     obj.mixins = (obj.mixins || []).concat(OptionMixin)
 
     return Reflux.createStore(obj)
 
 
-module.exports = 
+
+
+
+### input validation & input element generation ###
+
+colorRegex = new RegExp("#[0-9a-fA-F]{3,6}")
+mkGenericInput = (inputType) ->
+    (store, fieldName, fieldValue, editOptionCallback) ->
+        edit = (event) -> 
+            editOptionCallback(store, fieldName, event.target.value)
+
+        <label
+            htmlFor={fieldName}
+            key={fieldName}>
+            {name.legibleVariableName(fieldName)}
+            <input type={inputType}
+                id={fieldName}
+                defaultValue={fieldValue}
+                onChange={edit}
+                spellCheck={false} />
+        </label>
+
+idProcessor = (name, x) -> x
+
+optionTypes =
+    string:
+        validator: (str) -> typeof(str) == 'string'
+        mkInputField: mkGenericInput('text')
+        processor: idProcessor
+
+    color:
+        validator: (str) -> colorRegex.test(str)
+        mkInputField: mkGenericInput('text')
+        processor: idProcessor
+
+    img:
+        validator: (val) -> val? # TODO
+        mkInputField: (store, fieldName, fieldValue, editOptionCallback) ->
+
+            loadAndSignalImage = () ->
+                fileList = document.getElementById(fieldName).files
+                file = fileList[0]
+
+                reader = new FileReader()
+                reader.onload = (e) ->
+                    editOptionCallback(store, fieldName, reader.result)
+
+                reader.readAsDataURL(file)
+
+            <label
+                htmlFor={fieldName}
+                key={fieldName}>
+                {name.legibleVariableName(fieldName)}
+                <input type='file'
+                    id={fieldName}
+                    defaultValue={fieldValue}
+                    onChange={loadAndSignalImage}
+                    spellCheck={false} />
+            </label>
+
+        processor: (name, base64) -> "url(#{base64})"
+
+    int:
+        validator: (val) -> not isNaN(parseFloat(n)) and isFinite(n)
+        mkInputField: mkGenericInput('test')
+        processor: parseInt
+
+    enumerated: (someEnum) ->
+        enumKeys = Object.keys(someEnum)
+        mkOption = (optName) ->
+            <option 
+                value={optName}
+                key={optName}>
+                {name.legibleEnumName(optName)}
+            </option>
+
+
+        return {
+            validator: (val) ->
+                true
+
+            mkInputField: (store, fieldName, fieldValue, editOptionCallback) ->
+                edit = (event) -> 
+                    editOptionCallback(store, fieldName, event.target.value)
+
+                <select 
+                    id={fieldName}
+                    key={fieldName}
+                    name={fieldName}
+                    onChange={edit} >
+                    {mkOption e for e in enumKeys}
+                </select>
+            processor: idProcessor
+        }
+
+
+
+module.exports =
     mixin: OptionMixin
     createStore: createStore
+    types: optionTypes
