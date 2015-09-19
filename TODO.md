@@ -26,6 +26,7 @@ Clock
 Email
 -----
  - Connect to & populate with actual email
+ - Responsiveness
 
 Weather
 -------

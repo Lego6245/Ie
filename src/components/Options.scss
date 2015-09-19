@@ -1,9 +1,5 @@
 @import '../globals.scss';
 
-.mode-opts {
-    margin-left: -250px;
-}
-
 #options {
     width: 250px;
     height: 100%;
@@ -26,6 +22,22 @@
     }
 
     z-index: 2000;
+
+    h1 {
+        font-size: 2em;
+    }
+
+    label {
+        span {
+            display: inline-block;
+        }
+
+        input {
+            width: 80%;
+            margin-left: 20%;
+            padding: 5px;
+        }
+    }
 }
 
 #root.mode-opts #options {

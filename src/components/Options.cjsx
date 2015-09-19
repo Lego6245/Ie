@@ -2,6 +2,7 @@ require("./Options.scss")
 
 Reflux = require("reflux")
 React  = require("react/addons")
+warna  = require("warna")
 
 CONSTANTS  = require("constants.cjsx")
 PAGE_MODES = CONSTANTS.PAGE_MODES
@@ -37,6 +38,7 @@ Options = React.createClass
     _handleEditOption: (store, name, event) ->
         if store.validateOption(name, event.target.value)
             console.log "passed validation (#{name}, #{event.target.value})"
+            document.getElementById(name).classList.add('valid');
             store.onEditOption(
                 name,
                 event.target.value)
@@ -91,7 +93,8 @@ Options = React.createClass
                 <input type={inputType}
                     id={fieldName}
                     defaultValue={fieldValue}
-                    onChange={callback} />
+                    onChange={callback}
+                    spellCheck={false} />
             </label>
 
         makeOptions = (store, obj) ->
@@ -110,7 +113,13 @@ Options = React.createClass
         #     GridOptionStore,
         #     this.state.gridOptions)
 
-        <div id="options">
+        <div id="options"
+            style={{
+                backgroundColor: warna.darken(
+                    this.state.styleOptions.widgetForeground,
+                    0.5).hex
+            }}
+            >
             <h1>Style</h1>
             {userStyleInputs}
 
