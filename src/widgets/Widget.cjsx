@@ -2,7 +2,7 @@ require ("./Widget.scss")
 
 Reflux = require("reflux")
 React  = require("react/addons")
-CSSTransitionGroup = React.addons.CSSTransitionGroup
+ReactCSSTransitionGroup = React.addons.CSSTransitionGroup
 classNames = require("classnames")
 
 Option = require("stores/Option.cjsx")
@@ -77,7 +77,7 @@ WidgetMixin =
     wToggleOptionsMode: () ->
         this.setState({
             renderOptionsPanel: not this.state.renderOptionsPanel
-            renderBasePanel: this.state.renderOptionsPanel 
+            renderBasePanel: this.state.renderOptionsPanel
         })
 
 
@@ -157,27 +157,37 @@ WidgetMixin =
     render: ->
         editing = this.state.pageState == PAGE_MODES.EDIT
 
-        n = (x) -> if x? then x.toString() + " " else ""
+        optPanel = () =>
+            if this.state.renderOptionsPanel
+                return cloneWithProps(
+                    this.renderOptionsPanel(), {
+                        className: "options-panel",
+                        key: "opts"
+                    })
 
-        <CSSTransitionGroup
-            transitionName="widget-panel"
+
+        if this.state.renderBasePanel
+            panel = React.addons.cloneWithProps(
+                    this.renderBasePanel(), {
+                        className: "base-panel",
+                        key: "base"
+                    })
+        else
+            panel = React.addons.cloneWithProps(
+                    this.renderOptionsPanel(), {
+                        className: "options-panel",
+                        key: "opt"
+                    })
+
+        <ReactCSSTransitionGroup
+            transitionName="widgetpanel"
             className={classNames(this.widgetClasses())}
             onMouseDown={ if editing then this.wStartDrag else undefined}
             onMouseUp={ if editing then this.wEndDrag else undefined}
             style={this.widgetStyle()}
             id={"widget-#{this.props.widgetID}"}>
-
-            {if this.state.renderBasePanel
-                panel = this.renderBasePanel()
-                React.addons.cloneWithProps(panel,
-                    {className: (n panel.props.className + "base-panel")})}
-
-            {if this.state.renderOptionsPanel
-                panel = this.renderOptionsPanel()
-                React.addons.cloneWithProps(panel,
-                    {className: (n panel.props.className + "options-panel")})}
-
-        </CSSTransitionGroup>
+            {panel}
+        </ReactCSSTransitionGroup>
 
 module.exports = {
     createWidgetClass: createWidgetClass

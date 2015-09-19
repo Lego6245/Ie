@@ -115,9 +115,16 @@ TimeWidget = Widget.createWidgetClass
 
 
     renderOptionsPanel: ->
+        invertedColors = {
+            backgroundColor: this.state.userStyle.widgetForeground
+            color: this.state.userStyle.widgetBackground
+        }
+
+
         <OptionForm 
             optionSet={TimerOptions} 
-            objectChangeCallback={this._onOptionChange}/>
+            objectChangeCallback={this._onOptionChange}
+            style={invertedColors}/>
 
 
 module.exports = TimeWidget

@@ -8,7 +8,7 @@ LOCALES   = CONSTANTS.LOCALES
 TIMEZONES = CONSTANTS.TIMEZONES
 
 UserInfoOptionStore = Option.createStore
-    storeName: "UserInfoOptionStore"
+    name: "UserInfoOptionStore"
 
     options: {
         name:       "Unknown"

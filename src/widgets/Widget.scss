@@ -85,6 +85,8 @@
         float: right;
         width: 38px;
         height: 32px;
+        position: relative;
+        z-index: 4000;
     }
     a .options {
         transition: all .2s ease-in-out;
@@ -114,4 +116,62 @@
     .read-more:hover {
     }
 
+}
+
+
+.widget {
+    .options-panel {
+        height: 100%;
+        width:100%;
+        position: absolute;
+        top:0;
+        left:0;
+        opacity: 1;
+        z-index: 2000;
+        @include transition(0.5s, opacity, transform);
+        padding: 1.5em;
+
+        input, span {
+            margin-top: 0.5em;
+        }
+
+        span {
+            clear: left;
+            float: left;
+            line-height: 1.5em;
+        }
+
+        input {
+            display : block;
+            height: 1.5em;
+        }
+
+        input[type='number'] {
+            display: block;
+            margin-left: 5em;
+            width: 2em;
+        }
+    }
+
+    
+    .options-panel.widgetpanel-enter {
+        transform: translate(0, 100%);
+        opacity:0;
+    }
+
+    .options-panel.widgetpanel-enter-active {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+
+
+    .options-panel.widgetpanel-leave {
+        transform: translate(0, 0);
+        opacity:1;
+    }
+
+    .options-panel.widgetpanel-leave-active {
+        opacity: 0;
+        transform: translate(0, 100%);
+    }
 }

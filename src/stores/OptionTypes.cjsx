@@ -36,7 +36,7 @@ colorOption = {
 intOption = {
     validator: (n) -> not isNaN(parseInt(n)) and isFinite(parseInt(n))
     processor: (name, n) -> parseInt n
-    mkInputField: mkGenericInput('text') #todo slider
+    mkInputField: mkGenericInput('number') #todo slider
 }
 
 imgOption = {

@@ -3,6 +3,7 @@ require("./Options.scss")
 Reflux = require("reflux")
 React  = require("react/addons")
 warna  = require("warna")
+_      = require("lodash")
 
 CONSTANTS  = require("constants.cjsx")
 PAGE_MODES = CONSTANTS.PAGE_MODES
@@ -33,18 +34,22 @@ module.exports =
                 CSS.addClass(document.getElementById(name), 'invalid');
 
         render: () ->
-            console.log this
             mkInput = (fieldName, fieldValue) =>
                 this.props.optionSet.optionTypes[fieldName].mkInputField(
                     fieldName,
                     fieldValue,
                     this._handleEditOption)
 
-            opts = this.props.optionSet
-            console.log "options:", opts.options, "types:", opts.optionTypes
+            otherProps = _.omit(
+                this.props,
+                "optionSet",
+                "objectChangeCallback")
 
-            <div>
-                {(mkInput(key, opts.options[key]) \
-                    for key in Object.keys(opts.options))}
-            </div>
+            console.log otherProps
+
+            opts = this.props.optionSet
+
+            React.createElement('div', otherProps,
+                    (mkInput(key, opts.options[key]) \
+                        for key in Object.keys(opts.options)))
 
