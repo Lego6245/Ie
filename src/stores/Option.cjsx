@@ -144,13 +144,17 @@ optionTypes =
                 edit = (event) -> 
                     editOptionCallback(store, fieldName, event.target.value)
 
-                <select 
-                    id={fieldName}
-                    key={fieldName}
-                    name={fieldName}
-                    onChange={edit} >
-                    {mkOption e for e in enumKeys}
-                </select>
+                <label  id={fieldName}
+                        key={fieldName}>
+                    {name.legibleVariableName(fieldName)}
+                    <select id={fieldName}
+                            key={fieldName}
+                            name={fieldName}
+                            onChange={edit}>
+                        {mkOption e for e in enumKeys}
+                    </select>
+                </label>
+
             processor: idProcessor
         }
 
