@@ -12,6 +12,7 @@ WidgetStore = Reflux.createStore
         mail: require    "widgets/Mail.cjsx"
         weather: require "widgets/Weather.cjsx"
         picture: require "widgets/Picture.cjsx"
+        tabGroups: require "widgets/TabGroups.cjsx"
     }
 
     # default state
@@ -25,7 +26,7 @@ WidgetStore = Reflux.createStore
             uuid: "fake-uuid"
         },
         {
-            widgetKind: "mail"
+            widgetKind: "tabGroups"
             layouts:
                 large:
                     position: {x: 0, y: 1}
@@ -74,7 +75,7 @@ WidgetStore = Reflux.createStore
 
     getWidgetClass: (widgetInstance) ->
         return this.widgetKinds[widgetInstance.widgetKind]
-    
+
     findOccupiedSpaces: (grid, ignoreWidgets) ->
         # init OccupiedSpaces
         occupiedSpaces = new Array(grid.gridDim.x)
@@ -84,7 +85,7 @@ WidgetStore = Reflux.createStore
                 occupiedSpaces[ix][iy] = false
 
         # fill spaces occuupied by widgets
-        relevantWidgets = 
+        relevantWidgets =
             (w for w in this.widgets when w.uuid not in ignoreWidgets)
         for widget in relevantWidgets
             wl = widget.layouts[grid.settingName]
@@ -100,8 +101,8 @@ WidgetStore = Reflux.createStore
     # if that fails, use the default
     getInitialState: ->
         storageState = window.localStorage.getItem("widgets")
-        if storageState
-            this.widgets = JSON.parse(storageState)
+        # if storageState
+        #     this.widgets = JSON.parse(storageState)
         return this.widgets
 
     onAddWidget: (widget) ->
@@ -134,7 +135,7 @@ WidgetStore = Reflux.createStore
         console.log("resizing widget", widgetID)
         for widget in this.widgets
             if widget.uuid == widgetID
-                widget.layouts[layout].dimension = 
+                widget.layouts[layout].dimension =
                     {x: width, y:height}
                 this.trigger(this.widgets)
                 return
